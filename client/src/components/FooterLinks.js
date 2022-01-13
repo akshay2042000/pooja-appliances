@@ -3,7 +3,9 @@ import React from 'react'
 
 const FooterLinks = () => {
     return (
-        <Box sx={{maxWidth:'fit-content', mx:'auto'}}>
+        <Box sx={{maxWidth:'fit-content',  mx:{
+            sm: 'auto',
+        }}}>
 
             <Typography variant='h5' mb={3}>Quick links</Typography>
             <Stack

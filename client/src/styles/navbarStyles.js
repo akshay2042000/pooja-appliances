@@ -47,6 +47,7 @@ export const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export const StyledPaper = styled(Paper)(({ theme }) => ({
+    flexWrap: 'wrap',
     display: 'flex', alignItems: 'center',
     justifyContent: 'space-around',backgroundColor: theme.palette.secondary.main,
     borderBottomLeftRadius: theme.shape.borderRadius,
