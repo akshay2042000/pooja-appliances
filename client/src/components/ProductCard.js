@@ -38,7 +38,7 @@ const ProductCard = ({ product }) => {
                     </CardContent>
                 </CardActionArea>
                 <CardActions sx={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Box sx={{ display: 'flex', mr:1 }}>
+                    <Box sx={{ display: 'flex', mr: 1 }}>
                         <IconButton size='small' sx={{ mx: 0, padding: 0 }} aria-label="remove" onClick={() => quantity > 0 ? setQuantity(quantity - 1) : ""}>
                             <RemoveCircleIcon color='primary' />
                         </IconButton>

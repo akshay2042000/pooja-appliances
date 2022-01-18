@@ -48,8 +48,11 @@ const ProductsPage = () => {
 
 	return (
 		<div>
-			<Container sx={{ my: 5 }} disableGutters={true} fixed >
-				<Typography sx={{ textAlign: 'center', textTransform: 'capitalize', mb: 3 }} variant="h3" color="text.primary">{cat}</Typography>
+			<Box sx={{ color: 'common.white', bgcolor: 'primary.main', padding: 2 }}>
+				<Typography sx={{ textAlign: 'center', textTransform: 'capitalize', fontWeight:'bold' }} variant="h2" >{cat}</Typography>
+			</Box>
+			<Container disableGutters={true} fixed >
+
 				<Box sx={{ padding: 4 }}>
 					<Grid padding={2} container spacing={3}>
 						{
