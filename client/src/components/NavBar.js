@@ -8,26 +8,29 @@ import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import { Tooltip } from '@mui/material';
-import { StyledAppBar, Search, SearchIconWrapper,StyledInputBase } from '../styles/navbarStyles';
-
+import { StyledAppBar, Search, SearchIconWrapper, StyledInputBase } from '../styles/navbarStyles';
+import { NavLink } from 'react-router-dom';
 
 const NavBar = () => {
     return (
         <StyledAppBar position="static">
             <Toolbar>
-                <Typography
-                    variant="h5"
-                    noWrap
-                    component="div"
-                    sx={{ display: { xs: 'none', sm: 'block' } }}
-                >
-                    Pooja Appliances
-                </Typography>
-                <Search sx={{flexGrow:1}}>
+                <NavLink to='/'>
+                    <Typography
+                        variant="h5"
+                        noWrap
+                        component="div"
+                        sx={{ display: { xs: 'none', sm: 'block' } }}
+                    >
+                        Pooja Appliances
+
+                    </Typography>
+                </NavLink>
+                <Search sx={{ flexGrow: 1 }}>
                     <SearchIconWrapper>
                         <SearchIcon />
                     </SearchIconWrapper>
-                    <StyledInputBase placeholder='Search...'/>
+                    <StyledInputBase placeholder='Search...' />
 
                 </Search>
                 <Box sx={{ flexGrow: 1 }} />

@@ -8,14 +8,13 @@ const categories = ["CAtegory 1", "CAtegory 2", "CAtegory 3", "CAtegory 4", "CAt
 
 const CategoriesHome = () => {
     return (
-        <Paper id="categories" variant='outlined' sx={{ borderRadius: 1, mt: 6 }}>
-            <Container fixed>
+        <Paper id="categories" elevation={0} sx={{ borderRadius: 1, mt: 6 }}>
+            <Container disableGutters={true} fixed>
                 <Grid container spacing={3} padding={2}>
                     {categories.map((category, index) => {
                         return (
-
                             <Grid item xs={6} sm={4} md={3} key={index}>
-                                <Link to='/' >
+                                <Link to={`/products?cat=${category}`} >
                                     <SingleCategory category={category} />
                                 </Link>
                             </Grid>

@@ -4,19 +4,19 @@ import { createTheme } from '@mui/material/styles';
 export const theme = createTheme({
     palette: {
         primary: {
-            main: '#181813',
+            main: '#0a1929',
         },
         secondary: {
-            main: '#4f78bd',
+            main: '#518fcd',
         },
 
     },
     components: {
         MuiLink: {
-            styleOverrides:{
-                root:{
+            styleOverrides: {
+                root: {
                     textDecoration: 'none',
-                    '&:hover':{
+                    '&:hover': {
                         color: '#fff'
                     }
                 }
@@ -69,10 +69,17 @@ export const theme = createTheme({
         },
         caption: {
             fontFamily: 'Inter',
+            color: '#575757'
         },
         overline: {
             fontFamily: 'Inter',
         },
+        price:{
+            fontSize: '2rem',
+            lineHeight: '51px',
+            fontWeight: 600,
+            fontFamily: 'Jacques Francois'
+        }
     },
     shape: {
         borderRadius: 8,

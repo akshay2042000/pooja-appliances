@@ -8,26 +8,26 @@ import { Box } from '@mui/system'
 import { Link } from 'react-router-dom'
 import { HashLink } from 'react-router-hash-link';
 
+
 const HomePage = () => {
+    
     return (
         <div>
             <CarouselComp />
             <CategoriesHome />
-            <Paper elevation={12} sx={{ backgroundColor: 'primary.main', borderRadius: 3, my: 6, padding: 4 }}>
-                <Container>
-                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around' }}>
+            <Container disableGutters={true}>
+                <Paper sx={{ backgroundColor: 'primary.main', borderRadius: 3, my: 6, padding: 4 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around', flexWrap:'wrap', px:5 }}>
                         <Link to='/'>
-                            <HomeCard heading={'All Products'} />
+                            <HomeCard heading={'Products'} />
                         </Link>
+                        
                         <HashLink smooth to="#categories">
-                            <HomeCard heading={'All Categories'} />
+                            <HomeCard heading={'Categories'} />
                         </HashLink>
                     </Box>
-
-                </Container>
-
-
-            </Paper>
+                </Paper>
+            </Container>
         </div>
     )
 }
