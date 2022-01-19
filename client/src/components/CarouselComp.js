@@ -27,7 +27,7 @@ var items = [
 const CarouselComp = () => {
     return (
         <>
-            <Carousel className='carousel' indicators={false} autoPlay={false} swipe={true} cycleNavigation={true} navButtonsProps={{          // Change the colors and radius of the actual buttons. THIS STYLES BOTH BUTTONS
+            <Carousel className='carousel' indicators={false} autoPlay={true} swipe={true} cycleNavigation={true} navButtonsProps={{          // Change the colors and radius of the actual buttons. THIS STYLES BOTH BUTTONS
                 style: {
                     backgroundColor: '#4f78bd',
                 }

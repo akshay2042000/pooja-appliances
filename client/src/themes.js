@@ -74,7 +74,7 @@ export const theme = createTheme({
         overline: {
             fontFamily: 'Inter',
         },
-        price:{
+        price: {
             fontSize: '2rem',
             lineHeight: '51px',
             fontWeight: 600,
