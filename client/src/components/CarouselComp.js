@@ -1,7 +1,7 @@
 import React from 'react'
 import Carousel from 'react-material-ui-carousel'
-import { Paper, Button, styled, Typography, Box } from '@mui/material'
-import { borderTop } from '@mui/system'
+import { Paper, Button, Typography, Box } from '@mui/material'
+import { useTheme } from '@mui/material/styles';
 
 var items = [
     {
@@ -25,11 +25,13 @@ var items = [
 
 
 const CarouselComp = () => {
+    const theme = useTheme();
+
     return (
         <>
             <Carousel className='carousel' indicators={false} autoPlay={true} swipe={true} cycleNavigation={true} navButtonsProps={{          // Change the colors and radius of the actual buttons. THIS STYLES BOTH BUTTONS
                 style: {
-                    backgroundColor: '#4f78bd',
+                    backgroundColor: `${theme.palette.secondary.main}`
                 }
             }} fullHeightHover={false} navButtonsAlwaysVisible={true} animation='slide' duration={400} >
                 {

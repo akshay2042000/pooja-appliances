@@ -1,11 +1,16 @@
+import { Container } from '@mui/material'
 import React from 'react'
-import Typography from '@mui/material/Typography'
+import RelatedProducts from '../components/RelatedProducts'
+import SingleProduct from '../components/SingleProduct'
+
 
 const SingleProductPage = () => {
     return (
         <div>
-            <Typography variant="h1" color="initial">Single Product</Typography>
-
+            <Container disableGutters={true} fixed sx={{ p: 6 }}>
+                <SingleProduct />
+                <RelatedProducts />
+            </Container>
         </div>
     )
 }

@@ -25,6 +25,11 @@ export const theme = createTheme({
     },
 
     typography: {
+        fontFamily: [
+            'Inter',
+            'Merriweather',
+            'Jacques Francois'
+        ].join(','),
         h1: {
             fontFamily: 'Merriweather',
             fontSize: '3.8rem',
@@ -59,6 +64,8 @@ export const theme = createTheme({
         },
         body1: {
             fontFamily: 'Inter',
+            fontSize: '1.125rem',
+
         },
         body2: {
             fontFamily: 'Inter',
@@ -77,7 +84,6 @@ export const theme = createTheme({
         price: {
             fontSize: '2rem',
             lineHeight: '51px',
-            fontWeight: 600,
             fontFamily: 'Jacques Francois'
         }
     },
