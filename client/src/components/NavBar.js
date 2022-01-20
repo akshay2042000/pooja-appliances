@@ -36,16 +36,19 @@ const NavBar = () => {
                 <Box sx={{ flexGrow: 1 }} />
                 <Box sx={{ display: 'flex' }}>
                     <Tooltip title="login" arrow>
-                        <IconButton color='inherit' size="large">
-                            <AccountCircle />
-                        </IconButton>
+                        <NavLink to='/login'>
+                            <IconButton color='inherit' size="large">
+                                <AccountCircle />
+                            </IconButton>
+                        </NavLink>
                     </Tooltip>
-
-                    <IconButton size="large" color="inherit">
-                        <Badge badgeContent={4} color="secondary">
-                            <ShoppingBagIcon />
-                        </Badge>
-                    </IconButton>
+                    <NavLink to='/cart'>
+                        <IconButton size="large" color="inherit">
+                            <Badge badgeContent={4} color="secondary">
+                                <ShoppingBagIcon />
+                            </Badge>
+                        </IconButton>
+                    </NavLink>
                 </Box>
             </Toolbar>
         </StyledAppBar>

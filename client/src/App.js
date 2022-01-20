@@ -30,9 +30,9 @@ function App() {
                     </Route>
                     <Route path='cart' element={<CartPage />} />
                     <Route path='bill' element={<BillingPage />} />
-                    <Route path='login' element={<LoginPage />} />
                     <Route path="*" element={<NotFoundPage />} />
                 </Route>
+                <Route path='/login' element={<LoginPage />} />
             </Routes>
         </ThemeProvider>
     );

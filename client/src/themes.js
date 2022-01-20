@@ -9,6 +9,9 @@ export const theme = createTheme({
         secondary: {
             main: '#518fcd',
         },
+        white: {
+            main: '#ffffff',
+        },
 
     },
     components: {
@@ -21,7 +24,8 @@ export const theme = createTheme({
                     }
                 }
             }
-        }
+        },
+     
     },
 
     typography: {

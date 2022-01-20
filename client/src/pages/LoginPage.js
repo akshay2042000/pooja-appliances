@@ -1,12 +1,21 @@
 import React from 'react'
 import Typography from '@mui/material/Typography'
+import Footer from '../components/Footer'
+import { Box } from '@mui/material'
+import LoginForm from '../components/LoginForm'
+
 
 const LoginPage = () => {
     return (
-        <div>
-            <Typography variant="h1" color="initial">LoginPage</Typography>
-
-        </div>
+        <>
+            <Box sx={{
+                background: 'rgb(39, 64, 70)',
+                background: 'radial-gradient(circle, rgba(39, 64, 70, 1) 0%, rgba(10, 25, 41, 1) 46%)', height: '100vh',
+                display: 'flex'
+            }}>
+                <LoginForm />
+            </Box>
+        </>
     )
 }
 
