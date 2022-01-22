@@ -8,3 +8,8 @@ a {
   color: inherit;
 }
 
+input:-webkit-autofill {
+
+}
+
+

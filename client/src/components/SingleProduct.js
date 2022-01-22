@@ -31,7 +31,7 @@ const SingleProduct = () => {
             <Card variant='elevation' elevation={10} sx={{
                 padding: 2, display: 'flex',
                 flexDirection: ['column', 'column', 'row'],
-                mb:3
+                mb: 3
             }}>
                 <CardMedia
                     sx={{ borderRadius: 1, width: ['100%', '100%', '569px'] }}
@@ -70,7 +70,7 @@ const SingleProduct = () => {
                         <Rating sx={{ my: 2 }} name="read-only" value={4} readOnly />
 
                     </CardContent>
-                    <AddToCartComp button={'Add To Cart'}/>
+                    <AddToCartComp button={'Add To Cart'} />
                 </Box>
 
             </Card>

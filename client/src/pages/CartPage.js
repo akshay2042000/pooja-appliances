@@ -1,11 +1,20 @@
 import React from 'react'
-import Typography from '@mui/material/Typography'
+import CartComponent from '../components/CartComponent';
+
+import EmptyCart from '../components/EmptyCart';
 
 const CartPage = () => {
+    const isEmpty = false
+
     return (
-        <div>
-            <Typography variant="h1" color="initial">CartPage</Typography>
-        </div>
+        <>
+            {isEmpty ? (
+                <EmptyCart />
+            ) :
+                (
+                    <CartComponent />
+                )}
+        </>
     )
 }
 

@@ -29,7 +29,7 @@ const CarouselComp = () => {
 
     return (
         <>
-            <Carousel className='carousel' indicators={false} autoPlay={true} swipe={true} cycleNavigation={true} navButtonsProps={{          // Change the colors and radius of the actual buttons. THIS STYLES BOTH BUTTONS
+            <Carousel className='carousel' indicators={false} autoPlay={false} swipe={true} cycleNavigation={true} navButtonsProps={{          // Change the colors and radius of the actual buttons. THIS STYLES BOTH BUTTONS
                 style: {
                     backgroundColor: `${theme.palette.secondary.main}`
                 }
@@ -43,7 +43,10 @@ const CarouselComp = () => {
                                 alignItems: 'center',
                                 justifyContent: 'center',
                             }}>
-                                <Box sx={{ position: 'absolute', bottom: 20, backgroundColor: 'primary.main', padding: 1, width: 'fit-content', textAlign: 'center' }}>
+                                <Box sx={{
+                                    position: 'absolute', bottom: 20, backdropFilter: 'blur(10px)', backgroundColor: 'primary.main', borderRadius: 2, padding: 2, width: 'fit-content', textAlign: 'center',
+                                    background: 'linear-gradient(125.56deg, rgba(0,25,41, 0.75) 16.45%, rgba(0,25,41, 0.7) 70.19%)'
+                                }}>
                                     <Typography variant="h4" color="common.white">Name</Typography>
                                     <Button variant="contained" color="secondary" sx={{ marginTop: 2 }}> {item.name} </Button>
                                 </Box>

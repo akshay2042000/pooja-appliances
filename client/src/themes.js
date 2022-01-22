@@ -3,6 +3,7 @@ import { createTheme } from '@mui/material/styles';
 
 export const theme = createTheme({
     palette: {
+
         primary: {
             main: '#0a1929',
         },
@@ -25,7 +26,7 @@ export const theme = createTheme({
                 }
             }
         },
-     
+
     },
 
     typography: {
@@ -89,7 +90,8 @@ export const theme = createTheme({
             fontSize: '2rem',
             lineHeight: '51px',
             fontFamily: 'Jacques Francois'
-        }
+        },
+       
     },
     shape: {
         borderRadius: 8,
