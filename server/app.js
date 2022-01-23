@@ -5,12 +5,14 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
-
+const { MongoClient } = require('mongodb');
+require('dotenv').config();
 
 //IMPORT ROUTES 
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var productsRouter = require('./routes/products');
 
 
 
@@ -20,11 +22,11 @@ var app = express();
 // redirect to https
 
 app.all('*', (req, res, next) => {
-    res.redirect(307, 'https://' + req.hostname + ':' + app.get('httpsPort') + req.url);
+    if (req.protocol == 'http') {
+        res.redirect(307, 'https://' + req.hostname + ':' + app.get('httpsPort') + req.url);
+    }
+    next();
 });
-
-// AUTH
-
 
 
 // view engine setup
@@ -43,6 +45,23 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+// app.use('/products', productsRouter);
+
+
+
+// DB
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.m2lsr.mongodb.net/poojaAppliancesDB?retryWrites=true&w=majority`;
+// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => {
+        console.log('Connected to MongoDB');
+    })
+    .catch(err => {
+        console.log(err);
+    })
+
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
