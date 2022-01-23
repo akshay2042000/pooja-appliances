@@ -17,7 +17,11 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+// redirect to https
 
+app.all('*', (req, res, next) => {
+    res.redirect(307, 'https://' + req.hostname + ':' + app.get('httpsPort') + req.url);
+});
 
 // AUTH
 
