@@ -110,10 +110,35 @@ const deleteUserById = async (req, res, next) => {
 
 }
 
+const deleteUsers = async (req, res, next) => {
+    try {
+        const user = await User.deleteMany({});
+        if (user) {
+            res.status(200).json({
+                status: 'success',
+                data: user,
+            });
+        }
+        else {
+            res.status(404).json({
+                status: 'fail',
+                message: 'No user found'
+            })
+        }
+    }
+    catch {
+        err = new Error('Error while fetching users');
+        err.status = 500;
+        next(err);
+    }
+
+}
+
 module.exports = {
     getUsers,
     postUser,
     getUserById,
     updateUserById,
-    deleteUserById
+    deleteUserById,
+    deleteUsers
 }

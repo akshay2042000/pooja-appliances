@@ -1,5 +1,8 @@
 const State = require('../models/states');
 
+
+
+
 const getStates = async (req, res, next) => {
     try {
         const states = await State.find({});
@@ -24,11 +27,11 @@ const getStates = async (req, res, next) => {
 
 const getStateById = async (req, res, next) => {
     try {
-        const states = await State.findById(req.params.id);
-        if (states) {
+        const state = await State.findById(req.params.id);
+        if (state) {
             res.status(200).json({
                 status: 'success',
-                data: states,
+                data: state,
             });
         } else {
             res.status(404).json({
@@ -153,6 +156,29 @@ const deleteStateById = async (req, res, next) => {
     }
 }
 
+
+const deleteAllStates = async (req, res, next) => {
+    try {
+        const state = await State.deleteMany({});
+        if (state) {
+            res.status(200).json({
+                status: 'success',
+                data: state,
+            });
+        } else {
+            res.status(404).json({
+                status: 'fail',
+                message: 'No state found'
+            })
+        }
+    }
+    catch {
+        err = new Error('Error while deleting state');
+        err.status = 500;
+        next(err);
+    }
+}
+
 module.exports = {
     getStates,
     getStateById,
@@ -160,5 +186,6 @@ module.exports = {
     updateState,
     updateStateById,
     deleteState,
-    deleteStateById
+    deleteStateById,
+    deleteAllStates
 }

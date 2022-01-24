@@ -14,6 +14,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/user');
 var productsRouter = require('./routes/product');
 var stateRouter = require('./routes/state');
+var categoryRouter = require('./routes/category');
+var companyRouter = require('./routes/company');
 
 
 
@@ -48,6 +50,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/products', productsRouter);
 app.use('/states', stateRouter);
+app.use('/categories', categoryRouter);
+app.use('/companies', companyRouter);
 
 
 

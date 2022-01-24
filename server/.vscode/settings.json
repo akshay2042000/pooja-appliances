@@ -1,5 +1,6 @@
 {
     "workbench.colorCustomizations": {
         "statusBar.background": "#0a1929"
-    }
+    },
+    "editor.wordWrap": "on"
 }

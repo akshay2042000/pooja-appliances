@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const { getStates, postState, updateState, deleteState, getStateById, updateStateById, deleteStateById } = require('../controllers/state');
+const { getStates, postState, updateState, deleteState, getStateById, updateStateById, deleteStateById,deleteAllStates } = require('../controllers/state');
 const { forbiddenGet, forbiddenPost, forbiddenPut, forbiddenDelete } = require('../controllers/forbiddenController');
 
 router.route('/')
     .get(getStates)
     .post(postState)
-    .put(forbiddenPut)
-    .delete(forbiddenDelete)
+    .put(updateState)
+    .delete(deleteAllStates)
 
 router.route('/:id')
     .get(getStateById)

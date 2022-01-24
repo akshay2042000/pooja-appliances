@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-const imageSchema = require('./image');
+const imageSchema = require('./images');
 
 var categorySchema = new Schema({
     name: {
@@ -9,6 +9,7 @@ var categorySchema = new Schema({
     },
     image: {
         type: imageSchema,
+        default: {}
     },
     isFeatured: {
         type: Boolean,
