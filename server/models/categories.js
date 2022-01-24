@@ -19,3 +19,4 @@ var categorySchema = new Schema({
 });
 // Compile model from schema
 var Category = mongoose.model('Category', categorySchema);
+module.exports = Category;

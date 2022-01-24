@@ -24,3 +24,4 @@ var hsnCodeSchema = new Schema({
 });
 // Compile model from schema
 var HsnCode = mongoose.model('HsnCode', hsnCodeSchema);
+module.exports = HsnCode;

@@ -22,4 +22,5 @@ var orderSchema = new Schema({
     timestamps: true
 });
 // Compile model from schema
-var Order = mongoose.model('Order', orderSchema);
+var Order = mongoose.model('Order', orderSchema)
+module.exports = Order;

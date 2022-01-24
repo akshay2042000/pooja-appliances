@@ -18,3 +18,4 @@ var companySchema = new Schema({
 });
 // Compile model from schema
 var Company = mongoose.model('Company', companySchema);
+module.exports = Company;

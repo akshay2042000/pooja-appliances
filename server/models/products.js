@@ -55,3 +55,4 @@ var productSchema = new Schema({
 });
 // Compile model from schema
 var Product = mongoose.model('Product', productSchema);
+module.exports = Product;

@@ -10,9 +10,11 @@ var stateSchema = new Schema({
     name: {
         type: String,
         required: true,
+        unique: true,
     }
 }, {
     timestamps: true
 });
 // Compile model from schema
 var State = mongoose.model('State', stateSchema);
+module.exports = State;
