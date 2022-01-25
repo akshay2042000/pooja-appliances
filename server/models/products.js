@@ -1,52 +1,94 @@
 const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-const imageSchema = require('./image');
+const imageSchema = require('./images');
+
+
+colorSchema = new Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    hex: {
+        type: String,
+        required: true,
+    }
+})
+
+sizeSchema = new Schema({
+    val: {
+        type: String,
+        required: true,
+    },
+    price: {
+        type: Number,
+        required: true,
+    },
+})
+
 
 var productSchema = new Schema({
+
+
     name: {
         type: String,
         required: true,
     },
     image: {
         type: imageSchema,
+        default:{}
     },
+  
 
+    units: [{
+        type: String,
+    }],
 
     categories: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category',
     }],
 
-    variants: [
-        {
-            color: [
-                {
-                    name: String,
-                    hex: String,
-                    unique: true,
-                    default:''
-                    
-                },
-            ],
-            size: [
-                {
-                    val: String,
-                    price: Number,
-                    unique: true,
-                    default:''
-                },
-            ],
-        }
-    ],
+    // // name: {
+    // //     type: String,
+    // // },
+    // // defaults: {
+    // //     color: {
+    // //         type: colorSchema,
+    // //     },
+    // //     size: {
+    // //         type: sizeSchema,
+    // //     },
+    // //     price: {
+    // //         type: Number,
+    // //         required: true,
+    // //     }
+    // // },
+
+    variants: {
+       
+        colors: [
+            {
+                type: colorSchema,
+                unique: true,
+            }
+        ],
+
+        sizes: [
+            {
+                type: sizeSchema,
+                unique: true,
+            },
+        ],
+    },
 
     company: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Company',
     },
 
-    hsn: {
+    hsnCode: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Hsn',
+        ref: 'HsnCode',
         required: true,
     }
 

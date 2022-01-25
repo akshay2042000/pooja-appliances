@@ -8,12 +8,10 @@ var orderSchema = new Schema({
         ref: 'User',
         required: true,
     },
-    totalAmount: {
-        type: Number,
-        min: 0,
-        required: true,
+    items: {
+        type: [cartSchema],
+        default: [{}]
     },
-    items: [cartSchema],
     isBilled: {
         type: Boolean,
         default: false,
