@@ -19,7 +19,7 @@ var companyRouter = require('./routes/company');
 var hsnCodeRouter = require('./routes/hsn');
 var productRouter = require('./routes/product');
 var orderRouter = require('./routes/order');
-
+var authRouter = require('./routes/auth');
 
 
 
@@ -58,6 +58,7 @@ app.use('/companies', companyRouter);
 app.use('/hsnCodes', hsnCodeRouter);
 app.use('/products', productRouter);
 app.use('/orders', orderRouter);
+app.use('/auth', authRouter);
 
 
 
