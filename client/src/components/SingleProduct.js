@@ -16,7 +16,6 @@ const product = {
 }
 
 const items = product.images.map(image => ({ image: image }))
-console.log(items);
 
 const SingleProduct = () => {
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import Typography from '@mui/material/Typography'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useParams } from 'react-router-dom'
 import NavBar from './NavBar'
 import CategoriesComp from './CategoriesComp'
 import Footer from './Footer'
@@ -8,14 +8,16 @@ import Footer from './Footer'
 
 
 const Layout = () => {
+
+    const {app}=useParams()
     return (
         <div>
-            <NavBar/>
+            <NavBar app={app}/>
             <CategoriesComp/>
             <div className="content">
                 <Outlet />
             </div>
-            <Footer/>
+            <Footer app={app}/>
         </div>
     )
 }

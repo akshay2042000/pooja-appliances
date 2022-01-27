@@ -21,9 +21,11 @@ const settings = {
 const CarouselComp = ({ items, isHome }) => {
     const slider = useRef(null);
     const theme = useTheme();
+
+    isHome && (settings.autoplay = true) && (settings.autoplaySpeed = 5000);
     return (
         <>
-            <Slider ref={slider} {...settings}>
+            <Slider ref={slider} {...settings}  >
                 {
                     items.map((item, i) => {
                         return (
@@ -37,6 +39,9 @@ const CarouselComp = ({ items, isHome }) => {
                                 }}>
                                     <IconButton aria-label="prev" size="large" sx={{
                                         backgroundColor: `${theme.palette.secondary.main}`,
+                                        '&:hover': {
+                                            backgroundColor: `${theme.palette.secondary.dark}`
+                                        },
                                         position: 'absolute',
                                         left: '5px',
                                     }} onClick={() => slider.current.slickPrev()}>
@@ -44,6 +49,9 @@ const CarouselComp = ({ items, isHome }) => {
                                     </IconButton>
                                     <IconButton aria-label="next" size="large" sx={{
                                         backgroundColor: `${theme.palette.secondary.main}`,
+                                        '&:hover': {
+                                            backgroundColor: `${theme.palette.secondary.dark}`
+                                        },
                                         position: 'absolute',
                                         right: '5px',
                                     }} onClick={() => slider.current.slickNext()}>
