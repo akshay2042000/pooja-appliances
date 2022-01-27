@@ -6,14 +6,17 @@ import React, { useState } from 'react'
 import { addToCart } from '../utils/addToCart';
 import { useParams } from 'react-router-dom';
 import AddToCartComp from './AddToCartComp';
-import Carousel from 'react-material-ui-carousel'
+
 import { useTheme } from '@mui/material/styles';
+import CarouselComp from './CarouselComp';
 
 
 const product = {
     name: "Product 1", price: "400", images: ["https://source.unsplash.com/random/400x400", "https://source.unsplash.com/random/400x400"], desc: 'Space for a small product description', category: 'Cat 1', brand: 'Brand 1', id: "1"
 }
 
+const items = product.images.map(image => ({ image: image }))
+console.log(items);
 
 const SingleProduct = () => {
 
@@ -34,28 +37,9 @@ const SingleProduct = () => {
                 mb: 3
             }}>
                 <CardMedia
-                    sx={{ borderRadius: 1, width: ['100%', '100%', '569px'] }}
+                    sx={{ borderRadius: 1, mb: 1, width: ['100%', '100%', '569px'] }}
                 >
-                    <Carousel className='carousel' indicators={true} autoPlay={false} swipe={false} cycleNavigation={true} navButtonsProps={{
-                        style: {
-                            backgroundColor: `${theme.palette.secondary.main}`
-                        }
-                    }} fullHeightHover={false} navButtonsAlwaysVisible={true} animation='slide' >
-                        {
-                            product.images.map((item, i) => {
-                                return (
-                                    <Paper key={i} sx={{
-                                        height: '60vh', backgroundImage: `url(${item})`, backgroundSize: 'cover',
-                                        backgroundPosition: 'center', display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                    }}>
-                                    </Paper>
-                                )
-
-                            })
-                        }
-                    </Carousel>
+                    <CarouselComp items={items} />
                 </CardMedia>
 
                 <Box sx={{ height: 'fit-content', my: 'auto', p: 2 }}>
