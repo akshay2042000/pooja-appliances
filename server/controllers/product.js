@@ -1,32 +1,76 @@
 const mongoose = require('mongoose');
 const Product = require('../models/products');
+const Company = require('../models/companies');
 
 const getProducts = async (req, res, next) => {
     try {
 
         const category = req.query.category;
         const company = req.query.company;
+        const appliances = req.query.app;
         let products
 
+        const companies = await Company.find({ app: appliances }).select('_id');
+
         if (category || company) {
-            products = await Product.find({
-                $or: [
-                    {
-                        categories: {
-                            $in: [category]
+            if (appliances) {
+                products = await Product.find({
+                    $and: [
+                        {
+                            'company': {
+                                $in: [
+                                    ...companies
+                                ]
+                            }
                         }
-                    },
-                    {
-                        company: {
-                            $in: [company]
+                        ,
+                        {
+                            $or: [
+                                {
+                                    categories: {
+                                        $in: [category]
+                                    }
+                                },
+                                {
+                                    company: {
+                                        $in: [company]
+                                    }
+                                }
+                            ]
                         }
+                    ]
+                });
+            } else {
+                products = await Product.find({
+                    $or: [
+                        {
+                            categories: {
+                                $in: [category]
+                            }
+                        },
+                        {
+                            company: {
+                                $in: [company]
+                            }
+                        }
+                    ]
+                });
+            }
+
+        } else {
+            if (appliances) {
+                products = await Product.find({
+                    'company': {
+                        $in: [
+                            ...companies
+                        ]
                     }
-                ]
-            });
+                });
+            } else {
+                products = await Product.find({});
+            }
         }
-        else {
-            products = await Product.find({});
-        }
+
 
         if (products.length > 0) {
             res.status(200).json({

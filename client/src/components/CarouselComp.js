@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { Link } from 'react-router-dom'
 
 const settings = {
     dots: true,
@@ -21,8 +22,6 @@ const settings = {
 const CarouselComp = ({ items, isHome }) => {
     const slider = useRef(null);
     const theme = useTheme();
-
-    isHome && (settings.autoplay = true) && (settings.autoplaySpeed = 5000);
     return (
         <>
             <Slider ref={slider} {...settings}  >
@@ -58,13 +57,16 @@ const CarouselComp = ({ items, isHome }) => {
                                         <ArrowForwardIosIcon />
                                     </IconButton>
                                     {
-                                        isHome && <Box sx={{
+                                        isHome &&
+                                        <Box sx={{
                                             position: 'absolute', bottom: 20, backdropFilter: 'blur(10px)', backgroundColor: 'primary.main', borderRadius: 2, padding: 2, width: 'fit-content', textAlign: 'center',
                                             background: 'linear-gradient(125.56deg, rgba(0,25,41, 0.75) 16.45%, rgba(0,25,41, 0.7) 70.19%)'
                                         }}>
 
                                             <Typography variant="h4" color="common.white">Name</Typography>
-                                            <Button variant="contained" color="secondary" sx={{ marginTop: 2 }}> {item.name} </Button>
+                                            <Link to={`products?comp=${i}`}>
+                                                <Button variant="contained" color="secondary" sx={{ marginTop: 2 }}> {item.name} </Button>
+                                            </Link>
                                         </Box>
                                     }
 

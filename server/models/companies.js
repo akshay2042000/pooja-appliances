@@ -14,7 +14,13 @@ var companySchema = new Schema({
     coverImage: {
         type: imageSchema,
         default: {}
-    }
+    },
+    app: [
+        {
+            type: String,
+            enum: ['pooja', 'creative']
+        }
+    ]
 }, {
     timestamps: true
 });

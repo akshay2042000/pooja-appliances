@@ -34,6 +34,7 @@ const products = [{
 const ProductsPage = () => {
     const [searchParams] = useSearchParams();
     const cat = searchParams.get("cat");
+    const comp = searchParams.get("comp");
     const [currentPage, setCurrentPage] = useState(1);
     const productsPerPage = 4
 
@@ -49,7 +50,7 @@ const ProductsPage = () => {
     return (
         <div>
             <Box sx={{ color: 'common.white', bgcolor: 'primary.main', padding: 2 }}>
-                <Typography sx={{ textAlign: 'center', textTransform: 'capitalize', fontWeight: 'bold' }} variant="h2" >{cat}</Typography>
+                <Typography sx={{ textAlign: 'center', textTransform: 'capitalize', fontWeight: 'bold' }} variant="h2" >{cat? cat : comp? comp : 'All Products'}</Typography>
             </Box>
             <Container disableGutters={true} fixed >
 

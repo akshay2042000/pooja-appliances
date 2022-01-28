@@ -34,7 +34,7 @@ const SingleProduct = () => {
                 <CardMedia
                     sx={{ borderRadius: 1, mb: 1, width: ['100%', '100%', '569px'] }}
                 >
-                    <CarouselComp items={items} />
+                    <CarouselComp items={items} isHome={false} />
                 </CardMedia>
 
                 <Box sx={{ height: 'fit-content', my: 'auto', p: 2 }}>
