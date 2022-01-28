@@ -7,7 +7,6 @@ import HomeCard from '../components/HomeCard'
 import { Box } from '@mui/system'
 import { Link, useParams } from 'react-router-dom'
 import { HashLink } from 'react-router-hash-link';
-import NotFoundPage from './NotFoundPage'
 
 var items = [
     {
@@ -36,9 +35,9 @@ const HomePage = () => {
             <CarouselComp items={items} isHome={true} />
             <CategoriesHome />
             <Container disableGutters={true}>
-                <Paper sx={{ backgroundColor: 'primary.main', borderRadius: 3, my: 6, padding: 4 }}>
+                <Paper sx={{ backgroundColor: 'primary.main', my: 6, padding: 4 }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around', flexWrap: 'wrap', px: 5 }}>
-                        <Link to='/'>
+                        <Link to='products'>
                             <HomeCard heading={'Products'} />
                         </Link>
                         <HashLink smooth to="#categories">

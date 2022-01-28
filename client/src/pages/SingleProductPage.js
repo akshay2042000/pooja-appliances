@@ -11,7 +11,7 @@ const SingleProductPage = () => {
     return (
         <div>
 
-            <Container disableGutters={true} fixed sx={{ p: 6 }}>
+            <Container disableGutters={true} fixed sx={{ py: 6 }}>
                 <SingleProduct />
                 <RelatedProducts />
             </Container>

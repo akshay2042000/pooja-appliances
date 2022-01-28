@@ -15,7 +15,7 @@ const NavBar = () => {
     return (
         <StyledAppBar position="static">
             <Toolbar>
-                <NavLink to='/'>
+                <NavLink to='../'>
                     <Typography
                         variant="h5"
                         noWrap
@@ -42,7 +42,7 @@ const NavBar = () => {
                             </IconButton>
                         </NavLink>
                     </Tooltip>
-                    <NavLink to='/cart'>
+                    <NavLink to='cart'>
                         <IconButton size="large" color="inherit">
                             <Badge badgeContent={4} color="secondary">
                                 <ShoppingBagIcon />

@@ -10,7 +10,7 @@ import BillingPage from './pages/BillingPage';
 import LoginPage from './pages/LoginPage';
 import SingleProductPage from './pages/SingleProductPage';
 import NotFoundPage from './pages/NotFoundPage';
-import { Children, useEffect } from 'react';
+import { useEffect } from 'react';
 import MainPage from './pages/MainPage';
 import Appliances from './components/Appliances';
 
@@ -25,7 +25,9 @@ function App() {
             <Routes>
                 <Route path='/' element={<Layout />} >
                     <Route index element={<MainPage />} />
-                    <Route path=':app' element={<Appliances />}>
+                </Route>
+                <Route path=':app' element={<Appliances />}>
+                    <Route element={<Layout />} >
                         <Route index element={<HomePage />} />
                         <Route path='products'>
                             <Route index element={<ProductsPage />} />
@@ -33,10 +35,12 @@ function App() {
                         </Route>
                         <Route path='cart' element={<CartPage />} />
                         <Route path='bill' element={<BillingPage />} />
+                        <Route path="*" element={<NotFoundPage />} />
                     </Route>
-                    <Route path='/login' element={<LoginPage />} />
-                    <Route path="*" element={<NotFoundPage />} />
                 </Route>
+                <Route path='/login' element={<LoginPage />} />
+                <Route path="*" element={<NotFoundPage />} />
+                {/* </Route> */}
             </Routes>
         </ThemeProvider >
     );

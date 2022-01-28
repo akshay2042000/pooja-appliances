@@ -1,12 +1,8 @@
 import Typography from '@mui/material/Typography'
 import { Box, Button, Card, CardActionArea, Paper, CardActions, CardContent, CardMedia, IconButton, Rating, TextField } from '@mui/material'
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import React, { useState } from 'react'
-import { addToCart } from '../utils/addToCart';
 import { useParams } from 'react-router-dom';
 import AddToCartComp from './AddToCartComp';
-
 import { useTheme } from '@mui/material/styles';
 import CarouselComp from './CarouselComp';
 

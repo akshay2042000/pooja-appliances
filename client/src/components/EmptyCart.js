@@ -10,7 +10,7 @@ const EmptyCart = () => {
                 <Typography variant="h4" fontWeight={'bold'} mb={2} color="initial">Your Cart</Typography>
                 <Typography variant="body1" mb={3} color="initial">Your cart is currently empty.
                 </Typography>
-                <Link to='/'>
+                <Link to='../'>
                     <Button variant='contained'>Continue Shopping <ArrowForwardIcon sx={{ ml: 2 }} /> </Button>
                 </Link>
             </Box>

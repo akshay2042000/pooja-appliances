@@ -14,7 +14,7 @@ const CategoriesHome = () => {
                     {categories.map((category, index) => {
                         return (
                             <Grid item xs={6} sm={4} md={3} key={index}>
-                                <Link to={`/products?cat=${category}`} >
+                                <Link to={`products?cat=${category}`} >
                                     <SingleCategory category={category} />
                                 </Link>
                             </Grid>

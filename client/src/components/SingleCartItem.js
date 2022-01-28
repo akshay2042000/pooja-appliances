@@ -20,7 +20,7 @@ const SingleCartItem = ({ item }) => {
                     <Card variant='' sx={{
                         px: [1, 3], py: [3], display: 'flex'
                     }}>
-                        <Link to='/products/1' >
+                        <Link to={`../products/${item.id}`} >
                             <CardMedia
                                 sx={{ borderRadius: 1, width: 100 }}
                                 component="img"
@@ -30,7 +30,7 @@ const SingleCartItem = ({ item }) => {
                             </CardMedia>
                         </Link>
                         <Box sx={{ p: 2, display: 'flex', alignItems: 'start', justifyContent: 'space-between', flexDirection: 'column' }}>
-                            <Link to='/products/1'>
+                            <Link to={`../products/${item.id}`}>
                                 <Typography gutterBottom variant="h6" fontWeight='normal' sx={{ my: 0, textTransform: 'capitalize' }} >
                                     {item.name}
                                 </Typography>

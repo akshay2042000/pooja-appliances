@@ -7,7 +7,7 @@ const Appliances = () => {
     return (
         <div>
             {
-                (app === 'pooja' || app === 'pooja') ?
+                (app === 'pooja' || app === 'creative') ?
                     (
                         <Outlet />
                     )

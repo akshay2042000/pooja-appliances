@@ -10,9 +10,9 @@ const CategoriesComp = () => {
     return (
         <StyledPaper square elevation={5} >
             {pages.map((page, i) => (
-                <Link key={i} to={`/products?cat=${page}`}>
+                <Link key={i} to={`products?cat=${page}`}>
                     <MenuItem key={page} >
-                        <Typography variant='h6' textAlign="center" color='secondary' >{page}</Typography>
+                        <Typography variant='body1' textAlign="center" color='secondary' >{page}</Typography>
                     </MenuItem>
                 </Link>
 

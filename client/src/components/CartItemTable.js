@@ -19,7 +19,7 @@ const CartItemTable = () => {
             <Paper variant='outlined' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly' }}>
                 {
                     rows.map((item, i) => (
-                        <SingleCartItem key={i} item={item} />
+                        <SingleCartItem key={i} item={{ ...item, id: i+1 }} />
                     ))
                 }
             </Paper>
