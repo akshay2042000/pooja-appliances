@@ -9,9 +9,14 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import { Tooltip } from '@mui/material';
 import { StyledAppBar, Search, SearchIconWrapper, StyledInputBase } from '../styles/navbarStyles';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 
 const NavBar = () => {
+
+    const {app}= useParams();
+
+    
+
     return (
         <StyledAppBar position="static">
             <Toolbar>

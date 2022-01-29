@@ -18,6 +18,7 @@ var companySchema = new Schema({
     app: [
         {
             type: String,
+            required:true,
             enum: ['pooja', 'creative']
         }
     ]

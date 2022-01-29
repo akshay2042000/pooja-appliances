@@ -3,8 +3,19 @@ const Category = require('../models/categories');
 
 const getCategories = async (req, res, next) => {
     try {
-        const categories = await Category.find({});
-        if (categories) {
+        const appliances = req.query.app;
+
+        let categories
+
+        if (appliances) {
+            categories = await Category.find({
+                app: appliances
+            });
+        } else {
+            categories = await Category.find({});
+        }
+
+        if (categories && categories.length > 0) {
             res.status(200).json({
                 status: 'success',
                 data: categories,

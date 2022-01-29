@@ -3,20 +3,31 @@ const Company = require('../models/companies');
 
 const getCompanies = async (req, res, next) => {
     try {
-        const categories = await Company.find({});
-        if (categories) {
+        const appliances = req.query.app;
+
+        let companies
+
+        if (appliances) {
+            companies = await Company.find({
+                app: appliances
+            });
+        } else {
+            companies = await Company.find({});
+        }
+
+        if (companies && companies.length > 0) {
             res.status(200).json({
                 status: 'success',
-                data: categories,
+                data: companies,
             });
         } else {
             res.status(404).json({
                 status: 'fail',
-                message: 'No categories found'
+                message: 'No companies found'
             })
         }
     } catch (err) {
-        err = new Error('Error while fetching categories');
+        err = new Error('Error while fetching companies');
         err.status = 500;
         next(err);
     }
@@ -34,11 +45,11 @@ const getCompanyById = async (req, res, next) => {
         } else {
             res.status(404).json({
                 status: 'fail',
-                message: 'No categories found'
+                message: 'No companies found'
             })
         }
     } catch (err) {
-        err = new Error('Error while fetching categories');
+        err = new Error('Error while fetching companies');
         err.status = 500;
         next(err);
     }

@@ -13,12 +13,24 @@ import NotFoundPage from './pages/NotFoundPage';
 import { useEffect } from 'react';
 import MainPage from './pages/MainPage';
 import Appliances from './components/Appliances';
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchCompaniesThunk } from './redux/companySlice';
+
 
 function App() {
-    const { pathname } = useLocation();
+    const dispatch = useDispatch();
+    let { pathname } = useLocation();
+    pathname = pathname.split('/')[1];
+    console.log(pathname);
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [pathname]);
+
+
+    useEffect(() => {
+        dispatch(fetchCompaniesThunk(pathname));
+    }, [pathname])
 
     return (
         <ThemeProvider theme={theme}>

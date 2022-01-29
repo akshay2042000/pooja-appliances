@@ -26,6 +26,16 @@ export const theme = createTheme({
                 }
             }
         },
+        MuiSkeleton: {
+            defaultProps: {
+                animation: 'pulse',
+            },
+            styleOverrides: {
+                root: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                }
+            }
+        }
 
     },
 
@@ -91,7 +101,7 @@ export const theme = createTheme({
             lineHeight: '51px',
             fontFamily: 'Jacques Francois'
         },
-       
+
     },
     shape: {
         borderRadius: 8,

@@ -14,7 +14,14 @@ var categorySchema = new Schema({
     isFeatured: {
         type: Boolean,
         default: false,
-    }
+    },
+    app: [
+        {
+            type: String,
+            required:true,
+            enum: ['pooja', 'creative']
+        }
+    ]
 }, {
     timestamps: true
 });
