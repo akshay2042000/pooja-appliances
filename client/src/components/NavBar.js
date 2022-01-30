@@ -10,17 +10,20 @@ import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import { Tooltip } from '@mui/material';
 import { StyledAppBar, Search, SearchIconWrapper, StyledInputBase } from '../styles/navbarStyles';
 import { NavLink, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 const NavBar = () => {
 
-    const {app}= useParams();
+    const applianceState = useSelector(state => state.applianceState);
+    const appliances = applianceState.appliances;
 
-    
+
+
 
     return (
         <StyledAppBar position="static">
             <Toolbar>
-                <NavLink to='../'>
+                <NavLink to={`/${appliances}`} >
                     <Typography
                         variant="h5"
                         noWrap
@@ -56,7 +59,7 @@ const NavBar = () => {
                     </NavLink>
                 </Box>
             </Toolbar>
-        </StyledAppBar>
+        </StyledAppBar >
 
     )
 }

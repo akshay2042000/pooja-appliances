@@ -15,21 +15,16 @@ import MainPage from './pages/MainPage';
 import Appliances from './components/Appliances';
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchCompaniesThunk } from './redux/companySlice';
-
+import { setAppliances } from './redux/applianceSlice';
 
 function App() {
     const dispatch = useDispatch();
     let { pathname } = useLocation();
     pathname = pathname.split('/')[1];
-    console.log(pathname);
-
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, [pathname]);
-
 
     useEffect(() => {
         dispatch(fetchCompaniesThunk(pathname));
+        dispatch(setAppliances(pathname));
     }, [pathname])
 
     return (
@@ -38,8 +33,8 @@ function App() {
                 <Route path='/' element={<Layout />} >
                     <Route index element={<MainPage />} />
                 </Route>
-                <Route path=':app' element={<Appliances />}>
-                    <Route element={<Layout />} >
+                <Route element={<Layout />} >
+                    <Route path=':app' element={<Appliances />}>
                         <Route index element={<HomePage />} />
                         <Route path='products'>
                             <Route index element={<ProductsPage />} />

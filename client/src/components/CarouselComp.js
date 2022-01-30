@@ -23,6 +23,7 @@ const settings = {
 const CarouselComp = ({ items, isHome }) => {
     const slider = useRef(null);
     const theme = useTheme();
+    console.log(items)
     return (
         <>
             {
@@ -34,7 +35,7 @@ const CarouselComp = ({ items, isHome }) => {
                                 return (
                                     <div key={i}>
                                         <Paper sx={{
-                                            height: '60vh', backgroundImage: `url(${item.coverImage.path})`, backgroundSize: 'cover',
+                                            height: '60vh', backgroundImage: isHome ? `url(${item.coverImage.path})` : `url(${item.image})`, backgroundSize: 'cover',
                                             backgroundPosition: 'center', display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',

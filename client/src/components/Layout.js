@@ -9,15 +9,14 @@ import Footer from './Footer'
 
 const Layout = () => {
 
-    const {app}=useParams()
     return (
         <div>
-            <NavBar app={app}/>
+            <NavBar />
             <CategoriesComp/>
             <div className="content">
                 <Outlet />
             </div>
-            <Footer app={app}/>
+            <Footer/>
         </div>
     )
 }

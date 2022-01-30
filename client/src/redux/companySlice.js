@@ -11,7 +11,7 @@ const initialState = {
 
 
 const companySlice = createSlice({
-    name: 'company',
+    name: 'companies',
     initialState,
     reducers: {
         getCompanies: (state, action) => {
