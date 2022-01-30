@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
     gstNumber: {  // same as username
-        type: Number,
+        type: String,
         required: true,
         unique: true,
     },
