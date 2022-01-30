@@ -5,8 +5,14 @@ const getCompanies = (appliances) => {
     return axios.get(`${baseUrl}/companies?app=${appliances}`);
 }
 
-const Api={
-    getCompanies
+const getCategories = (appliances) => {
+    return axios.get(`${baseUrl}/categories?app=${appliances}`);
+}
+
+
+const Api = {
+    getCompanies,
+    getCategories
 }
 
 export default Api;

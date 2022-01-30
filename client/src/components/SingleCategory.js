@@ -16,11 +16,11 @@ const SingleCategory = ({ category }) => {
                     <CardMedia
                         component="img"
                         height="300"
-                        image="https://mui.com/static/images/cards/contemplative-reptile.jpg"
+                        image={category.image.path}
                         sx={{ filter: 'brightness(50%)' }}
                     />
                 </CardActionArea>
-                <Typography variant="h5" sx={{ textTransform: 'uppercase', textAlign: 'center', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', color: 'common.white', fontWeight: 1000, cursor: 'pointer' }} > {category}</Typography>
+                <Typography variant="h5" sx={{ textTransform: 'uppercase', textAlign: 'center', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', color: 'common.white', fontWeight: 1000, cursor: 'pointer' }} > {category.name}</Typography>
             </Card>
         </>
     )

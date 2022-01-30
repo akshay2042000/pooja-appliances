@@ -13,12 +13,8 @@ import { NavLink, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 const NavBar = () => {
-
     const applianceState = useSelector(state => state.applianceState);
     const appliances = applianceState.appliances;
-
-
-
 
     return (
         <StyledAppBar position="static">
@@ -39,7 +35,6 @@ const NavBar = () => {
                         <SearchIcon />
                     </SearchIconWrapper>
                     <StyledInputBase placeholder='Search...' />
-
                 </Search>
                 <Box sx={{ flexGrow: 1 }} />
                 <Box sx={{ display: 'flex' }}>
@@ -50,7 +45,7 @@ const NavBar = () => {
                             </IconButton>
                         </NavLink>
                     </Tooltip>
-                    <NavLink to='cart'>
+                    <NavLink to={`/${appliances}/cart`}>
                         <IconButton size="large" color="inherit">
                             <Badge badgeContent={4} color="secondary">
                                 <ShoppingBagIcon />

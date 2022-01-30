@@ -1,4 +1,3 @@
-import Typography from '@mui/material/Typography'
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from './themes';
 import { Outlet, Route, Routes, useLocation, useParams } from 'react-router-dom';
