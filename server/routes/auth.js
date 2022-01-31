@@ -8,11 +8,7 @@ const router = express.Router();
 //REGISTER
 router.post("/register", async (req, res) => {
     const newUser = new User({
-        gstNumber: req.body.gstNumber,
-        name: req.body.name,
-        isAdmin: req.body.isAdmin,
-        address: req.body.address,
-        state: req.body.state,
+        ...req.body,
         password: CryptoJS.AES.encrypt(
             req.body.password,
             process.env.PASS_KEY
@@ -37,7 +33,7 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
     try {
-        const user = await User.findOne({ $or: [{ username: req.body.username }, { gstNumber: req.body.username }] }); // username is the gst number for ppl with gst number else it is the username
+        const user = await User.findOne({ username: req.body.username });
 
         if (!user) {
             res.status(401).json("user not found");
