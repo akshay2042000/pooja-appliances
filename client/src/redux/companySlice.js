@@ -16,13 +16,11 @@ const companySlice = createSlice({
     reducers: {
         getCompanies: (state, action) => {
             state.companies = action.payload;
-            state.loading = false;
         },
         getCompaniesLoading: (state, action) => {
             state.loading = action.payload;
         },
         getCompaniesError: (state, action) => {
-            state.loading = false;
             state.error = action.payload;
         }
     }

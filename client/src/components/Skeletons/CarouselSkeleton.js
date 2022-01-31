@@ -6,7 +6,7 @@ import React from 'react'
 const CarouselSkeleton = () => {
     return (
         <div>
-            <Skeleton variant="rectangular"  height='60vh' />
+            <Skeleton variant="rectangular" height='60vh' />
         </div>
     )
 }

@@ -15,7 +15,7 @@ const HomePage = () => {
     return (
         <>
 
-            <CarouselComp items={companyState.companies} isHome={true} />
+            <CarouselComp items={companyState.companies} isLoading={companyState.loading} isHome={true} />
             <CategoriesHome />
             <Container disableGutters={true}>
                 <Paper sx={{ backgroundColor: 'primary.main', my: 6, padding: 4 }}>

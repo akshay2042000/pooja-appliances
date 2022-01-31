@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { StyledPaper } from '../styles/navbarStyles';
 import { useDispatch, useSelector } from 'react-redux';
 import Api from '../api/index'
+import CategoriesCompSkeleton from './Skeletons/CategoriesCompSkeleton';
 
 
 const CategoriesComp = () => {
@@ -26,14 +27,22 @@ const CategoriesComp = () => {
     }, [appliances])
 
     return (
-        <StyledPaper square elevation={5} >
-            {categories.map((category, i) => (
-                <Link key={category._id} to={`/${appliances}/products?cat=${category._id}`}>
-                    <MenuItem >
-                        <Typography variant='body1' textAlign="center" color='secondary.dark' >{category.name}</Typography>
-                    </MenuItem>
-                </Link>
-            ))}
+        <StyledPaper square sx={{ color: 'common.white', backgroundColor: 'primary.light' }} elevation={5}  >
+            {
+                !categories.length ? (
+                    <CategoriesCompSkeleton />
+                ) : (
+                    categories.map((category, i) => (
+                        <Link key={category._id} to={`/${appliances}/products?cat=${category._id}`}>
+                            <MenuItem >
+                                <Typography variant='body1' textAlign="center" sx={{ textTransform: 'capitalize' }} >{category.name}</Typography>
+                            </MenuItem>
+                        </Link>
+                    ))
+                )
+            }
+
+
         </StyledPaper>
 
     )

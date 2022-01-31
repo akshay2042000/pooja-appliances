@@ -6,11 +6,14 @@ var userSchema = new Schema({
     gstNumber: {  // same as username
         type: String,
         required: true,
-        unique: true,
     },
     name: {
         type: String,
         default: ''
+    },
+    username: {
+        type: String,
+        required: true
     },
     password: {
         type: String,

@@ -37,7 +37,8 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
     try {
-        const user = await User.findOne({ name: req.body.name });
+        const user = await User.findOne({ $or: [{ username: req.body.username }, { gstNumber: req.body.username }] }); // username is the gst number for ppl with gst number else it is the username
+
         if (!user) {
             res.status(401).json("user not found");
         } else {
@@ -58,7 +59,7 @@ router.post("/login", async (req, res) => {
                     process.env.JWT_KEY,
                     { expiresIn: "365d" }
                 );
-                
+
                 const { password, ...others } = user._doc;
                 res.status(200).json({ ...others, accessToken });
             }

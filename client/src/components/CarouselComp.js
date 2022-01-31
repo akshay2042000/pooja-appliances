@@ -20,14 +20,14 @@ const settings = {
 
 
 
-const CarouselComp = ({ items, isHome }) => {
+const CarouselComp = ({ items, isHome, isLoading }) => {
     const slider = useRef(null);
     const theme = useTheme();
     console.log(items)
     return (
         <>
             {
-                !items.length ? <CarouselSkeleton />
+                isLoading ? <CarouselSkeleton />
                     :
                     <Slider ref={slider} {...settings}  >
                         {

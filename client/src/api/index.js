@@ -9,10 +9,15 @@ const getCategories = (appliances) => {
     return axios.get(`${baseUrl}/categories?app=${appliances}`);
 }
 
+const getProducts=(appliances, cat, comp)=>{
+    return axios.get(`${baseUrl}/products?app=${appliances}&cat=${cat}&comp=${comp}`);
+}
+
 
 const Api = {
     getCompanies,
-    getCategories
+    getCategories,
+    getProducts
 }
 
 export default Api;
