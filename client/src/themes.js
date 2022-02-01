@@ -29,6 +29,7 @@ export const theme = createTheme({
         MuiSkeleton: {
             defaultProps: {
                 animation: 'pulse',
+                variant: 'rectangular',
             },
             styleOverrides: {
                 root: {

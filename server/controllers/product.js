@@ -12,64 +12,56 @@ const getProducts = async (req, res, next) => {
 
         const companies = await Company.find({ app: appliances }).select('_id');
 
-        if (category || company) {
-            if (appliances) {
-                products = await Product.find({
-                    $and: [
-                        {
-                            'company': {
-                                $in: [
-                                    ...companies
-                                ]
+        appliances ?
+            category && category !== "null" ?
+                (
+                    products = await Product.find({ // all products of a category for an appliance
+                        $and: [{
+                            company: {
+                                $in: companies
                             }
-                        }
-                        ,
-                        {
-                            $or: [
-                                {
-                                    categories: {
-                                        $in: [category]
-                                    }
-                                },
-                                {
-                                    company: {
-                                        $in: [company]
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                });
-            } else {
-                products = await Product.find({
-                    $or: [
-                        {
+                        }, {
                             categories: {
                                 $in: [category]
+                            },
+                        }]
+                    })
+                )
+                :
+                company && company !== "null" ? // all product of a company for an appliance
+                    products = await Product.find({
+                        $and: [{
+                            company: {
+                                $in: companies
                             }
-                        },
-                        {
+                        }, {
                             company: {
                                 $in: [company]
                             }
+                        }]
+                    })
+                    :
+                    products = await Product.find({ //all products of the appliance
+                        company: {
+                            $in: companies
                         }
-                    ]
-                });
-            }
-
-        } else {
-            if (appliances) {
-                products = await Product.find({
-                    'company': {
-                        $in: [
-                            ...companies
-                        ]
+                    })
+            :
+            company && company !== "null" ?
+                products = await Product.find({ // all products of a company
+                    company: {
+                        $in: company
                     }
-                });
-            } else {
-                products = await Product.find({});
-            }
-        }
+                })
+                :
+                category && category !== "null" ?
+                    products = await Product.find({ // all products of a category
+                        categories: {
+                            $in: category
+                        }
+                    })
+                    :
+                    products = await Product.find({}); // all products
 
 
         if (products.length > 0) {
@@ -84,10 +76,9 @@ const getProducts = async (req, res, next) => {
             })
         }
     }
-    catch {
-        err = new Error('Error while fetching products');
+    catch (err) {
         err.status = 500;
-        next(err);
+        res.status(500).json(err);
     }
 }
 

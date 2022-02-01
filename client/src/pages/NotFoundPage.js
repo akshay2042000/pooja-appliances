@@ -1,9 +1,10 @@
 import React from 'react'
+import NoComponentFound from '../components/NoComponentFound'
 
 const NotFoundPage = () => {
     return (
         <div>
-            <p>Not found</p>
+            <NoComponentFound message={'Page Not Found!!'}/>
         </div>
     )
 }

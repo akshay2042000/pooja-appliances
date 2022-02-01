@@ -9,8 +9,10 @@ const getCategories = (appliances) => {
     return axios.get(`${baseUrl}/categories?app=${appliances}`);
 }
 
-const getProducts=(appliances, cat, comp)=>{
-    return axios.get(`${baseUrl}/products?app=${appliances}&cat=${cat}&comp=${comp}`);
+const getProducts = (appliances, cat, comp) => {
+    console.log(`${baseUrl}/products?app=${appliances}&category=${cat}&comp=${comp}`);
+
+    return axios.get(`${baseUrl}/products?app=${appliances}&category=${cat}&company=${comp}`);
 }
 
 
