@@ -10,26 +10,13 @@ import CategoriesCompSkeleton from './Skeletons/CategoriesCompSkeleton';
 const CategoriesComp = () => {
     const applianceState = useSelector(state => state.applianceState);
     const appliances = applianceState.appliances;
-
-    const [categories, setcategories] = useState([]);
-
-    useEffect(() => {
-        const fetchCategories = async () => {
-            try {
-                const { data } = await Api.getCategories(appliances);
-                const categories = data.data;
-                setcategories(categories);
-            } catch (err) {
-                console.log(err);
-            }
-        }
-        fetchCategories();
-    }, [appliances])
+    const categoryState = useSelector(state => state.categoryState);
+    const categories = categoryState.categories;
 
     return (
         <StyledPaper square sx={{ color: 'common.white', backgroundColor: 'primary.light' }} elevation={5}  >
             {
-                !categories.length ? (
+                categoryState.loading? (
                     <CategoriesCompSkeleton />
                 ) : (
                     categories.map((category, i) => (

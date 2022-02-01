@@ -10,8 +10,6 @@ const getCategories = (appliances) => {
 }
 
 const getProducts = (appliances, cat, comp) => {
-    console.log(`${baseUrl}/products?app=${appliances}&category=${cat}&comp=${comp}`);
-
     return axios.get(`${baseUrl}/products?app=${appliances}&category=${cat}&company=${comp}`);
 }
 

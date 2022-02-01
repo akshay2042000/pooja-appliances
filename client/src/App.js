@@ -15,6 +15,7 @@ import Appliances from './components/Appliances';
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchCompaniesThunk } from './redux/companySlice';
 import { setAppliances } from './redux/applianceSlice';
+import { fetchCategoriesThunk } from './redux/categorySlice';
 
 function App() {
     const dispatch = useDispatch();
@@ -23,6 +24,7 @@ function App() {
 
     useEffect(() => {
         dispatch(fetchCompaniesThunk(pathname));
+        dispatch(fetchCategoriesThunk(pathname));
         dispatch(setAppliances(pathname));
     }, [pathname])
 

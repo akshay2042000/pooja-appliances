@@ -7,32 +7,15 @@ import Api from '../api/index'
 import LoadingComponent from './Skeletons/LoadingComponent.js';
 
 
-const categories = ["CAtegory 1", "CAtegory 2", "CAtegory 3", "CAtegory 4", "CAtegory 5", "CAtegory 6", "CAtegory 7"]
-
 const CategoriesHome = () => {
-    const applianceState = useSelector(state => state.applianceState);
-    const appliances = applianceState.appliances;
-    const [categories, setcategories] = useState([]);
-
-    useEffect(() => {
-        const fetchCategories = async () => {
-            try {
-                const { data } = await Api.getCategories(appliances);
-                const categories = data.data;
-                setcategories(categories);
-            } catch (err) {
-                console.log(err);
-            }
-        }
-        fetchCategories();
-    }, [appliances])
-
+    const categoryState = useSelector(state => state.categoryState);
+    const categories = categoryState.categories;
 
     return (
         <Paper id="categories" elevation={0} sx={{ borderRadius: 1, mt: 6 }}>
             <Container disableGutters={true} fixed>
                 {
-                    !categories.length ? (
+                    categoryState.loading? (
                         <LoadingComponent height={150} width={150}/>
                     ) : (
                         <Grid container spacing={3} padding={2}>

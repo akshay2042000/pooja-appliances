@@ -48,22 +48,6 @@ var productSchema = new Schema({
         ref: 'Category',
     }],
 
-    // // name: {
-    // //     type: String,
-    // // },
-    // // defaults: {
-    // //     color: {
-    // //         type: colorSchema,
-    // //     },
-    // //     size: {
-    // //         type: sizeSchema,
-    // //     },
-    // //     price: {
-    // //         type: Number,
-    // //         required: true,
-    // //     }
-    // // },
-
     variants: {
        
         colors: [

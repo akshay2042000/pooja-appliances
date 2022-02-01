@@ -23,7 +23,6 @@ const settings = {
 const CarouselComp = ({ items, isHome, isLoading }) => {
     const slider = useRef(null);
     const theme = useTheme();
-    console.log(items)
     return (
         <>
             {
