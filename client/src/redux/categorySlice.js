@@ -23,7 +23,7 @@ const companySlice = createSlice({
         },
         getCategoriesError: (state, action) => {
             state.error = action.payload;
-            state.categories=[];
+            state.categories = [];
         }
     }
 })
@@ -34,6 +34,7 @@ export default companySlice.reducer;
 //  thunks
 
 export const fetchCategoriesThunk = (appliances) => async (dispatch) => {
+    dispatch(getCategoriesLoading(true));
     try {
         const { data } = await Api.getCategories(appliances);
         dispatch(getCategories(data.data));

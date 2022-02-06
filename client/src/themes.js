@@ -99,7 +99,6 @@ export const theme = createTheme({
         },
         price: {
             fontSize: '2rem',
-            lineHeight: '51px',
             fontFamily: 'Jacques Francois'
         },
 

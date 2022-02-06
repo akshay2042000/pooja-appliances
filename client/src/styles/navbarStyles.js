@@ -4,7 +4,7 @@ import AppBar from '@mui/material/AppBar';
 
 export const StyledAppBar = styled(AppBar)(({ theme }) => ({
     '@media all': {
-        minHeight: 100,
+        minHeight: 80,
         justifyContent: 'center'
     }
 

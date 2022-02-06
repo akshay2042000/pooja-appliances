@@ -34,6 +34,7 @@ export default companySlice.reducer;
 //  thunks
 
 export const fetchCompaniesThunk = (appliances) => async (dispatch) => {
+    dispatch(getCompaniesLoading(true));
     try {
         const { data } = await Api.getCompanies(appliances);
         dispatch(getCompanies(data.data));

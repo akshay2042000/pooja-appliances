@@ -25,7 +25,7 @@ const getProducts = async (req, res, next) => {
                                 $in: [category]
                             },
                         }]
-                    })
+                    }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' })
                 )
                 :
                 company && company !== "null" ? // all product of a company for an appliance
@@ -39,29 +39,29 @@ const getProducts = async (req, res, next) => {
                                 $in: [company]
                             }
                         }]
-                    })
+                    }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' })
                     :
                     products = await Product.find({ //all products of the appliance
                         company: {
                             $in: companies
                         }
-                    })
+                    }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' })
             :
             company && company !== "null" ?
                 products = await Product.find({ // all products of a company
                     company: {
                         $in: company
                     }
-                })
+                }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' })
                 :
                 category && category !== "null" ?
                     products = await Product.find({ // all products of a category
                         categories: {
                             $in: category
                         }
-                    })
+                    }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' })
                     :
-                    products = await Product.find({}); // all products
+                    products = await Product.find({}).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' }); // all products
 
 
         if (products.length > 0) {
