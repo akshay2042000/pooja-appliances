@@ -16,9 +16,6 @@ const ProductCard = ({ product }) => {
     const [form, setForm] = useState({
         size: product?.variants?.sizes[0],
         color: product?.variants?.colors[0],
-        // size: product?.variants?.sizes[0]?.val,
-        // color: product?.variants?.colors[0]?.name,
-        price: product?.variants?.sizes[0]?.price,
         quantity: 1,
         unit: product?.units[0],
     })
@@ -107,9 +104,7 @@ const ProductCard = ({ product }) => {
                                         ))
                                     }
                                 </Box>
-
-
-                                <Typography variant="price" component='div' color='text.primary'>₹{form.size.price} </Typography>
+                                <Typography mt={1} variant="price" component='div' color='text.primary'>₹{form.size.price} </Typography>
                             </CardContent>
 
                             <SizeAndColorForm product={product} form={form} setForm={setForm} />

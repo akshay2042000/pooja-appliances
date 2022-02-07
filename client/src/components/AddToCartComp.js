@@ -1,10 +1,21 @@
-import { Box, Button, CardActions, Container, FormControl, IconButton, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material'
+import { Alert, Box, Button, CardActions, Container, FormControl, IconButton, InputLabel, MenuItem, Select, Snackbar, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
-import { addToCart } from '../utils/addToCart'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { addItem } from '../redux/cartSlice'
+import { useDispatch, useSelector } from 'react-redux'
+
+
 const AddToCartComp = ({ product, form, setForm }) => {
     const max = 100;
+    const applianceState = useSelector(state => state.applianceState)
+    const app=applianceState.appliances
+    const dispatch = useDispatch()
+
+
+    const [open, setOpen] = useState(false);
+
+
     const handleChange = (e, changeQuantity) => {
         if (changeQuantity) {
             var quantity = parseInt(form.quantity) + changeQuantity;
@@ -32,6 +43,15 @@ const AddToCartComp = ({ product, form, setForm }) => {
             setForm({ ...form, [e.target.name]: e.target.value })
         }
 
+    }
+
+    const addToCart = () => {
+        dispatch(addItem({ ...product, ...form , app:app }))
+        setOpen(true);
+    }
+
+    const handleClose = () => {
+        setOpen(false);
     }
 
     return (
@@ -79,10 +99,23 @@ const AddToCartComp = ({ product, form, setForm }) => {
                     </Box>
                 </Box>
 
+
+
                 <Button size="large" sx={{ width: '100%' }} variant='contained' color="secondary" onClick={addToCart}>
                     Add To Cart
                 </Button>
+
             </CardActions>
+            <Snackbar
+                open={open}
+                autoHideDuration={2000}
+                onClose={handleClose}
+            >
+                <Alert variant='filled' severity="success" sx={{ width: '100%' }}>
+                    Added To Cart!!
+                </Alert>
+            </Snackbar>
+
         </div>
     )
 }

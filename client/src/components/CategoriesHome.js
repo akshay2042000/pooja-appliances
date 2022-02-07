@@ -16,7 +16,7 @@ const CategoriesHome = () => {
             <Container disableGutters={true} fixed>
                 {
                     categoryState.loading? (
-                        <LoadingComponent height={150} width={150}/>
+                        <LoadingComponent/>
                     ) : (
                         <Grid container spacing={3} padding={2}>
                             {

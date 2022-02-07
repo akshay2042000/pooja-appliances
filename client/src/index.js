@@ -3,17 +3,23 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { BrowserRouter } from "react-router-dom";
 import App from './App';
-import { store } from './redux/configureStore';
+import { store, persistor } from './redux/configureStore';
 import { Provider } from 'react-redux';
 import ScrollToTop from './components/ScrollToTop';
+import LoadingComponent from './components/Skeletons/LoadingComponent';
+import { PersistGate } from 'redux-persist/integration/react'
+
 
 
 ReactDOM.render(
     <Provider store={store}>
-        <BrowserRouter>
-            <ScrollToTop />
-            <App />
-        </BrowserRouter>
+        <PersistGate loading={LoadingComponent} persistor={persistor}>
+            <BrowserRouter>
+                <ScrollToTop />
+                <App />
+            </BrowserRouter>
+        </PersistGate>
+
     </Provider>,
     document.getElementById('root')
 );

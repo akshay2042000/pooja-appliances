@@ -15,6 +15,8 @@ import { useDispatch, useSelector } from 'react-redux';
 const NavBar = () => {
     const applianceState = useSelector(state => state.applianceState);
     const appliances = applianceState.appliances;
+    const cartState = useSelector(state => state.cartState);
+    const count = cartState[appliances].count;
 
     return (
         <StyledAppBar position="static">
@@ -47,7 +49,7 @@ const NavBar = () => {
                     </Tooltip>
                     <NavLink to={`/${appliances}/cart`}>
                         <IconButton size="large" color="inherit">
-                            <Badge badgeContent={4} color="secondary">
+                            <Badge badgeContent={count} color="secondary">
                                 <ShoppingBagIcon />
                             </Badge>
                         </IconButton>
