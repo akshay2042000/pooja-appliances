@@ -20,7 +20,7 @@ const settings = {
 
 
 
-const CarouselComp = ({ items, isHome, isLoading }) => {
+const CarouselComp = ({ items, isHome, isLoading, h }) => {
     const slider = useRef(null);
     const theme = useTheme();
     return (
@@ -34,7 +34,7 @@ const CarouselComp = ({ items, isHome, isLoading }) => {
                                 return (
                                     <div key={i}>
                                         <Paper sx={{
-                                            height: '60vh', backgroundImage: isHome ? `url(${item.coverImage.path})` : `url(${item.image})`, backgroundSize: 'cover',
+                                            height: h, backgroundImage: isHome ? `url(${item.coverImage.path})` : `url(${item.path})`, backgroundSize: 'cover',
                                             backgroundPosition: 'center', display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',

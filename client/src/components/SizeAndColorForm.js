@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Container, FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
+import { Box, CardActions, Container, FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 
 const SizeAndColorForm = ({ product, form, setForm }) => {
 
@@ -9,7 +9,7 @@ const SizeAndColorForm = ({ product, form, setForm }) => {
 
     return (
         <>
-            <Box sx={{ display: 'flex', justifyContent: 'space-around', mb: 3 }}>
+            <CardActions sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>
                 <FormControl variant="standard" sx={{ minWidth: '25%' }}>
                     <InputLabel id="color-label">
                         <Typography variant="caption" component='div' sx={{ textTransform: 'capitalize' }}>
@@ -61,7 +61,7 @@ const SizeAndColorForm = ({ product, form, setForm }) => {
                 </FormControl>
 
 
-            </Box>
+            </CardActions>
         </>
     )
 }

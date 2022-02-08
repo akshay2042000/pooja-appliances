@@ -3,10 +3,10 @@ import React from 'react'
 
 
 
-const CarouselSkeleton = () => {
+const CarouselSkeleton = ({ h }) => {
     return (
         <div>
-            <Skeleton variant="rectangular" height='60vh' />
+            <Skeleton variant="rectangular" sx={{ height: h  }} />
         </div>
     )
 }

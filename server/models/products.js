@@ -33,12 +33,11 @@ var productSchema = new Schema({
         type: String,
         required: true,
     },
-    image: {
+    images: [{
         type: imageSchema,
-        default:{}
-    },
-  
-
+        default: {}
+    }],
+    
     units: [{
         type: String,
     }],
@@ -49,7 +48,7 @@ var productSchema = new Schema({
     }],
 
     variants: {
-       
+
         colors: [
             {
                 type: colorSchema,

@@ -14,7 +14,7 @@ const CategoriesComp = () => {
     const categories = categoryState.categories;
 
     return (
-        <StyledPaper square sx={{ color: 'common.white', backgroundColor: 'primary.light' }} elevation={5}  >
+        <StyledPaper square sx={{ color: 'common.white', backgroundColor: 'primary.dark' }} elevation={5}  >
             {
                 categoryState.loading? (
                     <CategoriesCompSkeleton />

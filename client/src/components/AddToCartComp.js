@@ -56,8 +56,8 @@ const AddToCartComp = ({ product, form, setForm }) => {
 
     return (
         <div>
-            <CardActions sx={{ flexDirection: 'column', justifyContent: 'space-around' }}>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>
+            <CardActions sx={{ flexDirection: 'column', justifyContent: 'space-between' }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3, width:'100%' }}>
                     <FormControl variant="standard" sx={{ minWidth: '30%' }}>
                         <InputLabel id="unit-label">
                             <Typography variant="caption" component='div' sx={{ textTransform: 'capitalize' }}>

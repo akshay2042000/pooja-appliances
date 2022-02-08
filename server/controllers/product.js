@@ -120,7 +120,7 @@ const getSearchedProducts = async (req, res, next) => {
 }
 const getProductById = async (req, res, next) => {
     try {
-        const product = await Product.findById(req.params.id);
+        const product = await Product.findById(req.params.id).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' });
         if (product) {
             res.status(200).json({
                 status: 'success',

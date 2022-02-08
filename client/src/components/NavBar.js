@@ -16,7 +16,7 @@ const NavBar = () => {
     const applianceState = useSelector(state => state.applianceState);
     const appliances = applianceState.appliances;
     const cartState = useSelector(state => state.cartState);
-    const count = cartState[appliances].count;
+    const count = cartState[appliances]?.count || 0;
 
     return (
         <StyledAppBar position="static">
