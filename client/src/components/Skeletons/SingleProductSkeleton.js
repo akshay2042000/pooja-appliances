@@ -20,7 +20,7 @@ const SingleProductSkeleton = () => {
             <Box sx={{ height: 'fit-content', px: 2 }}>
                 <CardContent>
                     <Typography gutterBottom variant="h5" sx={{ textTransform: 'capitalize' }} >
-                        <Skeleton variant="text" height={50} width={400} />
+                        <Skeleton variant="text" height={50} sx={{ width: ['100%', '100%', 400] }} />
                     </Typography>
                     <Typography variant="body1" component='div' sx={{ textTransform: 'capitalize' }}>
                         <Skeleton variant="text" />

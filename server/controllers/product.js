@@ -87,16 +87,27 @@ const getProducts = async (req, res, next) => {
 
 const getSearchedProducts = async (req, res, next) => {
     const search = req.query.key;
-
+    const appliances = req.query.app;
 
     try {
 
         const regex = new RegExp("\\b" + search, "i");
+        const companies = await Company.find({ app: appliances }).select('_id');
 
         // const products = await Product.find({ $or: [{ 'name': { $regex: regex } }, { 'company': { $regex: regex } }] });
 
-        const products = await Product.find({ name: { $regex: regex } });
+        const products = await Product.find({
+            $and: [{
+                company: {
+                    $in: companies
+                }
+            }, {
+                name: {
+                    $regex: regex
+                }
+            }]
 
+        }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' });
 
         if (products) {
             res.status(200).json({
@@ -112,12 +123,60 @@ const getSearchedProducts = async (req, res, next) => {
         }
 
     }
-    catch {
-        err = new Error('Error while searching products');
-        err.status = 500;
-        next(err);
+    catch (err) {
+        res.status(500).json(err);
+        console.log(err);
     }
 }
+
+
+const getRelatedProducts = async (req, res, next) => {
+    const cats = req.query.categories;
+    const company = req.query.company;
+    const appliances = req.query.app;
+    try {
+        const companies = await Company.find({ app: appliances }).select('_id');
+        const products = await Product.find({
+            $and: [{
+                company: {
+                    $in: companies
+                }
+            }, {
+                $or: [{
+                    categories: {
+                        $in: cats
+                    }
+                }, {
+                    company: {
+                        $in: company
+                    }
+                }]
+            }]
+
+        }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' }).limit(8);
+
+        if (products) {
+            res.status(200).json({
+                status: 'success',
+                data: products,
+            });
+        }
+        else {
+            res.status(404).json({
+                status: 'fail',
+                message: 'No products found'
+            })
+        }
+
+    }
+    catch (err) {
+        res.status(500).json(err);
+        console.log(err);
+    }
+}
+
+
+
 const getProductById = async (req, res, next) => {
     try {
         const product = await Product.findById(req.params.id).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' });
@@ -233,5 +292,6 @@ module.exports = {
     updateProductById,
     deleteProductById,
     deleteProducts,
-    getSearchedProducts
+    getSearchedProducts,
+    getRelatedProducts
 }

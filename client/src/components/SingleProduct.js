@@ -1,5 +1,5 @@
 import Typography from '@mui/material/Typography'
-import { Box, Button, Card, CardActionArea, Paper, CardActions, Chip, CardContent, CardMedia, IconButton, Rating, TextField } from '@mui/material'
+import { Box, Card, Chip, CardContent, CardMedia } from '@mui/material'
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import AddToCartComp from './AddToCartComp';
@@ -7,46 +7,12 @@ import { useTheme } from '@mui/material/styles';
 import SizeAndColorForm from './SizeAndColorForm';
 import { Link } from 'react-router-dom';
 import CarouselComp from './CarouselComp';
-import Api from '../api/index';
-import CardSkeleton from './Skeletons/CardSkeleton';
 import SingleProductSkeleton from './Skeletons/SingleProductSkeleton';
 
 
 
-const SingleProduct = () => {
-
-    const { productId } = useParams();
-    const [product, setProduct] = useState(null);
-    const [quantity, setQuantity] = useState(0);
+const SingleProduct = ({ product, form, setForm }) => {
     const { app } = useParams()
-
-
-    const [form, setForm] = useState({
-        size: product?.variants?.sizes[0],
-        color: product?.variants?.colors[0],
-        quantity: 1,
-        unit: product?.units[0],
-    })
-
-    useEffect(() => {
-        const getProduct = async () => {
-            const { data } = await Api.getSingleProduct(productId);
-            setForm({
-                size: data.data.variants.sizes[0],
-                color: data.data.variants.colors[0],
-                quantity: 1,
-                unit: data.data.units[0],
-            })
-            setProduct(data.data);
-        }
-        getProduct();
-    }, [])
-
-    const max = 100;
-    const handleChange = (e) => {
-        e.target.value < 0 ? setQuantity(0) : e.target.value > max ? setQuantity(max) : setQuantity(e.target.value);
-    }
-    console.log(product)
 
     return (
         <>
@@ -69,7 +35,7 @@ const SingleProduct = () => {
                                     <CarouselComp h={['300px', '370px', '430px']} items={product.images} isHome={false} />
                                 </CardMedia>
 
-                                <Box sx={{ height: 'fit-content', px: 2 }}>
+                                <Box sx={{ height: 'fit-content', px: 2, py: [2, 2, 0] }}>
                                     <CardContent>
                                         <Typography gutterBottom variant="h5" sx={{ textTransform: 'capitalize' }} >
                                             {`${product.name} - ${form.color.name} (${form.size.val})`}
