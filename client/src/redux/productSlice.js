@@ -37,6 +37,7 @@ const productSlice = createSlice({
             state.selectedProductError = action.payload;
             state.products = [];
         },
+        
     }
 })
 

@@ -14,28 +14,31 @@ const SingleProductPage = () => {
     const [relatedProducts, setRelatedProducts] = useState(null);
     const { app } = useParams()
     const dispatch = useDispatch();
+    const productState = useSelector(state => state.productState)
+    const product = productState.selectedProduct;
 
     useEffect(() => {
         dispatch(fetchSelectedProductThunk(productId));
     }, [productId])
 
 
-    // useEffect(() => {
-    //     if (product) {
-    //         const getRelatedProducts = async () => {
-    //             const { data } = await Api.getRelatedProducts(app, product.company._id, product.categories);
-    //             setRelatedProducts(data.data);
-    //         }
-    //         getRelatedProducts();
-    //     }
+    useEffect(() => {
+        if (product) {
+            const getRelatedProducts = async () => {
+                const { data } = await Api.getRelatedProducts(app, product.company._id, product.categories);
+                data.data = data.data.filter(p => p._id !== productId)
+                setRelatedProducts(data.data);
+            }
+            getRelatedProducts();
+        }
 
-    // }, [product])
+    }, [product])
 
     return (
         <div>
             <Container disableGutters={true} fixed sx={{ py: 6, px: 2 }}>
                 <SingleProduct />
-                {/* <RelatedProducts products={relatedProducts} /> */}
+                <RelatedProducts products={relatedProducts} />
             </Container>
         </div>
     )
