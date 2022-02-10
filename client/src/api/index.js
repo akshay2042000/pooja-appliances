@@ -16,6 +16,9 @@ const getProducts = (appliances, cat, comp) => {
 const getSingleProduct = (id) => {
     return axios.get(`${baseUrl}/products/${id}`);
 }
+const getSearchedItem = (appliances, key) => {
+    return axios.get(`${baseUrl}/products/search?app=${appliances}&key=${key}`);
+}
 const getRelatedProducts = (appliances, company, categories) => {
     var str = "";
     categories.map(cat => {
@@ -30,7 +33,8 @@ const Api = {
     getCategories,
     getProducts,
     getSingleProduct,
-    getRelatedProducts
+    getRelatedProducts,
+    getSearchedItem
 }
 
 export default Api;

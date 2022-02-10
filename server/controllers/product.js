@@ -90,38 +90,43 @@ const getSearchedProducts = async (req, res, next) => {
     const appliances = req.query.app;
 
     try {
-
-        const regex = new RegExp("\\b" + search, "i");
-        const companies = await Company.find({ app: appliances }).select('_id');
-
-        // const products = await Product.find({ $or: [{ 'name': { $regex: regex } }, { 'company': { $regex: regex } }] });
-
-        const products = await Product.find({
-            $and: [{
-                company: {
-                    $in: companies
-                }
-            }, {
-                name: {
-                    $regex: regex
-                }
-            }]
-
-        }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' });
-
-        if (products) {
+        if (!search) {
             res.status(200).json({
                 status: 'success',
-                data: products,
+                data: [],
             });
-        }
-        else {
-            res.status(404).json({
-                status: 'fail',
-                message: 'No products found'
-            })
-        }
+        } else {
+            const regex = new RegExp("\\b" + search, "i");
+            const companies = await Company.find({ app: appliances }).select('_id');
 
+            // const products = await Product.find({ $or: [{ 'name': { $regex: regex } }, { 'company': { $regex: regex } }] });
+
+            const products = await Product.find({
+                $and: [{
+                    company: {
+                        $in: companies
+                    }
+                }, {
+                    name: {
+                        $regex: regex
+                    }
+                }]
+
+            }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' });
+
+            if (products) {
+                res.status(200).json({
+                    status: 'success',
+                    data: products,
+                });
+            }
+            else {
+                res.status(404).json({
+                    status: 'fail',
+                    message: 'No products found'
+                })
+            }
+        }
     }
     catch (err) {
         res.status(500).json(err);

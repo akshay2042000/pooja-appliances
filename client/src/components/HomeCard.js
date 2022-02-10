@@ -22,7 +22,7 @@ const HomeCard = ({ heading }) => {
             }
         }}>
             <Box color="primary">
-                <Typography sx={{ textTransform: 'uppercase', textAlign: 'center', fontWeight: 'bolder' }} variant="h2" color='common.white'>{heading}</Typography>
+                <Typography sx={{ textTransform: 'uppercase', textAlign: 'center', fontWeight: 'bolder' }} variant="h4" color='common.white'>{heading}</Typography>
             </Box>
 
         </Box>

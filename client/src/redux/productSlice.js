@@ -8,6 +8,9 @@ const initialState = {
     selectedProduct: null,
     selectedProductLoading: true,
     selectedProductError: null,
+    searchedProducts: [],
+    searchedProductsLoading: false,
+    searchedProductsError: null,
 }
 
 
@@ -37,11 +40,23 @@ const productSlice = createSlice({
             state.selectedProductError = action.payload;
             state.products = [];
         },
-        
+        getSearchedProducts: (state, action) => {
+            state.searchedProducts = action.payload;
+            state.error = null;
+        },
+        getSearchedProductsLoading: (state, action) => {
+            state.searchedProductsLoading = action.payload;
+        },
+        getSearchedProductsError: (state, action) => {
+            state.searchedProductsError = action.payload;
+            state.searchedProducts = [];
+        }
+
+
     }
 })
 
-export const { getProducts, getProductsLoading, getProductsError, getSelectedProduct, getSelectedProductLoading, getSelectedProductError } = productSlice.actions;
+export const { getProducts, getProductsLoading, getProductsError, getSearchedProducts, getSearchedProductsLoading, getSearchedProductsError, getSelectedProduct, getSelectedProductLoading, getSelectedProductError } = productSlice.actions;
 
 export default productSlice.reducer;
 
@@ -68,6 +83,22 @@ export const fetchSelectedProductThunk = (id) => async (dispatch) => {
     } catch (err) {
         dispatch(getSelectedProductError(err));
         dispatch(getSelectedProductLoading(false));
+    }
+
+}
+
+export const fetchSearchedProducts = (appliances, key) => async (dispatch) => {
+
+    dispatch(getSearchedProductsLoading(true));
+    try {
+        const { data } = await Api.getSearchedItem(appliances, key);
+        // console.log("🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑 ")
+        // console.log(data);
+        dispatch(getSearchedProducts(data.data));
+        dispatch(getSearchedProductsLoading(false));
+    } catch (err) {
+        dispatch(getSearchedProductsError(err));
+        dispatch(getSearchedProductsLoading(false));
     }
 
 }
