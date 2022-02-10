@@ -22,7 +22,7 @@ const Appliances = () => {
     return (
         <div>
             {
-                (appliances && (appliances === 'pooja' || appliances === 'creative')) ?
+                (pathname && (pathname === 'pooja' || pathname === 'creative')) ?
                     (
                         <Outlet />
                     )

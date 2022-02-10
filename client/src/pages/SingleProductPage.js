@@ -40,7 +40,6 @@ const SingleProductPage = () => {
     useEffect(() => {
         if (product) {
             const getRelatedProducts = async () => {
-                console.log("🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑 ", product);
                 const { data } =  await Api.getRelatedProducts(app, product.company._id, product.categories);
                 setRelatedProducts(data.data);
             }

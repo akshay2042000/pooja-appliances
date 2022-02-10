@@ -26,7 +26,7 @@ const CarouselComp = ({ items, isHome, isLoading, h }) => {
     return (
         <>
             {
-                isLoading ? <CarouselSkeleton />
+                isLoading ? <CarouselSkeleton  h={'60vh'} />
                     :
                     <Slider ref={slider} {...settings}  >
                         {

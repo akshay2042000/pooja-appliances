@@ -34,7 +34,8 @@ const LoginForm = () => {
                 width: ['80%', '400px'],    
                 margin: 'auto',
                 padding: 4, background: 'linear-gradient(125.56deg, rgba(255, 255, 255, 0.35) 16.45%, rgba(255, 255, 255, 0.1) 70.19%)', borderRadius: 3, backdropFilter: 'blur(10px)', boxShadow: '0px 4px 24px -1px rgba(0, 0, 0, 0.2)',
-                borderImageSource: 'linear-gradient(119.63deg, #FFFFFF 17.47%, rgba(81, 143, 205, 0) 42.78%, rgba(81, 143, 205, 0) 68.49%, rgba(81, 143, 205, 0.49) 92.25%)'
+                backgroundImage: 'linear-gradient(125.56deg, rgba(24, 26, 27, 0.45) 16.45%, rgba(24, 26, 27, 0.3) 70.19%)',
+                border: '1px solid rgba(255, 255, 255, 0.125)'
             }}>
 
                 <Typography variant="h3" textAlign='center' color="common.white">Sign In</Typography>

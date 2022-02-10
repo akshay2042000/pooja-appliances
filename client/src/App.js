@@ -48,7 +48,6 @@ function App() {
                 </Route>
                 <Route path='/login' element={<LoginPage />} />
                 <Route path="*" element={<NotFoundPage />} />
-                {/* </Route> */}
             </Routes>
         </ThemeProvider >
     );

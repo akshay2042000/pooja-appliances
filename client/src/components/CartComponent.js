@@ -1,6 +1,8 @@
 import { Box, Grid, Typography, Container, Paper, styled, Button, Divider } from '@mui/material'
-import React from 'react'
-import CartItemTable from './CartItemTable';
+import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux';
+import SingleCartItem from './SingleCartItem';
+
 
 
 const StyledBox = styled(Box)(({ theme }) => ({
@@ -8,15 +10,27 @@ const StyledBox = styled(Box)(({ theme }) => ({
     padding: theme.spacing(2, 1)
 }))
 
-
-
 const CartComponent = () => {
+
+
+    const applianceState = useSelector(state => state.applianceState);
+    const appliances = applianceState.appliances;
+    const cartState = useSelector(state => state.cartState);
+    const cart = cartState[appliances];
+
+
     return (
         <>
             <Container fixed disableGutters={true}>
                 <Grid sx={{ my: 8 }} container >
                     <Grid item xs={12} md={8} sx={{ p: 1 }}>
-                        <CartItemTable/>
+                        <Paper variant='outlined' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly' }}>
+                            {
+                                cart.items.map((item, i) => (
+                                    <SingleCartItem key={i} item={{ ...item, index: i }} />
+                                ))
+                            }
+                        </Paper>
                     </Grid>
                     <Grid item xs={12} md={4} sx={{ p: 1 }} >
                         <Paper variant='outlined' sx={{ mb: 4, p: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly' }}>
@@ -24,7 +38,7 @@ const CartComponent = () => {
                             <Divider variant="middle" sx={{ my: 1, width: '100%' }} />
                             <StyledBox >
                                 <Typography variant="body1" color="initial" >Total</Typography>
-                                <Typography variant="body1" color="initial">₹1200</Typography>
+                                <Typography variant="body1" color="initial">{cart.total}</Typography>
                             </StyledBox>
                             <StyledBox >
                                 <Typography variant="body1" color="initial" >Gst</Typography>
