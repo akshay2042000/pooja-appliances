@@ -10,7 +10,7 @@ const RelatedProducts = ({ products }) => {
                 !products ?
                     (<LoadingComponent />)
                     :
-                    (<Box sx={{ py: 8, px: 5 }}>
+                    (<Box sx={{ py: 8, px: 0 }}>
                         <Typography mb={2} textAlign='center' variant="h2" fontWeight='bold' color="initial">Related Products</Typography>
                         <Box sx={{ py: 4 }}>
                             <ProductsGrid products={products} />

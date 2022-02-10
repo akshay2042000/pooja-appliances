@@ -4,14 +4,15 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { useSelector, useDispatch } from 'react-redux';
 import { addItem, removeItem, updateItem } from '../redux/cartSlice';
+import { useParams } from 'react-router-dom';
 
 
-const CartItemForm = ({ product }) => {
+const CartItemForm = ({ index }) => {
     const max = 100;
-    const applianceState = useSelector(state => state.applianceState);
-    const appliances = applianceState.appliances;
+    const { app } = useParams()
     const cartState = useSelector(state => state.cartState);
-    const cart = cartState[appliances];
+    const cart = cartState[app];
+    const product = cart.items[index];
     const dispatch = useDispatch();
 
     const handleChange = (e, changeQuantity) => {

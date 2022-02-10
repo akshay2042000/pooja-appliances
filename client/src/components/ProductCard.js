@@ -26,7 +26,7 @@ const ProductCard = ({ product }) => {
             {
                 !product ?
                     (
-                        <CardSkeleton/>
+                        <CardSkeleton />
                     )
                     :
                     (

@@ -6,7 +6,7 @@ const initialState = {
     isLoading: true,
     error: null,
     selectedProduct: null,
-    selectedProductLoading: false,
+    selectedProductLoading: true,
     selectedProductError: null,
 }
 
@@ -24,7 +24,7 @@ const productSlice = createSlice({
         },
         getProductsError: (state, action) => {
             state.error = action.payload;
-            state.products=[];
+            state.products = [];
         },
         getSelectedProduct: (state, action) => {
             state.selectedProduct = action.payload;
@@ -35,9 +35,8 @@ const productSlice = createSlice({
         },
         getSelectedProductError: (state, action) => {
             state.selectedProductError = action.payload;
-            state.products=[];
-        }
-
+            state.products = [];
+        },
     }
 })
 
@@ -59,11 +58,11 @@ export const fetchProductsThunk = (appliance, cat, comp) => async (dispatch) => 
 
 }
 
-export const fetchSelectedProductThunk = () => async (dispatch) => {
+export const fetchSelectedProductThunk = (id) => async (dispatch) => {
     dispatch(getSelectedProductLoading(true));
     try {
-        const { data } = await Api.getSelectedProduct();
-        dispatch(getSelectedProduct(data.data));
+        const { data } = await Api.getSingleProduct(id);
+        dispatch(getSelectedProduct({ ...data.data, quantity: 1, unit: data.data.units[0], size: data.data.variants.sizes[0], color: data.data.variants.colors[0] }));
         dispatch(getSelectedProductLoading(false));
     } catch (err) {
         dispatch(getSelectedProductError(err));

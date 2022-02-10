@@ -1,10 +1,13 @@
 import React from 'react'
 import { Box, CardActions, Container, FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { getSelectedProduct } from '../redux/productSlice';
+
 
 const SizeAndColorForm = ({ product, form, setForm }) => {
 
     const handleChange = (e) => {
-        setForm({ ...form, [e.target.name]: e.target.value })
+        setForm({ ...form, [e.target.name]: JSON.parse(e.target.value) })
     }
 
     return (
@@ -16,10 +19,11 @@ const SizeAndColorForm = ({ product, form, setForm }) => {
                             Color
                         </Typography>
                     </InputLabel>
+
                     <Select
                         labelId="color-label"
                         id="color"
-                        value={form.color}
+                        value={JSON.stringify(form.color)}
                         name="color"
                         onChange={(e) => handleChange(e)}
                         label="color"
@@ -27,7 +31,7 @@ const SizeAndColorForm = ({ product, form, setForm }) => {
                     >
                         {
                             product.variants.colors.map((color, i) => (
-                                <MenuItem key={i} value={color}>
+                                <MenuItem key={i} value={JSON.stringify(color)}>
                                     <Box sx={{ width: '25px', height: '25px', backgroundColor: color.hex, borderRadius: '50%' }} />
                                 </MenuItem>
                             ))
@@ -46,14 +50,14 @@ const SizeAndColorForm = ({ product, form, setForm }) => {
                         labelId="size-label"
                         id="size"
                         name="size"
-                        value={form.size}
+                        value={JSON.stringify(form.size)}
                         onChange={(e) => handleChange(e)}
                         label="size"
                         sx={{ textTransform: 'capitalize' }}
                     >
                         {
                             product.variants.sizes.map((size, i) => (
-                                <MenuItem key={i} value={size}>{size.val}</MenuItem>
+                                <MenuItem key={i} value={JSON.stringify(size)}>{size.val}</MenuItem>
                             ))
                         }
 

@@ -1,6 +1,7 @@
 import { Box, Grid, Typography, Container, Paper, styled, Button, Divider } from '@mui/material'
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import SingleCartItem from './SingleCartItem';
 
 
@@ -12,11 +13,9 @@ const StyledBox = styled(Box)(({ theme }) => ({
 
 const CartComponent = () => {
 
-
-    const applianceState = useSelector(state => state.applianceState);
-    const appliances = applianceState.appliances;
+    const { app } = useParams()
     const cartState = useSelector(state => state.cartState);
-    const cart = cartState[appliances];
+    const cart = cartState[app];
 
 
     return (
@@ -27,7 +26,7 @@ const CartComponent = () => {
                         <Paper variant='outlined' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly' }}>
                             {
                                 cart.items.map((item, i) => (
-                                    <SingleCartItem key={i} item={{ ...item, index: i }} />
+                                    <SingleCartItem key={i} index={i} />
                                 ))
                             }
                         </Paper>

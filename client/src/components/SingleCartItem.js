@@ -1,20 +1,18 @@
 import { Box, Button, Card, CardMedia, IconButton, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import CartItemForm from './CartItemForm';
 import { addItem, removeItem } from '../redux/cartSlice';
 
 
-const SingleCartItem = ({ item }) => {
+const SingleCartItem = ({ index }) => {
 
-    const applianceState = useSelector(state => state.applianceState);
-    const appliances = applianceState.appliances;
+    const { app } = useParams()
     const cartState = useSelector(state => state.cartState);
-    const cart = cartState[appliances];
+    const cart = cartState[app];
+    const item = cart.items[index];
     const dispatch = useDispatch();
-
-
 
     const removeFromCart = () => {
         dispatch(removeItem({ ...item }))
@@ -29,7 +27,7 @@ const SingleCartItem = ({ item }) => {
                     <Card variant='' sx={{
                         px: [1, 3], py: [3], display: 'flex'
                     }}>
-                        <Link to={`/${appliances}/products/${item._id}`} >
+                        <Link to={`/${app}/products/${item._id}`} >
                             <CardMedia
                                 sx={{ borderRadius: 1, width: 100, height: '100%' }}
                                 component="img"
@@ -52,7 +50,7 @@ const SingleCartItem = ({ item }) => {
                         </Box>
                     </Card>
 
-                    <CartItemForm product={item} />
+                    <CartItemForm index={index} />
 
 
                 </Box>

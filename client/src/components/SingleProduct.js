@@ -8,16 +8,23 @@ import SizeAndColorForm from './SizeAndColorForm';
 import { Link } from 'react-router-dom';
 import CarouselComp from './CarouselComp';
 import SingleProductSkeleton from './Skeletons/SingleProductSkeleton';
+import { useDispatch, useSelector } from 'react-redux';
+import SingleProductForm from './SingleProductForm';
 
 
 
-const SingleProduct = ({ product, form, setForm }) => {
+const SingleProduct = () => {
     const { app } = useParams()
+
+    const productState = useSelector(state => state.productState)
+    const product = productState.selectedProduct;
+
+
 
     return (
         <>
             {
-                !product ?
+                productState.selectedProductLoading ?
                     <SingleProductSkeleton />
 
                     :
@@ -37,8 +44,8 @@ const SingleProduct = ({ product, form, setForm }) => {
 
                                 <Box sx={{ height: 'fit-content', px: 2, py: [2, 2, 0] }}>
                                     <CardContent>
-                                        <Typography gutterBottom variant="h5" sx={{ textTransform: 'capitalize' }} >
-                                            {`${product.name} - ${form.color.name} (${form.size.val})`}
+                                        <Typography gutterBottom variant="h5" color='common.black' sx={{ textTransform: 'capitalize' }} >
+                                            {`${product.name} - ${product.color.name} (${product.size.val})`}
                                         </Typography>
                                         <Typography variant="body1" component='div' sx={{ textTransform: 'capitalize' }}>
                                             {product.company.name}
@@ -67,11 +74,12 @@ const SingleProduct = ({ product, form, setForm }) => {
                                                 ))
                                             }
                                         </Box>
-                                        <Typography mt={1} variant="price" component='div' color='text.primary'>₹{form.size.price} </Typography>
+                                        <Typography mt={1} variant="price" component='div' color='text.primary'>₹{product.size.price} </Typography>
                                     </CardContent>
                                     <Box sx={{ px: 2 }}>
-                                        <SizeAndColorForm product={product} form={form} setForm={setForm} />
-                                        <AddToCartComp product={product} form={form} setForm={setForm} />
+                                        {/* <SizeAndColorForm product={product} />
+                                        <AddToCartComp product={product} /> */}
+                                        <SingleProductForm />
                                     </Box>
 
                                 </Box>
