@@ -34,13 +34,15 @@ export default companySlice.reducer;
 //  thunks
 
 export const fetchCompaniesThunk = (appliances) => async (dispatch) => {
-    dispatch(getCompaniesLoading(true));
-    try {
-        const { data } = await Api.getCompanies(appliances);
-        dispatch(getCompanies(data.data));
-        dispatch(getCompaniesLoading(false));
-    } catch (err) {
-        dispatch(getCompaniesError(err));
-        dispatch(getCompaniesLoading(false));
-    }
+    if (appliances === 'pooja' || appliances === 'creative' || appliances === '') {
+        dispatch(getCompaniesLoading(true));
+        try {
+            const { data } = await Api.getCompanies(appliances);
+            dispatch(getCompanies(data.data));
+            dispatch(getCompaniesLoading(false));
+        } catch (err) {
+            dispatch(getCompaniesError(err));
+            dispatch(getCompaniesLoading(false));
+        }
+    } 
 } 

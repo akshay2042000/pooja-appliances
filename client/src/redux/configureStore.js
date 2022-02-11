@@ -3,6 +3,7 @@ import companyReducer from './companySlice';
 import categoryReducer from './categorySlice';
 import applianceReducer from './applianceSlice';
 import productReducer from './productSlice';
+import userReducer from './userSlice';
 import cartReducer from './cartSlice';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
@@ -15,13 +16,14 @@ const rootReducer = combineReducers({
     categoryState: categoryReducer,
     applianceState: applianceReducer,
     productState: productReducer,
-    cartState: cartReducer
+    cartState: cartReducer,
+    userState: userReducer
 })
 
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['cartState']
+    whitelist: ['cartState', 'userState']
 }
 
 

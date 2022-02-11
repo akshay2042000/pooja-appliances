@@ -34,13 +34,16 @@ export default companySlice.reducer;
 //  thunks
 
 export const fetchCategoriesThunk = (appliances) => async (dispatch) => {
-    dispatch(getCategoriesLoading(true));
-    try {
-        const { data } = await Api.getCategories(appliances);
-        dispatch(getCategories(data.data));
-        dispatch(getCategoriesLoading(false));
-    } catch (err) {
-        dispatch(getCategoriesError(err));
-        dispatch(getCategoriesLoading(false));
+    if(appliances === 'pooja' || appliances === 'creative' || appliances === ''){
+        dispatch(getCategoriesLoading(true));
+        try {
+            const { data } = await Api.getCategories(appliances);
+            dispatch(getCategories(data.data));
+            dispatch(getCategoriesLoading(false));
+        } catch (err) {
+            dispatch(getCategoriesError(err));
+            dispatch(getCategoriesLoading(false));
+        }
     }
+   
 } 

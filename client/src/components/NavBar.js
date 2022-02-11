@@ -9,7 +9,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import { Alert, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Paper, Snackbar, TextField, Tooltip } from '@mui/material';
 import { StyledAppBar, Search, SearchIconWrapper, StyledInputBase } from '../styles/navbarStyles';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { styled, alpha, useTheme } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
@@ -17,12 +17,16 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { fetchSearchedProducts } from '../redux/productSlice';
 import LoadingComponent from './Skeletons/LoadingComponent';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import LogoutIcon from '@mui/icons-material/Logout';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import { addItem } from '../redux/cartSlice';
+import { logoutThunk } from '../redux/userSlice';
+import decode from 'jwt-decode';
 
 const NavBar = () => {
     const applianceState = useSelector(state => state.applianceState);
     const appliances = applianceState.appliances;
+    const { currentUser } = useSelector(state => state.userState);
     const cartState = useSelector(state => state.cartState);
     const count = cartState[appliances]?.count || 0;
     const dispatch = useDispatch();
@@ -34,7 +38,7 @@ const NavBar = () => {
     const [open, setOpen] = useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-
+    const location = useLocation();
     const productState = useSelector(state => state.productState);
     const { searchedProducts, searchedProductsLoading } = productState;
 
@@ -56,10 +60,22 @@ const NavBar = () => {
         setSearchKey('');
     }
 
+    const logout = () => {
+        dispatch(logoutThunk());
+    }
+
     useEffect(() => {
         dispatch(fetchSearchedProducts(appliances, searchKey));
     }, [searchKey])
 
+    useEffect(() => {
+        if (currentUser) {
+            const decodedToken = decode(currentUser.accessToken)
+            if (decodedToken.exp * 1000 < new Date().getTime()) {
+                logout();
+            }
+        }
+    }, [location]);
 
     // Snackbar
 
@@ -105,13 +121,31 @@ const NavBar = () => {
                     </Search>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: 'flex' }}>
-                        <Tooltip title="login" arrow>
-                            <NavLink to='/login'>
-                                <IconButton color='inherit' size="large">
-                                    <AccountCircle />
-                                </IconButton>
-                            </NavLink>
-                        </Tooltip>
+                        {
+                            currentUser ?
+                                (
+                                    <>
+                                        <Tooltip title="logout" arrow>
+                                            <IconButton color='inherit' size="large" onClick={logout}>
+                                                <LogoutIcon />
+                                            </IconButton>
+                                        </Tooltip>
+                                    </>
+                                )
+                                :
+                                (
+                                    <>
+                                        <Tooltip title="login" arrow>
+                                            <NavLink to={`/${appliances}/login`}>
+                                                <IconButton color='inherit' size="large">
+                                                    <AccountCircle />
+                                                </IconButton>
+                                            </NavLink>
+                                        </Tooltip>
+                                    </>
+                                )
+
+                        }
                         <NavLink to={`/${appliances}/cart`}>
                             <IconButton size="large" color="inherit">
                                 <Badge badgeContent={count} color="secondary">

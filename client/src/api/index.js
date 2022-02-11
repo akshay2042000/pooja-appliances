@@ -1,6 +1,18 @@
 import axios from 'axios';
 const baseUrl = process.env.NODE_ENV === 'development' ? 'https://localhost:5443' : 'http://localhost:3001/api/';
 
+
+axios.interceptors.request.use((req) => {
+    const userState = JSON.parse(localStorage.getItem('persist:root'))?.userState;
+
+    if (userState && JSON.parse(userState).currentUser) {
+        const token = JSON.parse(userState).currentUser.accessToken
+        req.headers.Authorization = `Bearer ${token}`;
+    }
+
+    return req;
+});
+
 const getCompanies = (appliances) => {
     return axios.get(`${baseUrl}/companies?app=${appliances}`);
 }
@@ -26,6 +38,9 @@ const getRelatedProducts = (appliances, company, categories) => {
     })
     return axios.get(`${baseUrl}/products/related?app=${appliances}&company=${company}${str}`);
 }
+const login = (username, password) => {
+    return axios.post(`${baseUrl}/auth/login`, { username, password });
+}
 
 
 const Api = {
@@ -34,7 +49,8 @@ const Api = {
     getProducts,
     getSingleProduct,
     getRelatedProducts,
-    getSearchedItem
+    getSearchedItem,
+    login
 }
 
 export default Api;

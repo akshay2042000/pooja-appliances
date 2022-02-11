@@ -41,14 +41,13 @@ const FooterLinks = () => {
                             <Link to={`/${appliances}/cart`}>
                                 <Typography variant="body1" color='inherit' sx={{ '&:hover': { textDecoration: 'underline' } }}>Cart</Typography>
                             </Link>
+                            <Link to={`/${appliances}/login`}>
+                                <Typography variant="body1" color='inherit' sx={{ '&:hover': { textDecoration: 'underline' } }}>Login</Typography>
+                            </Link>
                         </>
                     )
 
                 }
-                <Link to='/login'>
-                    <Typography variant="body1" color='inherit' sx={{ '&:hover': { textDecoration: 'underline' } }}>Login</Typography>
-                </Link>
-
             </Stack>
         </Box>
     )
