@@ -11,7 +11,7 @@ import { persistStore, persistReducer } from 'redux-persist'
 import storage from "redux-persist/lib/storage";
 
 
-const rootReducer = combineReducers({
+const combinedReducer = combineReducers({
     companyState: companyReducer,
     categoryState: categoryReducer,
     applianceState: applianceReducer,
@@ -19,6 +19,13 @@ const rootReducer = combineReducers({
     cartState: cartReducer,
     userState: userReducer
 })
+
+const rootReducer = (state, action) => {
+    if (action.type === 'LOGOUT') {
+        state = undefined;
+    }
+    return combinedReducer(state, action);
+};
 
 const persistConfig = {
     key: 'root',
@@ -31,7 +38,6 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 
 export const store = configureStore({
-
     reducer: persistedReducer,
     middleware: [thunk, logger],
 })

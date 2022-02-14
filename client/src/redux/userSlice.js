@@ -45,6 +45,3 @@ export const loginThunk = (username, password) => async (dispatch) => {
     }
 };
 
-export const logoutThunk = () => async (dispatch) => {
-    dispatch(logOut());
-};

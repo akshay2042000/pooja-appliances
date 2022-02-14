@@ -7,6 +7,7 @@ import { addItem, removeItem, updateItem } from '../redux/cartSlice';
 import { useParams } from 'react-router-dom';
 
 
+
 const CartItemForm = ({ index }) => {
     const max = 100;
     const { app } = useParams()
@@ -14,12 +15,14 @@ const CartItemForm = ({ index }) => {
     const cart = cartState[app];
     const product = cart.items[index];
     const dispatch = useDispatch();
+    
 
     const handleChange = (e, changeQuantity) => {
         if (changeQuantity) {
             var quantity = parseInt(product.quantity) + changeQuantity;
-            if (quantity < 1) {
-                quantity = 1;
+            if (quantity === 0) {
+                dispatch(removeItem({ ...product }))
+                return;
             }
             if (quantity > max) {
                 quantity = max;
@@ -30,8 +33,9 @@ const CartItemForm = ({ index }) => {
 
         if (e.target.name === 'quantity') {
             var quantity;
-            if (e.target.value < 1) {
-                quantity = 1;
+            if (e.target.value === 0) {
+                dispatch(removeItem({ ...product }))
+                return;
             } else if (e.target.value > max) {
                 quantity = max;
             } else {

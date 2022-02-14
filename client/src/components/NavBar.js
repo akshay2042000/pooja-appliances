@@ -20,7 +20,6 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import LogoutIcon from '@mui/icons-material/Logout';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import { addItem } from '../redux/cartSlice';
-import { logoutThunk } from '../redux/userSlice';
 import decode from 'jwt-decode';
 
 const NavBar = () => {
@@ -41,7 +40,6 @@ const NavBar = () => {
     const location = useLocation();
     const productState = useSelector(state => state.productState);
     const { searchedProducts, searchedProductsLoading } = productState;
-
     const [openSnackbar, setOpenSnackbar] = useState(false);
 
 
@@ -61,7 +59,7 @@ const NavBar = () => {
     }
 
     const logout = () => {
-        dispatch(logoutThunk());
+        dispatch({ type: 'LOGOUT' });
     }
 
     useEffect(() => {
@@ -188,12 +186,12 @@ const NavBar = () => {
                                             return (
                                                 <Paper elevation={3} sx={{
                                                     display: 'flex',
+                                                    my:2,
                                                     flexDirection: 'row',
                                                     alignItems: 'center',
                                                     justifyContent: 'space-between',
                                                     width: '100%',
                                                     height: '100%',
-                                                    mY: '10px',
                                                     padding: 2,
                                                     cursor: 'pointer',
                                                     '&:hover': {

@@ -3,16 +3,21 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Box, CardActionArea, Container, Skeleton } from '@mui/material';
+import { Alert, Box, Button, CardActionArea, Container, Skeleton, Snackbar } from '@mui/material';
 import { Link } from 'react-router-dom';
 import AddToCartComp from './AddToCartComp';
 import { useLocation, useParams } from 'react-router-dom';
 import SizeAndColorForm from './SizeAndColorForm';
 import Chip from '@mui/material/Chip';
 import CardSkeleton from './Skeletons/CardSkeleton';
+import { addItem } from '../redux/cartSlice';
+import { useDispatch, useSelector } from 'react-redux'
+
+
 
 const ProductCard = ({ product }) => {
     const { app } = useParams()
+    const dispatch = useDispatch()
 
     const [form, setForm] = useState({
         size: product?.variants?.sizes[0],
@@ -20,6 +25,14 @@ const ProductCard = ({ product }) => {
         quantity: 1,
         unit: product?.units[0],
     })
+    const [open, setOpen] = useState(false);
+    const handleClose = () => {
+        setOpen(false);
+    }
+    const addToCart = () => {
+        dispatch(addItem({ ...product, ...form, app: app }))
+        setOpen(true);
+    }
 
     return (
         <>
@@ -76,9 +89,21 @@ const ProductCard = ({ product }) => {
                                 <Typography mt={1} variant="price" component='div' color='text.primary'>₹{form.size.price} </Typography>
                             </CardContent>
 
-                            <SizeAndColorForm product={product} form={form} setForm={setForm} />
-                            <AddToCartComp product={product} form={form} setForm={setForm} />
+                            {/* <SizeAndColorForm product={product} form={form} setForm={setForm} />
+                            <AddToCartComp product={product} form={form} setForm={setForm} /> */}
+                            <Button size="large" sx={{ width: '100%' }} variant='contained' color="secondary"  onClick={addToCart}>
+                                Add To Cart
+                            </Button>
 
+                            <Snackbar
+                                open={open}
+                                autoHideDuration={2000}
+                                onClose={handleClose}
+                            >
+                                <Alert variant='filled' severity="success" sx={{ width: '100%' }}>
+                                    Added To Cart!!
+                                </Alert>
+                            </Snackbar>
                         </Card>
                     )
 

@@ -21,7 +21,12 @@ const cartSlice = createSlice({
         addItem: (state, action) => {
             const payload = action.payload;
             const app = payload.app
+            const index = state[app].items.findIndex(item => (item._id + item.size.val + item.color.name + item.unit) === (payload._id + payload.size.val + payload.color.name + payload.unit))
+            if(index >= 0){
+               state[app].items[index]= { ...state[app].items[index], quantity: (state[app].items[index].quantity + payload.quantity) }
+            }else{
             state[app].items.push(payload);
+            }
             state[app].count += payload.quantity;
             state[app].total += payload.quantity * payload.size.price;
         },
@@ -29,7 +34,7 @@ const cartSlice = createSlice({
             const payload = action.payload;
             const app = payload.app
             const index = state[app].items.findIndex(item => (item._id + item.size.val + item.color.name + item.unit) === (payload._id + payload.size.val + payload.color.name + payload.unit))
-            
+
             state[app].items.splice(index, 1);
             state[app].count -= payload.quantity;
             state[app].total -= payload.quantity * payload.size.price;
@@ -51,10 +56,13 @@ const cartSlice = createSlice({
             }
 
             state[app].items[index] = { ...state[app].items[index], [payload.targetName]: payload.targetValue }
+        },
+        clearCart: () => {
+            return initialState;
         }
     }
 })
 
-export const { addItem, removeItem, updateItem } = cartSlice.actions;
+export const { addItem, removeItem, updateItem, clearCart } = cartSlice.actions;
 export default cartSlice.reducer;
 

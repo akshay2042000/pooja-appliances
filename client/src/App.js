@@ -21,12 +21,13 @@ function App() {
     const dispatch = useDispatch();
     let { pathname } = useLocation();
     pathname = pathname.split('/')[1];
+    const { currentUser } = useSelector(state => state.userState);
 
     useEffect(() => {
         dispatch(fetchCompaniesThunk(pathname));
         dispatch(fetchCategoriesThunk(pathname));
         dispatch(setAppliances(pathname));
-    }, [pathname])
+    }, [pathname, currentUser])
 
     return (
         <ThemeProvider theme={theme}>

@@ -48,7 +48,7 @@ const LoginForm = () => {
                 bottom: '20%'
             }} />
             <Box sx={{
-                width: ['80%', '400px'],
+                width: ['80%', '400px','500px'],
                 margin: 'auto',
                 height: '70vh',
                 padding: 4, background: 'linear-gradient(125.56deg, rgba(255, 255, 255, 0.35) 16.45%, rgba(255, 255, 255, 0.1) 70.19%)', borderRadius: 3, backdropFilter: 'blur(10px)', boxShadow: '0px 4px 24px -1px rgba(0, 0, 0, 0.2)',
@@ -62,7 +62,7 @@ const LoginForm = () => {
                     justifyContent: 'space-evenly',
                     height: '100%'
                 }}>
-                    <Typography variant="h3" textAlign='center' color="common.white">Sign In</Typography>
+                    <Typography variant="h3" textAlign='center' color="common.white" mb={2}>Sign In</Typography>
 
                     <TextField
                         id='username'
@@ -106,7 +106,7 @@ const LoginForm = () => {
 
                         )
                     }
-                    <Button onClick={(e) => login(e)} variant="contained" color="secondary" disabled={isFetching} sx={{ width: '150px', mx: 'auto', mt: 4, py: 2, height: '60px' }}>
+                    <Button  type="submit" onClick={(e) => login(e)} variant="contained" color="secondary" disabled={isFetching} sx={{ width: '150px', mx: 'auto', mt: 4, py: 2, height: '60px' }}>
                         {isFetching ? (
                             <CircularProgress color="secondary" />
                         ) : 'Sign In'}
