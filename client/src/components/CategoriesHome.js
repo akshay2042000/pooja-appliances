@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import SingleCategory from './SingleCategory.js';
 import Api from '../api/index'
 import LoadingComponent from './Skeletons/LoadingComponent.js';
+import SingleCategorySkeleton from './Skeletons/SingleCategorySkeleton.js';
 
 
 const CategoriesHome = () => {
@@ -15,8 +16,32 @@ const CategoriesHome = () => {
         <Paper id="categories" elevation={0} sx={{ borderRadius: 1, mt: 6 }}>
             <Container disableGutters={true} fixed>
                 {
-                    categoryState.loading? (
-                        <LoadingComponent/>
+                    categoryState.loading ? (
+
+
+                        <Grid container spacing={3} padding={2}>
+                            {
+                                Array(8).fill().map((_, i) => {
+                                    return (
+                                        <Grid item xs={6} sm={4} md={3} key={i}>
+                                            <SingleCategorySkeleton />
+                                        </Grid>
+                                    )
+                                })
+
+                            }
+                            {
+                                categories.map((category, index) => {
+                                    return (
+                                        <Grid item xs={6} sm={4} md={3} key={index}>
+                                            <Link to={`products?cat=${category._id}`} >
+                                                <SingleCategory category={category} />
+                                            </Link>
+                                        </Grid>
+                                    )
+                                })
+                            }
+                        </Grid>
                     ) : (
                         <Grid container spacing={3} padding={2}>
                             {

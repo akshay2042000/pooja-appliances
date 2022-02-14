@@ -1,6 +1,8 @@
-import { CircularProgress, styled } from '@mui/material'
+import { Box, styled } from '@mui/material'
 import React from 'react'
-import { Bars } from 'react-loader-spinner'
+import CircularProgress, {
+    circularProgressClasses,
+} from '@mui/material/CircularProgress';
 
 
 const StyledLoader = styled('div')(({ theme }) => ({
@@ -13,13 +15,36 @@ const StyledLoader = styled('div')(({ theme }) => ({
 
 const LoadingComponent = ({ heigth }) => {
     return (
-        <div>
-            <StyledLoader >
-                {/* <Bars height={height ? height : 100} width={width ? width : 100} /> */}
-                <CircularProgress color="primary" size={100} thickness={4}/>
-            </StyledLoader>
+        <StyledLoader >
+            <Box sx={{ position: 'relative' }}>
+                <CircularProgress
+                    variant="determinate"
+                    sx={{
+                        color: (theme) =>
+                            theme.palette.grey[theme.palette.mode === 'light' ? 200 : 800],
+                    }}
+                    size={60}
+                    thickness={4}
+                    value={100}
+                />
+                <CircularProgress
+                    variant="indeterminate"
+                    disableShrink
+                    sx={{
+                        color: 'primary.main',
+                        animationDuration: '550ms',
+                        position: 'absolute',
+                        left: 0,
+                        [`& .${circularProgressClasses.circle}`]: {
+                            strokeLinecap: 'round',
+                        },
+                    }}
+                    size={60}
+                    thickness={4}
+                />
+            </Box>
+        </StyledLoader>
 
-        </div>
     )
 }
 
