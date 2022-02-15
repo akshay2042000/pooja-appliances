@@ -7,7 +7,7 @@ import Badge from '@mui/material/Badge';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
-import { Alert, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, InputLabel, MenuItem, Paper, Select, Snackbar, TextField, Tooltip } from '@mui/material';
+import { Alert, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, InputLabel, Menu, MenuItem, Paper, Select, Snackbar, TextField, Tooltip } from '@mui/material';
 import { StyledAppBar, Search, SearchIconWrapper, StyledInputBase } from '../styles/navbarStyles';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,6 +23,11 @@ import { addItem } from '../redux/cartSlice';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import decode from 'jwt-decode';
+
+
+import MailIcon from '@mui/icons-material/Mail';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import MoreIcon from '@mui/icons-material/MoreVert';
 
 const NavBar = () => {
     const applianceState = useSelector(state => state.applianceState);
@@ -44,6 +49,21 @@ const NavBar = () => {
     const { searchedProducts, searchedProductsLoading } = productState;
     const [openSnackbar, setOpenSnackbar] = useState(false);
 
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+
+    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+    const handleMobileMenuClose = () => {
+        setMobileMoreAnchorEl(null);
+    };
+
+    const handleMobileMenuOpen = (event) => {
+        setMobileMoreAnchorEl(event.currentTarget);
+    };
+    const mobileMenuId = 'primary-search-account-menu-mobile';
+
+
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -63,6 +83,84 @@ const NavBar = () => {
     const logout = () => {
         dispatch({ type: 'LOGOUT' });
     }
+
+
+
+    const renderMobileMenu = (
+        <Menu
+            anchorEl={mobileMoreAnchorEl}
+            anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            id={mobileMenuId}
+            keepMounted
+            transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            open={isMobileMenuOpen}
+            onClose={handleMobileMenuClose}
+        >
+
+            {
+                currentUser ?
+                    (
+
+                        <MenuItem onClick={() => {
+                            logout();
+                            handleMobileMenuClose();
+                        }}>
+                            <IconButton color='inherit' size="large" onClick={logout}>
+                                <LogoutIcon />
+                            </IconButton>
+                            <p>Logout</p>
+                        </MenuItem>
+
+                    )
+                    :
+                    (
+                        <NavLink to={`/${appliances}/login`}>
+                            <MenuItem onClick={handleMobileMenuClose}>
+                                <IconButton color='inherit' size="large" onClick={() => navigate(`/${appliances}/login`)}>
+                                    <AccountCircle />
+                                </IconButton>
+                                <p>Login</p>
+                            </MenuItem>
+                        </NavLink>
+
+                    )
+            }
+
+            <NavLink to={`/${appliances}/cart`}>
+                <MenuItem onClick={handleMobileMenuClose}>
+                    <IconButton size="large" color="inherit">
+                        <Badge badgeContent={count} color="secondary">
+                            <ShoppingBagIcon />
+                        </Badge>
+                    </IconButton>
+                    <p>Cart</p>
+                </MenuItem>
+            </NavLink>
+
+            {
+                currentUser?.isAdmin &&
+                (
+                    <NavLink to={`/admin`}>
+                        <MenuItem onClick={handleMobileMenuClose}>
+                            <Tooltip title="Admin Console" arrow>
+                                <IconButton color='inherit' size="large">
+                                    <AdminPanelSettingsIcon />
+                                </IconButton>
+                            </Tooltip>
+                            <p>Console</p>
+                        </MenuItem>
+                    </NavLink>
+                )
+            }
+        </Menu>
+    );
+
 
     useEffect(() => {
         dispatch(fetchSearchedProducts(appliances, searchKey));
@@ -121,7 +219,7 @@ const NavBar = () => {
                     </Search>
                     <Box sx={{ flexGrow: 1 }} >
                     </Box>
-                    <Box>
+                    <Box sx={{ mr: { xs: 0, md: 4 } }}>
                         <Tooltip arrow title={`Switch to ${appliances === 'creative' ? 'pooja' : 'creative'}`}>
                             <Button size='small' variant="contained" color="secondary" onClick={() => navigate(`/${appliances === 'creative' ? 'pooja' : 'creative'}`)}>
                                 <AutorenewIcon sx={{ mr: 1 }} />
@@ -129,7 +227,7 @@ const NavBar = () => {
                             </Button>
                         </Tooltip>
                     </Box>
-                    <Box sx={{ display: 'flex' }}>
+                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
 
                         {
                             currentUser?.isAdmin &&
@@ -137,7 +235,7 @@ const NavBar = () => {
                                 <>
                                     <Tooltip title="Admin Console" arrow>
                                         <IconButton color='inherit' size="large" onClick={() => navigate(`/admin`)}>
-                                            <AdminPanelSettingsIcon/>
+                                            <AdminPanelSettingsIcon />
                                         </IconButton>
                                     </Tooltip>
                                 </>
@@ -177,8 +275,23 @@ const NavBar = () => {
                             </IconButton>
                         </NavLink>
                     </Box>
+
+
+                    <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+                        <IconButton
+                            size="large"
+                            aria-label="show more"
+                            aria-controls={mobileMenuId}
+                            aria-haspopup="true"
+                            onClick={handleMobileMenuOpen}
+                            color="inherit"
+                        >
+                            <MoreIcon />
+                        </IconButton>
+                    </Box>
                 </Toolbar>
             </StyledAppBar >
+            {renderMobileMenu}
 
             <Dialog scroll={'body'} open={open} fullWidth={true} fullScreen={fullScreen} onClose={handleClose} sx={{
                 backdropFilter: "blur(5px)",
