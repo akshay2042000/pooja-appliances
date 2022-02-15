@@ -36,8 +36,7 @@ export const loginThunk = (username, password) => async (dispatch) => {
     dispatch(loginStart());
     try {
         const { data } = await Api.login(username, password);
-        const { isAdmin, ...otherData } = data;
-        dispatch(loginSuccess(otherData));
+        dispatch(loginSuccess(data));
 
     }
     catch (err) {

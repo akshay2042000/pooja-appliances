@@ -7,7 +7,7 @@ import Badge from '@mui/material/Badge';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
-import { Alert, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Paper, Snackbar, TextField, Tooltip } from '@mui/material';
+import { Alert, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, InputLabel, MenuItem, Paper, Select, Snackbar, TextField, Tooltip } from '@mui/material';
 import { StyledAppBar, Search, SearchIconWrapper, StyledInputBase } from '../styles/navbarStyles';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,6 +20,8 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import LogoutIcon from '@mui/icons-material/Logout';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import { addItem } from '../redux/cartSlice';
+import AutorenewIcon from '@mui/icons-material/Autorenew';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import decode from 'jwt-decode';
 
 const NavBar = () => {
@@ -117,8 +119,31 @@ const NavBar = () => {
                         </SearchIconWrapper>
                         <StyledInputBase placeholder='Search...' value={searchKey} onClick={handleClickOpen} onChange={handleClickOpen} />
                     </Search>
-                    <Box sx={{ flexGrow: 1 }} />
+                    <Box sx={{ flexGrow: 1 }} >
+                    </Box>
+                    <Box>
+                        <Tooltip arrow title={`Switch to ${appliances === 'creative' ? 'pooja' : 'creative'}`}>
+                            <Button size='small' variant="contained" color="secondary" onClick={() => navigate(`/${appliances === 'creative' ? 'pooja' : 'creative'}`)}>
+                                <AutorenewIcon sx={{ mr: 1 }} />
+                                {appliances === 'creative' ? 'Pooja' : 'Creative'}
+                            </Button>
+                        </Tooltip>
+                    </Box>
                     <Box sx={{ display: 'flex' }}>
+
+                        {
+                            currentUser?.isAdmin &&
+                            (
+                                <>
+                                    <Tooltip title="Admin Console" arrow>
+                                        <IconButton color='inherit' size="large" onClick={() => navigate(`/admin`)}>
+                                            <AdminPanelSettingsIcon/>
+                                        </IconButton>
+                                    </Tooltip>
+                                </>
+                            )
+                        }
+
                         {
                             currentUser ?
                                 (
