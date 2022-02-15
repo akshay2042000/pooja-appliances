@@ -186,7 +186,7 @@ const NavBar = () => {
                                             return (
                                                 <Paper elevation={3} sx={{
                                                     display: 'flex',
-                                                    my:2,
+                                                    my: 2,
                                                     flexDirection: 'row',
                                                     alignItems: 'center',
                                                     justifyContent: 'space-between',

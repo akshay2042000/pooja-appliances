@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import SingleCartItem from './SingleCartItem';
 import { useNavigate } from 'react-router-dom';
 import Api from '../api/index';
+import Success from './Success';
 
 
 const StyledBox = styled(Box)(({ theme }) => ({
@@ -18,14 +19,16 @@ const CartComponent = () => {
     const cartState = useSelector(state => state.cartState);
     const cart = cartState[app];
     const { currentUser } = useSelector(state => state.userState);
+    const [open, setOpen] = useState(false);
+    const [order, setOrder] = useState(null);
     const navigate = useNavigate();
 
-    const placeOrder = () => {
+    const placeOrder = async () => {
         if (currentUser) {
-            Api.placeOrder({
+            const {data} = await Api.placeOrder({
                 user: currentUser,
                 app: app,
-                items: cart.items.map(item =>{
+                items: cart.items.map(item => {
                     return {
                         product: item._id,
                         quantity: item.quantity,
@@ -36,10 +39,14 @@ const CartComponent = () => {
                 }),
                 total: cart.total,
             })
+            console.log(data)
+            setOrder(data.data)
+            setOpen(true);
+            // clear the cart
+
         } else {
             // navigate to login page
             navigate('../login')
-
         }
     }
 
@@ -81,6 +88,7 @@ const CartComponent = () => {
                     </Grid>
                 </Grid>
             </Container>
+            <Success open={open} order={order} setOpen={setOpen} />
 
         </>
     )

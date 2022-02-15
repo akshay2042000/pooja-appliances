@@ -61,7 +61,8 @@ const postOrder = async (req, res, next) => {
     const order = new Order(req.body)
 
     try {
-        const newOrder = await order.save();
+        var newOrder = await order.save();
+        newOrder = await Order.findById(newOrder._id).populate('items.product');
         res.status(201).json({
             status: 'success',
             data: newOrder,

@@ -8,7 +8,7 @@ const { verifyToken,
 
 router.route('/')
     .get(verifyTokenAndAdmin,getOrders)
-    .post(verifyTokenAndAuthorization,postOrder)
+    .post(verifyToken,postOrder)
     .put(forbiddenPut)
     .delete(verifyTokenAndAdmin,deleteOrders)
 

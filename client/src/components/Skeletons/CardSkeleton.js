@@ -34,7 +34,7 @@ const CardSkeleton = () => {
                     <Skeleton variant="text" />
                 </Typography>
             </CardContent>
-            <Skeleton sx={{ borderRadius: 1 }} height={150} />
+            <Skeleton sx={{ borderRadius: 1 }} height={30} />
         </Card>
     )
 }

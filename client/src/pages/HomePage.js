@@ -14,7 +14,7 @@ const HomePage = () => {
 
     return (
         <>
-
+        
             <CarouselComp h={'60vh'} items={companyState.companies} isLoading={companyState.loading} isHome={true} />
             <CategoriesHome />
             <Container disableGutters={true}>
