@@ -42,7 +42,7 @@ const SingleProduct = () => {
                                     <CarouselComp h={['300px', '370px', '430px']} items={product.images} isHome={false} />
                                 </CardMedia>
 
-                                <Box sx={{ height: 'fit-content', px: 2, py: [2, 2, 0] }}>
+                                <Box sx={{ height: 'fit-content', px: 2, py: [2, 2, 0], width:'100%' }}>
                                     <CardContent>
                                         <Typography gutterBottom variant="h5" color='common.black' sx={{ textTransform: 'capitalize' }} >
                                             {`${product.name} - ${product.color.name} (${product.size.val})`}

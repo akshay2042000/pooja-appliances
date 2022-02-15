@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 const Product = require('../models/products');
 const Company = require('../models/companies');
+var stringSimilarity = require("string-similarity");
+const closest_match = require("closest-match");
+
 
 const getProducts = async (req, res, next) => {
     try {
@@ -96,12 +99,23 @@ const getSearchedProducts = async (req, res, next) => {
                 data: [],
             });
         } else {
-            const regex = new RegExp("\\b" + search, "i");
             const companies = await Company.find({ app: appliances }).select('_id');
 
-            // const products = await Product.find({ $or: [{ 'name': { $regex: regex } }, { 'company': { $regex: regex } }] });
 
-            const products = await Product.find({
+            // Find all the products to find closest match 
+
+            const AllProducts = await Product.find({ //all products of the appliance
+                company: {
+                    $in: companies
+                }
+            }).select('name');
+
+            const AllProductNames = AllProducts.map(product => product.name);
+
+            // find match as per regex    
+
+            const regex = new RegExp("\\b" + search, "i");
+            var products = await Product.find({
                 $and: [{
                     company: {
                         $in: companies
@@ -113,6 +127,33 @@ const getSearchedProducts = async (req, res, next) => {
                 }]
 
             }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' });
+
+            // find match as per string similarity
+
+            var matches = stringSimilarity.findBestMatch(search, AllProductNames);
+            const closestMatches = matches.ratings.filter(match => match.rating > 0).map(match => match.target);
+
+            const closestMatchesProducts = await Product.find({
+                $and: [{
+                    company: {
+                        $in: companies
+                    }
+                }, {
+                    name: {
+                        $in: closestMatches
+                    }
+                }]
+
+            }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' });
+            products.push(...closestMatchesProducts);
+
+            //  remove duplicates from products
+           
+            products = products.filter((product, index, self) =>
+                index === self.findIndex((t) => (
+                    t.name === product.name
+                ))
+            );
 
             if (products) {
                 res.status(200).json({
