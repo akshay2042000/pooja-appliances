@@ -20,6 +20,7 @@ var hsnCodeRouter = require('./routes/hsn');
 var productRouter = require('./routes/product');
 var orderRouter = require('./routes/order');
 var authRouter = require('./routes/auth');
+var billRouter = require('./routes/bill');
 
 
 
@@ -59,6 +60,7 @@ app.use('/hsnCodes', hsnCodeRouter);
 app.use('/products', productRouter);
 app.use('/orders', orderRouter);
 app.use('/auth', authRouter);
+app.use('/bills', billRouter);
 
 
 

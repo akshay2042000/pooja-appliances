@@ -2,6 +2,7 @@
 
 const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+const cartSchema = require('./carts');
 
 var billSchema = new Schema({
     invoiceNumber: {
@@ -9,7 +10,33 @@ var billSchema = new Schema({
         required: true,
         unique: true
     },
-
+    invoiceDate: {
+        type: Date,
+        required: true
+    },
+    invoiceAmount: {
+        type: Number,
+        required: true
+    },
+    invoiceGenerated: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    app: {
+        type: String,
+        required: true,
+        enum: ['pooja', 'creative']
+    },
+    cartItemList: [{
+        type: cartSchema,
+        required: true
+    }],
 
 }, {
     timestamps: true

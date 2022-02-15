@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import SingleCartItem from './SingleCartItem';
-
+import { useNavigate } from 'react-router-dom';
+import Api from '../api/index';
 
 
 const StyledBox = styled(Box)(({ theme }) => ({
@@ -16,7 +17,31 @@ const CartComponent = () => {
     const { app } = useParams()
     const cartState = useSelector(state => state.cartState);
     const cart = cartState[app];
+    const { currentUser } = useSelector(state => state.userState);
+    const navigate = useNavigate();
 
+    const placeOrder = () => {
+        if (currentUser) {
+            Api.placeOrder({
+                user: currentUser,
+                app: app,
+                items: cart.items.map(item =>{
+                    return {
+                        product: item._id,
+                        quantity: item.quantity,
+                        size: item.size,
+                        color: item.color,
+                        unit: item.unit
+                    }
+                }),
+                total: cart.total,
+            })
+        } else {
+            // navigate to login page
+            navigate('../login')
+
+        }
+    }
 
     return (
         <>
@@ -50,7 +75,7 @@ const CartComponent = () => {
                             </StyledBox>
                         </Paper>
 
-                        <Button variant="contained" color="primary" sx={{ p: 2, minWidth: '50%' }}>
+                        <Button variant="contained" color="primary" sx={{ p: 2, minWidth: '50%' }} onClick={placeOrder}>
                             Place Order
                         </Button>
                     </Grid>

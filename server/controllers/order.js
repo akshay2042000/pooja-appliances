@@ -3,8 +3,19 @@ const Order = require('../models/orders');
 
 const getOrders = async (req, res, next) => {
     try {
-        const orders = await Order.find({});
-        if (orders) {
+        const appliances = req.query.app;
+
+        let orders
+
+        if (appliances) {
+            orders = await Order.find({
+                app: appliances
+            });
+        } else {
+            orders = await Order.find({});
+        }
+
+        if (orders && orders.length > 0) {
             res.status(200).json({
                 status: 'success',
                 data: orders,
@@ -56,10 +67,9 @@ const postOrder = async (req, res, next) => {
             data: newOrder,
         })
     }
-    catch {
-        err = new Error('Error while creating order');
-        err.status = 500;
-        next(err);
+    catch (err) {
+        res.status(500).json(err);
+        console.log(err);
     }
 }
 

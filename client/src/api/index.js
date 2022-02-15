@@ -42,6 +42,10 @@ const login = (username, password) => {
     return axios.post(`${baseUrl}/auth/login`, { username, password });
 }
 
+const placeOrder = (order) => {
+    return axios.post(`${baseUrl}/orders`, order);
+}
+
 
 const Api = {
     getCompanies,
@@ -50,7 +54,8 @@ const Api = {
     getSingleProduct,
     getRelatedProducts,
     getSearchedItem,
-    login
+    login,
+    placeOrder
 }
 
 export default Api;

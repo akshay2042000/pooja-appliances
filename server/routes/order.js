@@ -8,12 +8,12 @@ const { verifyToken,
 
 router.route('/')
     .get(verifyTokenAndAdmin,getOrders)
-    .post(verifyToken,postOrder)
+    .post(verifyTokenAndAuthorization,postOrder)
     .put(forbiddenPut)
     .delete(verifyTokenAndAdmin,deleteOrders)
 
 router.route('/:id')
-    .get(verifyTokenAndAdmin,getOrderById)
+    .get(verifyTokenAndAuthorization,getOrderById)
     .post(forbiddenPost)
     .put(verifyTokenAndAdmin,updateOrderById)
     .delete(verifyTokenAndAdmin,deleteOrderById)

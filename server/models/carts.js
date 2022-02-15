@@ -1,6 +1,30 @@
 const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+
+colorSchema = new Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    hex: {
+        type: String,
+        required: true,
+    }
+})
+
+sizeSchema = new Schema({
+    val: {
+        type: String,
+        required: true,
+    },
+    price: {
+        type: Number,
+        required: true,
+    },
+})
+
+
 var cartSchema = new Schema({
     product: {
         type: mongoose.Schema.Types.ObjectId,
@@ -15,8 +39,16 @@ var cartSchema = new Schema({
         type: Number,
         required: true,
         default: 1
-    }
+    },
+    color: {
+        type: colorSchema,
+        required: true,
+    },
+    size: {
+        type: sizeSchema,
+        required: true,
+    },
+    
 });
 // Compile model from schema
-var Cart = mongoose.model('Cart', cartSchema);
 module.exports = cartSchema;

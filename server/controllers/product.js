@@ -99,8 +99,7 @@ const getSearchedProducts = async (req, res, next) => {
                 data: [],
             });
         } else {
-            const companies = await Company.find({ app: appliances }).select('_id');
-
+            const companies = await Company.find({ app: appliances }).select('_id').catch(err=>res.status(500).json(err));
 
             // Find all the products to find closest match 
 
@@ -108,7 +107,7 @@ const getSearchedProducts = async (req, res, next) => {
                 company: {
                     $in: companies
                 }
-            }).select('name');
+            }).select('name').catch(err=>res.status(500).json(err));
 
             const AllProductNames = AllProducts.map(product => product.name);
 
@@ -126,12 +125,12 @@ const getSearchedProducts = async (req, res, next) => {
                     }
                 }]
 
-            }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' });
+            }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' }).catch(err=>res.status(500).json(err));;
 
             // find match as per string similarity
 
             var matches = stringSimilarity.findBestMatch(search, AllProductNames);
-            const closestMatches = matches.ratings.filter(match => match.rating > 0).map(match => match.target);
+            const closestMatches = matches.ratings.filter(match => match.rating > 0.2).map(match => match.target);
 
             const closestMatchesProducts = await Product.find({
                 $and: [{
@@ -144,11 +143,11 @@ const getSearchedProducts = async (req, res, next) => {
                     }
                 }]
 
-            }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' });
+            }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' }).catch(err=>res.status(500).json(err));;
             products.push(...closestMatchesProducts);
 
             //  remove duplicates from products
-           
+
             products = products.filter((product, index, self) =>
                 index === self.findIndex((t) => (
                     t.name === product.name
