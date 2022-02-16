@@ -6,7 +6,9 @@ export const StyledAppBar = styled(AppBar)(({ theme }) => ({
     '@media all': {
         minHeight: 80,
         justifyContent: 'center'
-    }
+    },
+    backgroundColor: alpha(theme.palette.primary.main, 0.9),
+    backdropFilter: 'blur(15px)'
 
 }));
 
@@ -47,9 +49,9 @@ export const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export const StyledPaper = styled(Paper)(({ theme }) => ({
-    flexWrap: 'wrap',
+    overflowX: 'auto',
     display: 'flex', alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     borderBottomLeftRadius: theme.shape.borderRadius,
     borderBottomRightRadius: theme.shape.borderRadius,
 }));

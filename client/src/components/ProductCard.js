@@ -18,6 +18,9 @@ import { useDispatch, useSelector } from 'react-redux'
 const ProductCard = ({ product }) => {
     const { app } = useParams()
     const dispatch = useDispatch()
+    const categoryState = useSelector(state => state.categoryState);
+    const categories = categoryState.categories;
+
 
     const [form, setForm] = useState({
         size: product?.variants?.sizes[0],
@@ -77,13 +80,17 @@ const ProductCard = ({ product }) => {
                                     mt: 1
                                 }}>
                                     {
-                                        product.categories.map((category, i) => (
-                                            <Typography key={i} variant="caption" sx={{ textTransform: 'capitalize', pr: 0.5 }}>
-                                                <Link to={`/${app}/products?cat=${category._id}`}>
-                                                    <Chip label={category.name} color="secondary" variant="outlined" clickable />
-                                                </Link>
-                                            </Typography>
-                                        ))
+                                        product.categories.map((category, i) => {
+                                            if (categories.find(cat => cat._id === category._id)) {
+                                                return (
+                                                    <Typography key={i} variant="caption" sx={{ textTransform: 'capitalize', pr: 0.5 }}>
+                                                        <Link to={`/${app}/products?cat=${category._id}`}>
+                                                            <Chip label={category.name} color="secondary" variant="outlined" clickable />
+                                                        </Link>
+                                                    </Typography>
+                                                )
+                                            }
+                                        })
                                     }
                                 </Box>
                                 <Typography mt={1} variant="price" component='div' color='text.primary'>₹{form.size.price} </Typography>
@@ -91,7 +98,7 @@ const ProductCard = ({ product }) => {
 
                             {/* <SizeAndColorForm product={product} form={form} setForm={setForm} />
                             <AddToCartComp product={product} form={form} setForm={setForm} /> */}
-                            <Button size="large" sx={{ width: '100%' }} variant='contained' color="secondary"  onClick={addToCart}>
+                            <Button size="large" sx={{ width: '100%' }} variant='contained' color="secondary" onClick={addToCart}>
                                 Add To Cart
                             </Button>
 

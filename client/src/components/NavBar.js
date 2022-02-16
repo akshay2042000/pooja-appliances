@@ -5,7 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Badge from '@mui/material/Badge';
 import SearchIcon from '@mui/icons-material/Search';
-import AccountCircle from '@mui/icons-material/AccountCircle';
+import LoginIcon from '@mui/icons-material/Login';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import { Alert, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, InputLabel, Menu, MenuItem, Paper, Select, Snackbar, TextField, Tooltip } from '@mui/material';
 import { StyledAppBar, Search, SearchIconWrapper, StyledInputBase } from '../styles/navbarStyles';
@@ -20,13 +20,9 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import LogoutIcon from '@mui/icons-material/Logout';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import { addItem } from '../redux/cartSlice';
-import AutorenewIcon from '@mui/icons-material/Autorenew';
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
+import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import decode from 'jwt-decode';
-
-
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 
 const NavBar = () => {
@@ -49,7 +45,6 @@ const NavBar = () => {
     const { searchedProducts, searchedProductsLoading } = productState;
     const [openSnackbar, setOpenSnackbar] = useState(false);
 
-    const [anchorEl, setAnchorEl] = useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -123,7 +118,7 @@ const NavBar = () => {
                         <NavLink to={`/${appliances}/login`}>
                             <MenuItem onClick={handleMobileMenuClose}>
                                 <IconButton color='inherit' size="large" onClick={() => navigate(`/${appliances}/login`)}>
-                                    <AccountCircle />
+                                    <LoginIcon />
                                 </IconButton>
                                 <p>Login</p>
                             </MenuItem>
@@ -148,16 +143,23 @@ const NavBar = () => {
                 (
                     <NavLink to={`/admin`}>
                         <MenuItem onClick={handleMobileMenuClose}>
-                            <Tooltip title="Admin Console" arrow>
-                                <IconButton color='inherit' size="large">
-                                    <AdminPanelSettingsIcon />
-                                </IconButton>
-                            </Tooltip>
-                            <p>Console</p>
+                            <IconButton color='inherit' size="large">
+                                <BuildCircleIcon />
+                            </IconButton>
+                            <p>Admin Console</p>
                         </MenuItem>
                     </NavLink>
                 )
             }
+
+            <NavLink to={`/${appliances === 'creative' ? 'pooja' : 'creative'}`}>
+                <MenuItem onClick={handleMobileMenuClose}>
+                    <IconButton color='inherit' size="large">
+                        <ChangeCircleIcon />
+                    </IconButton>
+                    <p>Switch to {appliances === 'creative' ? 'Pooja' : 'Creative'}</p>
+                </MenuItem>
+            </NavLink>
         </Menu>
     );
 
@@ -198,7 +200,7 @@ const NavBar = () => {
     return (
 
         <>
-            <StyledAppBar position="static">
+            <StyledAppBar position="sticky" >
                 <Toolbar>
                     <NavLink to={`/${appliances}`} >
                         <Typography
@@ -219,29 +221,12 @@ const NavBar = () => {
                     </Search>
                     <Box sx={{ flexGrow: 1 }} >
                     </Box>
-                    <Box sx={{ mr: { xs: 0, md: 4 } }}>
-                        <Tooltip arrow title={`Switch to ${appliances === 'creative' ? 'pooja' : 'creative'}`}>
-                            <Button size='small' variant="contained" color="secondary" onClick={() => navigate(`/${appliances === 'creative' ? 'pooja' : 'creative'}`)}>
-                                <AutorenewIcon sx={{ mr: 1 }} />
-                                {appliances === 'creative' ? 'Pooja' : 'Creative'}
-                            </Button>
-                        </Tooltip>
+                    <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: { xs: 0, md: 4 } }}>
+                        <Button variant="outlined" color="white" onClick={() => navigate(`/${appliances === 'creative' ? 'pooja' : 'creative'}`)}>
+                            Switch to {appliances === 'creative' ? 'Pooja' : 'Creative'}
+                        </Button>
                     </Box>
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-
-                        {
-                            currentUser?.isAdmin &&
-                            (
-                                <>
-                                    <Tooltip title="Admin Console" arrow>
-                                        <IconButton color='inherit' size="large" onClick={() => navigate(`/admin`)}>
-                                            <AdminPanelSettingsIcon />
-                                        </IconButton>
-                                    </Tooltip>
-                                </>
-                            )
-                        }
-
                         {
                             currentUser ?
                                 (
@@ -259,13 +244,25 @@ const NavBar = () => {
                                         <Tooltip title="login" arrow>
                                             <NavLink to={`/${appliances}/login`}>
                                                 <IconButton color='inherit' size="large">
-                                                    <AccountCircle />
+                                                    <LoginIcon />
                                                 </IconButton>
                                             </NavLink>
                                         </Tooltip>
                                     </>
                                 )
 
+                        }
+                        {
+                            currentUser?.isAdmin &&
+                            (
+                                <>
+                                    <Tooltip title="Admin Console" arrow>
+                                        <IconButton color='inherit' size="large" onClick={() => navigate(`/admin`)}>
+                                            <BuildCircleIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                </>
+                            )
                         }
                         <NavLink to={`/${appliances}/cart`}>
                             <IconButton size="large" color="inherit">
@@ -275,6 +272,7 @@ const NavBar = () => {
                             </IconButton>
                         </NavLink>
                     </Box>
+
 
 
                     <Box sx={{ display: { xs: 'flex', md: 'none' } }}>

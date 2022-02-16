@@ -5,6 +5,7 @@ import { StyledPaper } from '../styles/navbarStyles';
 import { useDispatch, useSelector } from 'react-redux';
 import Api from '../api/index'
 import CategoriesCompSkeleton from './Skeletons/CategoriesCompSkeleton';
+import { Box } from '@mui/system';
 
 
 const CategoriesComp = () => {
@@ -14,9 +15,23 @@ const CategoriesComp = () => {
     const categories = categoryState.categories;
 
     return (
-        <StyledPaper square sx={{ color: 'common.white', backgroundColor: 'primary.dark' }} elevation={5}  >
+        <StyledPaper square sx={{
+            position: 'relative', color: 'common.white', backgroundColor: 'primary.dark', px: [1, 2, 5], '&::-webkit-scrollbar': {
+                height: '6px',
+            },
+            '&::-webkit-scrollbar-track': {
+                borderRadius: '10px',
+                backgroundColor: '#f1f1f1',
+            },
+            '&::-webkit-scrollbar-thumb': {
+                backgroundColor: 'secondary.main',
+                borderRadius: '10px',
+            },
+            boxShadow: '-12px -50px 0px 30px #000'
+
+        }} elevation={5}  >
             {
-                categoryState.loading? (
+                categoryState.loading ? (
                     <CategoriesCompSkeleton />
                 ) : (
                     categories.map((category, i) => (
@@ -28,8 +43,6 @@ const CategoriesComp = () => {
                     ))
                 )
             }
-
-
         </StyledPaper>
 
     )

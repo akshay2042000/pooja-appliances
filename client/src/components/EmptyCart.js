@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 const EmptyCart = () => {
     return (
         <>
-            <Box sx={{ mx: 'auto', my: 12, textAlign: 'center' }}>
+            <Box sx={{ display:'flex', flexDirection:'column', justifyContent:'center', mx: 'auto', my: 'auto', textAlign: 'center', height: { xs: '350px', md:'370px', xl:'500px'} }}>
                 <Typography variant="h4" fontWeight={'bold'} mb={2} color="initial">Your Cart</Typography>
                 <Typography variant="body1" mb={3} color="initial">Your cart is currently empty.
                 </Typography>
