@@ -11,6 +11,7 @@ import SingleProductPage from './pages/SingleProductPage';
 import NotFoundPage from './pages/NotFoundPage';
 import { useEffect } from 'react';
 import MainPage from './pages/MainPage';
+import AdminPage from './pages/AdminPage';
 import Appliances from './components/Appliances';
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchCompaniesThunk } from './redux/companySlice';
@@ -49,6 +50,9 @@ function App() {
                 </Route>
                 <Route path=':app' element={<Appliances />}>
                     <Route path='login' element={<LoginPage />} />
+                </Route>
+                <Route path='admin' element={<AdminPage />} >
+                    <Route index element={<NotFoundPage />} />
                 </Route>
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>

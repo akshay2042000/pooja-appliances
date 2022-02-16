@@ -1,5 +1,4 @@
 import React from 'react'
-import Typography from '@mui/material/Typography'
 import { Outlet, useParams } from 'react-router-dom'
 import NavBar from './NavBar'
 import CategoriesComp from './CategoriesComp'

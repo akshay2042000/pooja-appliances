@@ -7,8 +7,9 @@ export const StyledAppBar = styled(AppBar)(({ theme }) => ({
         minHeight: 80,
         justifyContent: 'center'
     },
-    backgroundColor: alpha(theme.palette.primary.main, 0.9),
-    backdropFilter: 'blur(15px)'
+    backgroundColor: alpha(theme.palette.primary.main, 0.85),
+    backdropFilter: 'blur(20px)',
+    zIndex:1300
 
 }));
 
