@@ -32,7 +32,7 @@ const SingleProductPage = () => {
             getRelatedProducts();
         }
 
-    }, [product])
+    }, [productId])
 
     return (
         <div>

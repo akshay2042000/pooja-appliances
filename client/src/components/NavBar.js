@@ -9,7 +9,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import { Alert, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, InputLabel, Menu, MenuItem, Paper, Select, Snackbar, TextField, Tooltip } from '@mui/material';
 import { StyledAppBar, Search, SearchIconWrapper, StyledInputBase } from '../styles/navbarStyles';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { styled, alpha, useTheme } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
@@ -152,14 +152,18 @@ const NavBar = () => {
                 )
             }
 
-            <NavLink to={`/${appliances === 'creative' ? 'pooja' : 'creative'}`}>
-                <MenuItem onClick={handleMobileMenuClose}>
-                    <IconButton color='inherit' size="large">
-                        <ChangeCircleIcon />
-                    </IconButton>
-                    <p>Switch to {appliances === 'creative' ? 'Pooja' : 'Creative'}</p>
-                </MenuItem>
-            </NavLink>
+            {
+                location.pathname.split('/')[1] !== 'admin' &&
+                (<NavLink to={`/${appliances === 'creative' ? 'pooja' : 'creative'}`}>
+                    <MenuItem onClick={handleMobileMenuClose}>
+                        <IconButton color='inherit' size="large">
+                            <ChangeCircleIcon />
+                        </IconButton>
+                        <p>Switch to {appliances === 'creative' ? 'Pooja' : 'Creative'}</p>
+                    </MenuItem>
+                </NavLink>)
+            }
+
         </Menu>
     );
 
@@ -200,9 +204,10 @@ const NavBar = () => {
     return (
 
         <>
+
             <StyledAppBar position="sticky" >
                 <Toolbar>
-                    <NavLink to={`/${appliances}`} >
+                    <NavLink to={location.pathname.split('/')[1] === 'admin' ? '/admin' : `/${appliances}`} >
                         <Typography
                             variant="h5"
                             noWrap
@@ -222,9 +227,15 @@ const NavBar = () => {
                     <Box sx={{ flexGrow: 1 }} >
                     </Box>
                     <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: { xs: 0, md: 4 } }}>
-                        <Button variant="outlined" color="white" onClick={() => navigate(`/${appliances === 'creative' ? 'pooja' : 'creative'}`)}>
-                            Switch to {appliances === 'creative' ? 'Pooja' : 'Creative'}
-                        </Button>
+                        {
+                             location.pathname.split('/')[1] !== 'admin' &&
+                            (
+                                <Button variant="outlined" color="white" onClick={() => navigate(`/${appliances === 'creative' ? 'pooja' : 'creative'}`)}>
+                                    Switch to {appliances === 'creative' ? 'Pooja' : 'Creative'}
+                                </Button>
+                            )
+                        }
+
                     </Box>
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         {

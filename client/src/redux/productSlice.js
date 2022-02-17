@@ -51,8 +51,6 @@ const productSlice = createSlice({
             state.searchedProductsError = action.payload;
             state.searchedProducts = [];
         }
-
-
     }
 })
 

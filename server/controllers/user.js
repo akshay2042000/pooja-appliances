@@ -3,7 +3,7 @@ const User = require('../models/users');
 
 const getUsers = async (req, res, next) => {
     try {
-        const users = await User.find({});
+        const users = await User.find({}).populate({path: 'state' , select: 'name'});
         if (users) {
             res.status(200).json({
                 status: 'success',
@@ -24,7 +24,7 @@ const getUsers = async (req, res, next) => {
 }
 const getUserById = async (req, res, next) => {
     try {
-        const users = await User.findById(req.params.id);
+        const users = await User.findById(req.params.id).populate({path: 'state' , select: 'name'});
         if (users) {
             res.status(200).json({
                 status: 'success',

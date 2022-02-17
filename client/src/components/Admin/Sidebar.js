@@ -14,6 +14,12 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import Inventory2Icon from '@mui/icons-material/Inventory2';
+import CategoryIcon from '@mui/icons-material/Category';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import DescriptionIcon from '@mui/icons-material/Description';
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -29,26 +35,50 @@ const Sidebar = (props) => {
 
     const drawer = (
         <div>
-            <List sx={{mt:'80px'}}>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>
-                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+            <List sx={{ mt: '80px' }}>
+                <Link to='products'>
+                    <ListItem button >
+                        <ListItemIcon >
+                            <Inventory2Icon />
                         </ListItemIcon>
-                        <ListItemText primary={text} />
+                        <ListItemText primary={"Products"} />
                     </ListItem>
-                ))}
+                </Link>
+                <Link to='categories'>
+                    <ListItem button >
+                        <ListItemIcon>
+                            <CategoryIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={"Categoriess"} />
+                    </ListItem>
+                </Link>
+                <Link to='users'>
+                    <ListItem button >
+                        <ListItemIcon>
+                            <PeopleAltIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={"Users"} />
+                    </ListItem>
+                </Link>
             </List>
             <Divider />
             <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem button key={text}>
+                <Link to='orders'>
+                    <ListItem button >
                         <ListItemIcon>
-                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                            <ShoppingCartIcon />
                         </ListItemIcon>
-                        <ListItemText primary={text} />
+                        <ListItemText primary={"Orders"} />
                     </ListItem>
-                ))}
+                </Link>
+                <Link to='bills'>
+                    <ListItem button >
+                        <ListItemIcon>
+                            <DescriptionIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={"Bills"} />
+                    </ListItem>
+                </Link>
             </List>
         </div>
     );
@@ -81,7 +111,7 @@ const Sidebar = (props) => {
                     variant="permanent"
                     sx={{
                         display: { xs: 'none', md: 'block' },
-                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, },
                     }}
                     open
                 >

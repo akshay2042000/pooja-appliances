@@ -39,6 +39,9 @@ const Success = ({ open, setOpen, order }) => {
                 </DialogTitle>
 
                 <DialogContent >
+                    <Typography sx={{ paddingX: 2 }} variant="h6" color='primary.main'>
+                        Order ID : {order?.orderId}
+                    </Typography>
                     {
                         order?.items?.map((item, i) => (
                             <Box key={i} sx={{

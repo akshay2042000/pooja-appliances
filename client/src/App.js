@@ -17,6 +17,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchCompaniesThunk } from './redux/companySlice';
 import { setAppliances } from './redux/applianceSlice';
 import { fetchCategoriesThunk } from './redux/categorySlice';
+import UsersPage from './pages/admin/UsersPage';
+import OrdersPage from './pages/admin/OrdersPage';
+import BillsPage from './pages/admin/BillsPage';
 
 function App() {
     const dispatch = useDispatch();
@@ -53,6 +56,12 @@ function App() {
                 </Route>
                 <Route path='admin' element={<AdminPage />} >
                     <Route index element={<NotFoundPage />} />
+                    <Route path='products' element={<NotFoundPage />} />
+                    <Route path='categories' element={<NotFoundPage />} />
+                    <Route path='users' element={<UsersPage />} />
+                    <Route path='orders' element={<OrdersPage />} />
+                    <Route path='bills' element={<BillsPage />} />
+                    <Route path="*" element={<NotFoundPage />} />
                 </Route>
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>

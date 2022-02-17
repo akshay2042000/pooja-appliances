@@ -46,6 +46,15 @@ const placeOrder = (order) => {
     return axios.post(`${baseUrl}/orders`, order);
 }
 
+const getUserList = () => {
+    return axios.get(`${baseUrl}/users`);
+}
+
+const deleteUser = (id) => {
+    return axios.delete(`${baseUrl}/users/${id}`);
+}
+
+
 
 const Api = {
     getCompanies,
@@ -55,7 +64,9 @@ const Api = {
     getRelatedProducts,
     getSearchedItem,
     login,
-    placeOrder
+    getUserList,
+    placeOrder,
+    deleteUser
 }
 
 export default Api;

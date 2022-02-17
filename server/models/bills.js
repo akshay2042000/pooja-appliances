@@ -2,14 +2,11 @@
 
 const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+const AutoIncrement = require('mongoose-sequence')(mongoose);
+
 const cartSchema = require('./carts');
 
 var billSchema = new Schema({
-    invoiceNumber: {
-        type: String,
-        required: true,
-        unique: true
-    },
     invoiceDate: {
         type: Date,
         required: true
@@ -42,5 +39,10 @@ var billSchema = new Schema({
     timestamps: true
 });
 // Compile model from schema
+billSchema.plugin(AutoIncrement, { inc_field: 'invoiceNumber', start_seq: 100 ,inc_amount: 1});
 var Bill = mongoose.model('Bill', billSchema);
+
+//  reset the counter
+
+
 module.exports = Bill;

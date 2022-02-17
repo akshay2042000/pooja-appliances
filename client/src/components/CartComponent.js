@@ -39,7 +39,6 @@ const CartComponent = () => {
                 }),
                 total: cart.total,
             })
-            console.log(data)
             setOrder(data.data)
             setOpen(true);
             // clear the cart
