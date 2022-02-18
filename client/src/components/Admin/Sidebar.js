@@ -1,19 +1,12 @@
 import React from 'react'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
-import MenuIcon from '@mui/icons-material/Menu';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
 import CategoryIcon from '@mui/icons-material/Category';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
@@ -25,14 +18,7 @@ const drawerWidth = 240;
 
 
 const Sidebar = (props) => {
-
     const { window } = props;
-    const [mobileOpen, setMobileOpen] = React.useState(false);
-
-    const handleDrawerToggle = () => {
-        setMobileOpen(!mobileOpen);
-    };
-
     const drawer = (
         <div>
             <List sx={{ mt: '80px' }}>
@@ -92,11 +78,11 @@ const Sidebar = (props) => {
                 sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
                 aria-label="mailbox folders"
             >
-                <Drawer
+                <Drawer // mobile
                     container={container}
                     variant="temporary"
-                    open={mobileOpen}
-                    onClose={handleDrawerToggle}
+                    open={props.mobileOpen}
+                    onClose={props.handleDrawerToggle}
                     ModalProps={{
                         keepMounted: true, // Better open performance on mobile.
                     }}
@@ -123,12 +109,3 @@ const Sidebar = (props) => {
 }
 
 export default Sidebar
-{/* <IconButton
-                    color="primary"
-                    aria-label="open drawer"
-                    edge="start"
-                    onClick={handleDrawerToggle}
-                    sx={{ display: { md: 'none' }, position: 'fixed', backgroundColor: 'secondary.main'}}
-                >
-                    <MenuIcon />
-                </IconButton>  */}

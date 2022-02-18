@@ -10,9 +10,9 @@ const getOrders = async (req, res, next) => {
         if (appliances) {
             orders = await Order.find({
                 app: appliances
-            });
+            }).populate({ path: 'user', select: 'name' });
         } else {
-            orders = await Order.find({});
+            orders = await Order.find({}).populate({ path: 'user', select: 'name' });
         }
 
         if (orders && orders.length > 0) {
@@ -36,7 +36,7 @@ const getOrders = async (req, res, next) => {
 
 const getOrderById = async (req, res, next) => {
     try {
-        const order = await Order.findById(req.params.id);
+        const order = await Order.findById(req.params.id).populate({ path: 'user', select: 'name' });
         if (order) {
             res.status(200).json({
                 status: 'success',

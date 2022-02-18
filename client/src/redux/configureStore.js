@@ -4,6 +4,7 @@ import categoryReducer from './categorySlice';
 import applianceReducer from './applianceSlice';
 import productReducer from './productSlice';
 import userReducer from './userSlice';
+import orderReducer from './orderSlice';
 import cartReducer from './cartSlice';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
@@ -17,7 +18,8 @@ const combinedReducer = combineReducers({
     applianceState: applianceReducer,
     productState: productReducer,
     cartState: cartReducer,
-    userState: userReducer
+    userState: userReducer,
+    orderState: orderReducer
 })
 
 const rootReducer = (state, action) => {

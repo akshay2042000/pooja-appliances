@@ -3,7 +3,10 @@ import UserList from '../../components/Admin/userList/UserList'
 
 const UsersPage = () => {
     return (
-        <UserList />
+        <>
+            <UserList />            
+        </>
+
     )
 }
 

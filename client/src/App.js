@@ -58,8 +58,12 @@ function App() {
                     <Route index element={<NotFoundPage />} />
                     <Route path='products' element={<NotFoundPage />} />
                     <Route path='categories' element={<NotFoundPage />} />
-                    <Route path='users' element={<UsersPage />} />
-                    <Route path='orders' element={<OrdersPage />} />
+                    <Route path='users' element={<UsersPage />} >
+                        <Route path='users/:userId' element={<NotFoundPage />} />
+                    </Route>
+                    <Route path='orders' element={<OrdersPage />} >
+                        <Route path='order/:orderId' element={<NotFoundPage />} />
+                    </Route>
                     <Route path='bills' element={<BillsPage />} />
                     <Route path="*" element={<NotFoundPage />} />
                 </Route>

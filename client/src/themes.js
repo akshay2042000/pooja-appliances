@@ -13,6 +13,14 @@ export const theme = createTheme({
         white: {
             main: '#ffffff',
         },
+        success: {
+            main: '#66bb6a',
+            light: 'rgba(102, 187, 106, 0.16)',
+        },
+        warning: {
+            main: '#ffa726',
+            light: 'rgba(255, 167, 38, 0.16)',
+        }
 
     },
     components: {
