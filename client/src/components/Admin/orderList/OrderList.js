@@ -159,8 +159,18 @@ export default function WidgetLg() {
                                             backgroundColor: 'rgba(0, 0, 0, 0.045)',
                                         },
 
-                                    }
-                                   
+                                    },
+                                    '& .super-app-theme--false': {  // pending
+                                        //  white bg
+                                        backgroundColor: 'paper',
+
+
+                                    },
+                                    '& .super-app-theme--true': { // approved
+                                        // slightly dull bg
+                                        bgcolor: (theme) =>
+                                            alpha(theme.palette.common.black, 0.03),
+                                    },
                                 }}
                                 disableSelectionOnClick
                                 columns={columns}
@@ -178,6 +188,7 @@ export default function WidgetLg() {
                                         sortModel: [{ field: 'orderId', sort: 'desc' }],
                                     },
                                 }}
+                                getRowClassName={(params) => `super-app-theme--${params.row.isBilled}`}
                             />
                         </Box >
                     )
