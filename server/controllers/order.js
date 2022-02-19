@@ -4,7 +4,6 @@ const Order = require('../models/orders');
 const getOrders = async (req, res, next) => {
     try {
         const appliances = req.query.app;
-
         let orders
 
         if (appliances) {

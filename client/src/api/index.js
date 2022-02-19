@@ -49,8 +49,11 @@ const placeOrder = (order) => {
 const getUserList = () => {
     return axios.get(`${baseUrl}/users`);
 }
-const getOrderList = () => {
-    return axios.get(`${baseUrl}/orders`);
+const getOrderList = (form) => {
+    if (form.appliance === "all") {
+        return axios.get(`${baseUrl}/orders`);
+    }
+    return axios.get(`${baseUrl}/orders?app=${form.appliance}`);
 }
 
 const deleteUser = (id) => {

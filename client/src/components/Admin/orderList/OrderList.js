@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
 import { DeleteOutline } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
-import { Avatar, Box, Button, Chip, IconButton, Typography } from "@mui/material";
+import { Box, Button, Chip, IconButton, Typography } from "@mui/material";
 import { useSelector, useDispatch } from 'react-redux';
 import { getOrderListThunk, deleteOrderThunk } from "../../../redux/orderSlice";
 import LoadingComponent from '../../Skeletons/LoadingComponent';
 import moment from 'moment'
-import { styled, alpha, useTheme } from '@mui/material/styles';
+import { alpha } from '@mui/material/styles';
 
 
 
@@ -21,11 +21,11 @@ export default function WidgetLg() {
         dispatch(deleteOrderThunk(id));
     };
 
-    useEffect(() => {
-        if (orderList.length === 0) {
-            dispatch(getOrderListThunk());
-        }
-    }, [dispatch, orderList]);
+    // useEffect(() => {
+    //     if (orderList.length === 0) {
+    //         dispatch(getOrderListThunk());
+    //     }
+    // }, [dispatch, orderList]);
 
     const columns = [
         {
@@ -56,9 +56,12 @@ export default function WidgetLg() {
             },
         },
         {
-            field: "user.name",
+            field: 'user',
             headerName: "User",
             flex: 1,
+            valueGetter: ({ value }) => {
+                return value.name;
+            },
             minWidth: 100,
             renderCell: (params) => {
                 return (
@@ -128,6 +131,7 @@ export default function WidgetLg() {
 
 
                         <IconButton sx={{ ml: 1 }} color='error' onClick={() => handleDelete(params.row._id)}>
+
                             <DeleteOutline />
                         </IconButton>
                     </Box>
@@ -156,20 +160,19 @@ export default function WidgetLg() {
                                     '& .MuiDataGrid-row': {
                                         cursor: 'pointer',
                                         '&:hover': {
-                                            backgroundColor: 'rgba(0, 0, 0, 0.045)',
+                                            boxShadow: 25,
+                                            bgcolor: (theme) =>
+                                                theme.palette.common.white,
                                         },
-
                                     },
                                     '& .super-app-theme--false': {  // pending
                                         //  white bg
                                         backgroundColor: 'paper',
-
-
                                     },
                                     '& .super-app-theme--true': { // approved
                                         // slightly dull bg
                                         bgcolor: (theme) =>
-                                            alpha(theme.palette.common.black, 0.03),
+                                            alpha(theme.palette.common.black, 0.04),
                                     },
                                 }}
                                 disableSelectionOnClick
@@ -180,8 +183,10 @@ export default function WidgetLg() {
                                 pagination
                                 density='comfortable'
                                 getRowId={(row) => row._id}
-                                onRowClick={(row) => {
-                                    navigate(`${row.id}`)
+                                onRowClick={(row, e) => {
+                                    if (e.target.tagName !== 'svg' && e.target.tagName !== 'path' && e.target.type !== 'button') {
+                                        navigate(`${row.id}`)
+                                    }
                                 }}
                                 initialState={{
                                     sorting: {

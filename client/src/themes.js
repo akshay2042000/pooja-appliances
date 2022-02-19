@@ -114,4 +114,11 @@ export const theme = createTheme({
     shape: {
         borderRadius: 8,
     },
+
+    
 })
+
+theme.shadows.push(
+    " 0px 0px 22px -12px rgba(0,0,0,0.69)"
+  );
+  

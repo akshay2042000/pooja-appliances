@@ -41,10 +41,10 @@ export const { getOrderListStart, getOrderListSuccess, getOrderListFailure, dele
 export default orderSlice.reducer;
 
 
-export const getOrderListThunk = () => async (dispatch) => {
+export const getOrderListThunk = (form) => async (dispatch) => {
     dispatch(getOrderListStart());
     try {
-        const { data } = await Api.getOrderList();
+        const { data } = await Api.getOrderList(form);
         dispatch(getOrderListSuccess(data.data));
     }
     catch (err) {
