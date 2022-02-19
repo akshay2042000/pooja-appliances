@@ -3,7 +3,7 @@ import OrderForm from '../../components/Admin/orderForm/OrderForm'
 
 const SingleOrderPage = () => {
     return (
-        <OrderForm />
+        <OrderForm  />
     )
 }
 
