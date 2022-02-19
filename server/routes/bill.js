@@ -9,7 +9,7 @@ const { verifyToken,
 
 router.route('/')
     .get(verifyTokenAndAdmin,getBills)
-    .post(verifyTokenAndAuthorization, postBill)
+    .post(verifyToken, postBill)
     .put(forbiddenPut)
     .delete(verifyTokenAndAdmin, deleteBills)
 

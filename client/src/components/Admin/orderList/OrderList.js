@@ -157,6 +157,9 @@ export default function WidgetLg() {
                             < DataGrid
                                 rows={orderList}
                                 sx={{
+                                    '& .MuiDataGrid-cell:focus': {
+                                        outline: 'none',
+                                    },
                                     '& .MuiDataGrid-row': {
                                         cursor: 'pointer',
                                         '&:hover': {

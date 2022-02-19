@@ -178,6 +178,9 @@ export default function UserList() {
                         <Box sx={{ display: 'flex', height: 'calc(100vh - 80px)', padding: { md: 5, xs: 2 } }} >
                             < DataGrid
                                 sx={{
+                                    '& .MuiDataGrid-cell:focus': {
+                                        outline: 'none',
+                                    },
                                     '& .MuiDataGrid-row': {
                                         '&:hover': {
                                             boxShadow: 25,

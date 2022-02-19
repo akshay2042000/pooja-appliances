@@ -20,6 +20,7 @@ import { fetchCategoriesThunk } from './redux/categorySlice';
 import UsersPage from './pages/admin/UsersPage';
 import OrdersPage from './pages/admin/OrdersPage';
 import BillsPage from './pages/admin/BillsPage';
+import SingleOrderPage from './pages/admin/SingleOrderPage';
 
 function App() {
     const dispatch = useDispatch();
@@ -58,11 +59,13 @@ function App() {
                     <Route index element={<NotFoundPage />} />
                     <Route path='products' element={<NotFoundPage />} />
                     <Route path='categories' element={<NotFoundPage />} />
-                    <Route path='users' element={<UsersPage />} >
+                    <Route path='users'  >
+                        <Route index element={<UsersPage />} />
                         <Route path='users/:userId' element={<NotFoundPage />} />
                     </Route>
-                    <Route path='orders' element={<OrdersPage />} >
-                        <Route path='order/:orderId' element={<NotFoundPage />} />
+                    <Route path='orders'>
+                        <Route index element={<OrdersPage />} />
+                        <Route path=':orderId' element={<SingleOrderPage />} />
                     </Route>
                     <Route path='bills' element={<BillsPage />} />
                     <Route path="*" element={<NotFoundPage />} />
