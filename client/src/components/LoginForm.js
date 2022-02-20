@@ -13,11 +13,6 @@ import ButtonWrapper from './Formik/ButtonWrapper';
 const LoginForm = () => {
     const { app } = useParams()
     const [passwordShown, setPasswordShown] = useState(false);
-    const [formData, setFormData] = useState({
-        username: '',
-        password: ''
-    });
-
     const INITIAL_FORM_STATE = {
         username: '',
         password: ''

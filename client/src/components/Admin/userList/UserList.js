@@ -8,6 +8,7 @@ import LoadingComponent from '../../Skeletons/LoadingComponent';
 import CloseIcon from '@mui/icons-material/Close';
 import DoneIcon from '@mui/icons-material/Done';
 import { Link, useNavigate } from "react-router-dom";
+import NoComponentFound from '../../NoComponentFound';
 
 
 function stringToColor(string) {
@@ -41,7 +42,7 @@ function stringAvatar(name) {
 export default function UserList() {
     const [pageSize, setPageSize] = useState(10);
     const dispatch = useDispatch();
-    const { userList, userListLoading } = useSelector(state => state.userState);
+    const { userList, userListLoading, userListError } = useSelector(state => state.userState);
 
 
     const handleDelete = (id) => {
@@ -49,10 +50,8 @@ export default function UserList() {
     };
 
     useEffect(() => {
-        if (userList.length === 0) {
-            dispatch(getUserListThunk());
-        }
-    }, [dispatch, userList]);
+        dispatch(getUserListThunk());
+    }, [dispatch]);
 
     const columns = [
         {
@@ -173,40 +172,43 @@ export default function UserList() {
 
                     )
                     :
-                    (
+                    userListError ?
+                        <NoComponentFound error={userListError} />
+                        :
+                        (
 
-                        <Box sx={{ display: 'flex', height: 'calc(100vh - 80px)', padding: { md: 5, xs: 2 } }} >
-                            < DataGrid
-                                sx={{
-                                    '& .MuiDataGrid-cell:focus': {
-                                        outline: 'none',
-                                    },
-                                    '& .MuiDataGrid-row': {
-                                        '&:hover': {
-                                            boxShadow: 25,
-                                            bgcolor: (theme) =>
-                                                theme.palette.common.white,
+                            <Box sx={{ display: 'flex', height: 'calc(100vh - 80px)', padding: { md: 5, xs: 2 } }} >
+                                < DataGrid
+                                    sx={{
+                                        '& .MuiDataGrid-cell:focus': {
+                                            outline: 'none',
                                         },
-                                    },
-                                }}
-                                rows={userList}
-                                // rows={data}
-                                disableSelectionOnClick
-                                columns={columns}
-                                pageSize={pageSize}
-                                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-                                rowsPerPageOptions={[5, 10, 20]}
-                                pagination
-                                density='comfortable'
-                                getRowId={(row) => row._id}
-                                initialState={{
-                                    sorting: {
-                                        sortModel: [{ field: 'name', sort: 'asc' }],
-                                    },
-                                }}
-                            />
-                        </Box >
-                    )
+                                        '& .MuiDataGrid-row': {
+                                            '&:hover': {
+                                                boxShadow: 25,
+                                                bgcolor: (theme) =>
+                                                    theme.palette.common.white,
+                                            },
+                                        },
+                                    }}
+                                    rows={userList}
+                                    // rows={data}
+                                    disableSelectionOnClick
+                                    columns={columns}
+                                    pageSize={pageSize}
+                                    onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+                                    rowsPerPageOptions={[5, 10, 20]}
+                                    pagination
+                                    density='comfortable'
+                                    getRowId={(row) => row._id}
+                                    initialState={{
+                                        sorting: {
+                                            sortModel: [{ field: 'name', sort: 'asc' }],
+                                        },
+                                    }}
+                                />
+                            </Box >
+                        )
             }
 
         </>

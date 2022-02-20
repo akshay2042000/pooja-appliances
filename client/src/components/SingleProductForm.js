@@ -4,7 +4,7 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { addItem } from '../redux/cartSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { getSelectedProduct } from '../redux/productSlice';
+import { updateSelectedProduct } from '../redux/productSlice';
 
 const SingleProductForm = () => {
     const max = 100;
@@ -24,7 +24,7 @@ const SingleProductForm = () => {
             if (quantity > max) {
                 quantity = max;
             }
-            dispatch(getSelectedProduct({ ...product, quantity }))
+            dispatch(updateSelectedProduct({ ...product, quantity }))
             return;
         }
 
@@ -37,9 +37,9 @@ const SingleProductForm = () => {
             } else {
                 quantity = e.target.value;
             }
-            dispatch(getSelectedProduct({ ...product, quantity }))
+            dispatch(updateSelectedProduct({ ...product, quantity }))
         } else {
-            dispatch(getSelectedProduct({ ...product, [e.target.name]: e.target.value }))
+            dispatch(updateSelectedProduct({ ...product, [e.target.name]: e.target.value }))
         }
 
     }

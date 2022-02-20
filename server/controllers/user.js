@@ -3,7 +3,7 @@ const User = require('../models/users');
 
 const getUsers = async (req, res, next) => {
     try {
-        const users = await User.find({}).populate({path: 'state' , select: 'name'});
+        const users = await User.find({}).populate({ path: 'state', select: 'name' });
         if (users) {
             res.status(200).json({
                 status: 'success',
@@ -24,7 +24,7 @@ const getUsers = async (req, res, next) => {
 }
 const getUserById = async (req, res, next) => {
     try {
-        const users = await User.findById(req.params.id).populate({path: 'state' , select: 'name'});
+        const users = await User.findById(req.params.id).populate({ path: 'state', select: 'name' });
         if (users) {
             res.status(200).json({
                 status: 'success',
@@ -41,6 +41,47 @@ const getUserById = async (req, res, next) => {
         err = new Error('Error while fetching users');
         err.status = 500;
         next(err);
+    }
+}
+
+
+const getSearchedUsers = async (req, res, next) => {
+    const search = req.query.key;
+
+    try {
+        if (!search) {
+            res.status(200).json({
+                status: 'success',
+                data: [],
+            });
+        } else {
+            // find match as per regex    
+            const regex = new RegExp("\\b" + search, "i");
+            var users = await User.find({
+                username: {
+                    $regex: regex
+                }
+            }).populate({ path: 'state'}).limit(7)
+                .catch(err => res.status(500).json(err));;
+
+            // find match as per string similarity
+            if (users) {
+                res.status(200).json({
+                    status: 'success',
+                    data: users,
+                });
+            }
+            else {
+                res.status(404).json({
+                    status: 'fail',
+                    message: 'No products found'
+                })
+            }
+        }
+    }
+    catch (err) {
+        res.status(500).json(err);
+        console.log(err);
     }
 }
 
@@ -140,5 +181,6 @@ module.exports = {
     getUserById,
     updateUserById,
     deleteUserById,
-    deleteUsers
+    deleteUsers,
+    getSearchedUsers
 }

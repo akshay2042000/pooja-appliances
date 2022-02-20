@@ -8,13 +8,14 @@ import { getOrderListThunk, deleteOrderThunk } from "../../../redux/orderSlice";
 import LoadingComponent from '../../Skeletons/LoadingComponent';
 import moment from 'moment'
 import { alpha } from '@mui/material/styles';
+import NoComponentFound from '../../NoComponentFound';
 
 
 
 export default function WidgetLg() {
     const [pageSize, setPageSize] = useState(10);
     const dispatch = useDispatch();
-    const { orderList, orderListLoading } = useSelector(state => state.orderState);
+    const { orderList, orderListLoading, orderListError } = useSelector(state => state.orderState);
     const navigate = useNavigate();
 
     const handleDelete = (id) => {
@@ -150,56 +151,58 @@ export default function WidgetLg() {
                         </Box>
 
                     )
-                    :
-                    (
+                    : orderListError ?
+                        <NoComponentFound error={orderListError} />
+                        :
+                        (
 
-                        <Box sx={{ display: 'flex', height: 'calc(100vh - 80px)', padding: { md: 5, xs: 2 } }} >
-                            < DataGrid
-                                rows={orderList}
-                                sx={{
-                                    '& .MuiDataGrid-cell:focus': {
-                                        outline: 'none',
-                                    },
-                                    '& .MuiDataGrid-row': {
-                                        cursor: 'pointer',
-                                        '&:hover': {
-                                            boxShadow: 25,
-                                            bgcolor: (theme) =>
-                                                theme.palette.common.white,
+                            <Box sx={{ display: 'flex', height: 'calc(100vh - 80px)', padding: { md: 5, xs: 2 } }} >
+                                < DataGrid
+                                    rows={orderList}
+                                    sx={{
+                                        '& .MuiDataGrid-cell:focus': {
+                                            outline: 'none',
                                         },
-                                    },
-                                    '& .super-app-theme--false': {  // pending
-                                        //  white bg
-                                        backgroundColor: 'paper',
-                                    },
-                                    '& .super-app-theme--true': { // approved
-                                        // slightly dull bg
-                                        bgcolor: (theme) =>
-                                            alpha(theme.palette.common.black, 0.04),
-                                    },
-                                }}
-                                disableSelectionOnClick
-                                columns={columns}
-                                pageSize={pageSize}
-                                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-                                rowsPerPageOptions={[5, 10, 20]}
-                                pagination
-                                density='comfortable'
-                                getRowId={(row) => row._id}
-                                onRowClick={(row, e) => {
-                                    if (e.target.tagName !== 'svg' && e.target.tagName !== 'path' && e.target.type !== 'button') {
-                                        navigate(`${row.id}`)
-                                    }
-                                }}
-                                initialState={{
-                                    sorting: {
-                                        sortModel: [{ field: 'orderId', sort: 'desc' }],
-                                    },
-                                }}
-                                getRowClassName={(params) => `super-app-theme--${params.row.isBilled}`}
-                            />
-                        </Box >
-                    )
+                                        '& .MuiDataGrid-row': {
+                                            cursor: 'pointer',
+                                            '&:hover': {
+                                                boxShadow: 25,
+                                                bgcolor: (theme) =>
+                                                    theme.palette.common.white,
+                                            },
+                                        },
+                                        '& .super-app-theme--false': {  // pending
+                                            //  white bg
+                                            backgroundColor: 'paper',
+                                        },
+                                        '& .super-app-theme--true': { // approved
+                                            // slightly dull bg
+                                            bgcolor: (theme) =>
+                                                alpha(theme.palette.common.black, 0.04),
+                                        },
+                                    }}
+                                    disableSelectionOnClick
+                                    columns={columns}
+                                    pageSize={pageSize}
+                                    onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+                                    rowsPerPageOptions={[5, 10, 20]}
+                                    pagination
+                                    density='comfortable'
+                                    getRowId={(row) => row._id}
+                                    onRowClick={(row, e) => {
+                                        if (e.target.tagName !== 'svg' && e.target.tagName !== 'path' && e.target.type !== 'button') {
+                                            navigate(`${row.id}`)
+                                        }
+                                    }}
+                                    initialState={{
+                                        sorting: {
+                                            sortModel: [{ field: 'orderId', sort: 'desc' }],
+                                        },
+                                    }}
+                                    getRowClassName={(params) => `super-app-theme--${params.row.isBilled}`}
+                                />
+                            </Box >
+                        )
             }
 
         </>

@@ -29,16 +29,20 @@ const productSlice = createSlice({
             state.error = action.payload;
             state.products = [];
         },
-        getSelectedProduct: (state, action) => {
+        getSingleProductStart: (state, action) => {
+            state.selectedProductLoading = true;
+        },
+        getSingleProductSuccess: (state, action) => {
+            state.selectedProductLoading = false;
             state.selectedProduct = action.payload;
-            state.error = null;
+            state.selectedProductError = null;
         },
-        getSelectedProductLoading: (state, action) => {
-            state.selectedProductLoading = action.payload;
-        },
-        getSelectedProductError: (state, action) => {
+        getSingleProductFailure: (state, action) => {
+            state.selectedProductLoading = false;
             state.selectedProductError = action.payload;
-            state.products = [];
+        },
+        updateSelectedProduct: (state, action) => {
+            state.selectedProduct = action.payload;
         },
         getSearchedProducts: (state, action) => {
             state.searchedProducts = action.payload;
@@ -54,7 +58,7 @@ const productSlice = createSlice({
     }
 })
 
-export const { getProducts, getProductsLoading, getProductsError, getSearchedProducts, getSearchedProductsLoading, getSearchedProductsError, getSelectedProduct, getSelectedProductLoading, getSelectedProductError } = productSlice.actions;
+export const { getProducts, getProductsLoading, getProductsError, getSearchedProducts, getSearchedProductsLoading, getSearchedProductsError, getSingleProductStart, updateSelectedProduct, getSingleProductFailure, getSingleProductSuccess } = productSlice.actions;
 
 export default productSlice.reducer;
 
@@ -73,25 +77,20 @@ export const fetchProductsThunk = (appliance, cat, comp) => async (dispatch) => 
 }
 
 export const fetchSelectedProductThunk = (id) => async (dispatch) => {
-    dispatch(getSelectedProductLoading(true));
+    dispatch(getSingleProductStart());
     try {
         const { data } = await Api.getSingleProduct(id);
-        dispatch(getSelectedProduct({ ...data.data, quantity: 1, unit: data.data.units[0], size: data.data.variants.sizes[0], color: data.data.variants.colors[0] }));
-        dispatch(getSelectedProductLoading(false));
+        dispatch(getSingleProductSuccess({ ...data.data, quantity: 1, unit: data.data.units[0], size: data.data.variants.sizes[0], color: data.data.variants.colors[0] }));
     } catch (err) {
-        dispatch(getSelectedProductError(err));
-        dispatch(getSelectedProductLoading(false));
+        dispatch(getSingleProductFailure(err));
     }
-
 }
 
-export const fetchSearchedProducts = (appliances, key) => async (dispatch) => {
 
+export const fetchSearchedProducts = (appliances, key) => async (dispatch) => {
     dispatch(getSearchedProductsLoading(true));
     try {
         const { data } = await Api.getSearchedItem(appliances, key);
-        // console.log("🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑 ")
-        // console.log(data);
         dispatch(getSearchedProducts(data.data));
         dispatch(getSearchedProductsLoading(false));
     } catch (err) {

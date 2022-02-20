@@ -6,11 +6,11 @@ const userSlice = createSlice({
     name: "user",
     initialState: {
         currentUser: null,
-        isFetching: false,
-        error: false,
+        isFetching: true,
+        error: null,
         userList: [],
-        userListLoading: false,
-        userListError: false,
+        userListLoading: true,
+        userListError: null,
     },
     reducers: {
         loginStart: (state) => {
@@ -18,12 +18,12 @@ const userSlice = createSlice({
         },
         loginSuccess: (state, action) => {
             state.isFetching = false;
-            state.error = false
+            state.error = null
             state.currentUser = action.payload;
         },
-        loginFailure: (state) => {
+        loginFailure: (state,action) => {
             state.isFetching = false;
-            state.error = true;
+            state.error = action.payload;
         },
         logOut: (state) => {
             state.currentUser = null;
@@ -34,11 +34,11 @@ const userSlice = createSlice({
         getUserListSuccess: (state, action) => {
             state.userListLoading = false;
             state.userList = action.payload;
-            state.userListError = false;
+            state.userListError = null;
         },
-        getUserListFailure: (state) => {
+        getUserListFailure: (state,action) => {
             state.userListLoading = false;
-            state.userListError = true;
+            state.userListError = action.payload;
         },
         deleteUserStart: (state) => {
             state.userListLoading = true;
@@ -47,13 +47,13 @@ const userSlice = createSlice({
             state.userListLoading = false;
             // filter through the userList and remove the user with the id of the payload
             state.userList = state.userList.filter(user => user._id !== action.payload._id);
-            state.userListError = false;
+            state.userListError = null;
         },
-        deleteUserFailure: (state) => {
+        deleteUserFailure: (state,action) => {
             state.userListLoading = false;
-            state.userListError = true;
+            state.userListError = action.payload;
         },
-
+        
     },
 });
 
@@ -69,7 +69,7 @@ export const loginThunk = (username, password) => async (dispatch) => {
 
     }
     catch (err) {
-        dispatch(loginFailure());
+        dispatch(loginFailure(err));
     }
 };
 
@@ -80,7 +80,7 @@ export const getUserListThunk = () => async (dispatch) => {
         dispatch(getUserListSuccess(data.data));
     }
     catch (err) {
-        dispatch(getUserListFailure());
+        dispatch(getUserListFailure(err));
     }
 }
 
@@ -92,7 +92,7 @@ export const deleteUserThunk = (id) => async (dispatch) => {
         dispatch(deleteUserSuccess(data.data));
     }
     catch (err) {
-        dispatch(deleteUserFailure());
+        dispatch(deleteUserFailure(err));
     }
 }
 

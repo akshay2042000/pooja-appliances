@@ -63,6 +63,12 @@ const deleteOrder = (id) => {
     return axios.delete(`${baseUrl}/orders/${id}`);
 }
 
+const getSingleOrder = (id) => {
+    return axios.get(`${baseUrl}/orders/${id}`);
+}
+const getSearchedUsers = (key) => {
+    return axios.get(`${baseUrl}/users/search?key=${key}`);
+}
 
 
 const Api = {
@@ -77,7 +83,9 @@ const Api = {
     placeOrder,
     deleteUser,
     deleteOrder,
-    getOrderList
+    getOrderList,
+    getSingleOrder,
+    getSearchedUsers
 }
 
 export default Api;

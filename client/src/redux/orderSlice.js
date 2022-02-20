@@ -6,8 +6,20 @@ const orderSlice = createSlice({
     name: "orders",
     initialState: {
         orderList: [],
-        orderListLoading: false,
-        orderListError: false,
+        orderListLoading: true,
+        orderListError: null,
+        singleOrder: null,
+        singleOrderLoading: true,
+        singleOrderError: null,
+        // orderForm: {
+        //     orderId: null,
+        //     orderDate: null,
+        //     orderStatus: null,
+        //     orderTotal: null,
+        //     orderItems: [],
+        //     orderCustomer: null,
+        //     orderCompany: null,
+        // }
     },
     reducers: {
         getOrderListStart: (state) => {
@@ -16,11 +28,11 @@ const orderSlice = createSlice({
         getOrderListSuccess: (state, action) => {
             state.orderListLoading = false;
             state.orderList = action.payload;
-            state.orderListError = false;
+            state.orderListError = null;
         },
-        getOrderListFailure: (state) => {
+        getOrderListFailure: (state, action) => {
             state.orderListLoading = false;
-            state.orderListError = true;
+            state.orderListError = action.payload;
         },
         deleteOrderStart: (state) => {
             state.orderListLoading = true;
@@ -28,16 +40,28 @@ const orderSlice = createSlice({
         deleteOrderSuccess: (state, action) => {
             state.orderListLoading = false;
             state.orderList = state.orderList.filter(order => order._id !== action.payload._id);
-            state.orderListError = false;
+            state.orderListError = null;
         },
-        deleteOrderFailure: (state) => {
+        deleteOrderFailure: (state, action) => {
             state.orderListLoading = false;
-            state.orderListError = true;
+            state.orderListError = action.payload;
         },
+        getSingleOrderStart: (state) => {
+            state.singleOrderLoading = true;
+        },
+        getSingleOrderSuccess: (state, action) => {
+            state.singleOrderLoading = false;
+            state.singleOrder = action.payload;
+            state.singleOrderError = null;
+        },
+        getSingleOrderFailure: (state, action) => {
+            state.singleOrderLoading = false;
+            state.singleOrderError = action.payload;
+        }
     },
 });
 
-export const { getOrderListStart, getOrderListSuccess, getOrderListFailure, deleteOrderStart, deleteOrderSuccess, deleteOrderFailure } = orderSlice.actions;
+export const { getOrderListStart, getOrderListSuccess, getOrderListFailure, deleteOrderStart, deleteOrderSuccess, deleteOrderFailure, getSingleOrderStart, getSingleOrderSuccess, getSingleOrderFailure } = orderSlice.actions;
 export default orderSlice.reducer;
 
 
@@ -48,7 +72,7 @@ export const getOrderListThunk = (form) => async (dispatch) => {
         dispatch(getOrderListSuccess(data.data));
     }
     catch (err) {
-        dispatch(getOrderListFailure());
+        dispatch(getOrderListFailure(err));
     }
 }
 
@@ -60,7 +84,19 @@ export const deleteOrderThunk = (id) => async (dispatch) => {
         dispatch(deleteOrderSuccess(data.data));
     }
     catch (err) {
-        dispatch(deleteOrderFailure());
+        dispatch(deleteOrderFailure(err));
     }
 }
+
+export const getSingleOrderThunk = (id) => async (dispatch) => {
+    dispatch(getSingleOrderStart());
+    try {
+        const { data } = await Api.getSingleOrder(id);
+        dispatch(getSingleOrderSuccess(data.data));
+    }
+    catch (err) {
+        dispatch(getSingleOrderFailure(err));
+    }
+}
+
 

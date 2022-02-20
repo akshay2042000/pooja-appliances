@@ -35,7 +35,7 @@ const AdminPage = () => {
                         edge="start"
                         onClick={handleDrawerToggle}
                         sx={{
-                            display: { md: 'none' }, position: 'fixed', backgroundColor: 'secondary.main', top: '90px', left: '30px', zIndex: '1',
+                            display: { md: 'none' }, position: 'fixed', backgroundColor: 'secondary.main', top: '90px', left: '20px', zIndex: '100',
                             color: 'secondary.contrastText',
                             '&:hover': {
                                 backgroundColor: 'secondary.dark',
