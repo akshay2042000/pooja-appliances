@@ -61,7 +61,7 @@ const getSearchedUsers = async (req, res, next) => {
                 username: {
                     $regex: regex
                 }
-            }).populate({ path: 'state'}).limit(7)
+            }).populate({ path: 'state' }).limit(7)
                 .catch(err => res.status(500).json(err));;
 
             // find match as per string similarity

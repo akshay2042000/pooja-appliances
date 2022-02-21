@@ -5,6 +5,7 @@ import applianceReducer from './applianceSlice';
 import productReducer from './productSlice';
 import userReducer from './userSlice';
 import orderReducer from './orderSlice';
+import billReducer from './billSlice';
 import cartReducer from './cartSlice';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
@@ -19,7 +20,8 @@ const combinedReducer = combineReducers({
     productState: productReducer,
     cartState: cartReducer,
     userState: userReducer,
-    orderState: orderReducer
+    orderState: orderReducer,
+    billState: billReducer,
 })
 
 const rootReducer = (state, action) => {

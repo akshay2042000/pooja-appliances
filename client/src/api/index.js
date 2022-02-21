@@ -69,7 +69,9 @@ const getSingleOrder = (id) => {
 const getSearchedUsers = (key) => {
     return axios.get(`${baseUrl}/users/search?key=${key}`);
 }
-
+const submitBill = (bill) => {
+    return axios.post(`${baseUrl}/bills`, bill);
+}
 
 const Api = {
     getCompanies,
@@ -85,7 +87,8 @@ const Api = {
     deleteOrder,
     getOrderList,
     getSingleOrder,
-    getSearchedUsers
+    getSearchedUsers,
+    submitBill
 }
 
 export default Api;

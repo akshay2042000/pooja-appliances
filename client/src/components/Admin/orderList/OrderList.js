@@ -12,7 +12,7 @@ import NoComponentFound from '../../NoComponentFound';
 
 
 
-export default function WidgetLg() {
+export default function OrderList() {
     const [pageSize, setPageSize] = useState(10);
     const dispatch = useDispatch();
     const { orderList, orderListLoading, orderListError } = useSelector(state => state.orderState);
@@ -22,11 +22,6 @@ export default function WidgetLg() {
         dispatch(deleteOrderThunk(id));
     };
 
-    // useEffect(() => {
-    //     if (orderList.length === 0) {
-    //         dispatch(getOrderListThunk());
-    //     }
-    // }, [dispatch, orderList]);
 
     const columns = [
         {
@@ -46,7 +41,6 @@ export default function WidgetLg() {
             flex: 1,
             type: 'dateTime',
             minWidth: 120,
-
             renderCell: (params) => {
 
                 return (
@@ -63,7 +57,7 @@ export default function WidgetLg() {
             valueGetter: ({ value }) => {
                 return value.name;
             },
-            minWidth: 100,
+            minWidth: 120,
             renderCell: (params) => {
                 return (
                     <Box sx={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>

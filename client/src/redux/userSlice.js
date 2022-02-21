@@ -6,7 +6,7 @@ const userSlice = createSlice({
     name: "user",
     initialState: {
         currentUser: null,
-        isFetching: true,
+        isFetching: false,
         error: null,
         userList: [],
         userListLoading: true,

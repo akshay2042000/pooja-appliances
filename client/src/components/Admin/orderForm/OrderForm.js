@@ -11,7 +11,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import AsyncSelect from 'react-select/async';
 import { useTheme } from '@mui/material/styles';
 import { Box, Container, Grid, InputAdornment, Paper, Typography } from '@mui/material';
-
+import OrderCartList from './OrderCartList';
 import { useDispatch, useSelector } from 'react-redux';
 import Api from '../../../api';
 
@@ -19,9 +19,11 @@ import Api from '../../../api';
 const OrderForm = () => {
     const dispatch = useDispatch();
     const { singleOrder } = useSelector(state => state.orderState);
+    const { isBillSubmitting, billSubmittingError, submittedBill } = useSelector(state => state.orderState);
     const theme = useTheme();
 
     const INITIAL_FORM_STATE = {
+        // TODO: get last invoice number from server
         invoiceNumber: '1002',
         date: new Date(),
         billingUser: {
@@ -44,7 +46,7 @@ const OrderForm = () => {
     };
 
     const FORM_VALIDATION = Yup.object().shape({
-        invoiceNumber: Yup.number().required('Invoice Number is required'),
+        invoiceNumber: Yup.number().required('Invoice Number is required').typeError('you must specify a number').min(0, 'Min value 0.'),
         date: Yup.date().required('Date is required'),
         billingUser: Yup.object().shape({
             username: Yup.string().required('username required'),
@@ -132,6 +134,8 @@ const OrderForm = () => {
         <>
             <Container sx={{ padding: { md: 4, xs: 2 } }}>
                 <Formik
+                    validateOnChange={false}
+                    validateOnBlure={false}
                     initialValues={{
                         ...INITIAL_FORM_STATE
                     }}
@@ -141,181 +145,200 @@ const OrderForm = () => {
                         console.log(values);
                     }}>
                     {({ values, setFieldValue }) => (
-                        <Form>
-                            <Typography variant="h5" color='inherit' sx={{ textTransform: 'capitalize', textAlign: 'center', mb: 6 }} >
-                                {`${singleOrder.app} appliances invoice`}
-                            </Typography>
+                        <>
+                            <Form>
+                                <Typography variant="h4" color='inherit' sx={{ textTransform: 'capitalize', textAlign: 'center', mb: 6 }} >
+                                    {`${singleOrder.app} appliances invoice`}
+                                </Typography>
 
-                            <Grid spacing={2} container sx={{ alignItems: 'center', mb: 4 }}>
-                                <Grid item xs={6} >
-                                    <TextFieldWrapper
-                                        name="invoiceNumber"
-                                        label="Invoice Number"
-                                        variant='outlined'
-                                    />
-                                </Grid>
-                                <Grid item xs={6} sx={{ textAlign: 'end' }}>
-                                    <LocalizationProvider dateAdapter={AdapterDateFns} locale={inLocale}>
-                                        <DateTimeWrapper
-                                            name="date"
-                                            label="Date"
+                                <Grid spacing={2} container sx={{ alignItems: 'center', mb: 4 }}>
+                                    <Grid item xs={6} >
+                                        <TextFieldWrapper
+                                            name="invoiceNumber"
+                                            label="Invoice Number"
+                                            variant='outlined'
+                                            InputProps={{
+                                                // TODO: get last invoice number from db and increment
+                                                inputProps: { min: 0 },
+                                            }}
                                         />
-                                    </LocalizationProvider>
-                                </Grid>
-                            </Grid>
-                            <Grid container spacing={2} sx={{ mb: 4 }} >
-                                <Grid item xs={12} sm={6}>
-                                    <Paper elevation={2} sx={{ p: 2 }}>
-                                        <Typography variant="body1" color="initial" sx={{ textAlign: 'center', mb: 2 }}>
-                                            Billing Address
-                                        </Typography>
-                                        {/* a search bar for user */}
-                                        <Box sx={{ mb: 4 }}>
-                                            <AsyncSelect
-                                                styles={customStyles}
-                                                name='billingUser'
-                                                loadOptions={loadOptions}
-                                                cacheOptions
-                                                placeholder='Select any other user'
-                                                defaultValue={{ label: singleOrder.user.username, value: singleOrder.user }}
-                                                onChange={(e, value) => {
-                                                    handleUserChange(e, value, setFieldValue)
-                                                }}
+                                    </Grid>
+                                    <Grid item xs={6} sx={{ textAlign: 'end' }}>
+                                        <LocalizationProvider dateAdapter={AdapterDateFns} locale={inLocale}>
+                                            <DateTimeWrapper
+                                                name="date"
+                                                label="Date"
                                             />
-                                        </Box>
-                                        <Grid spacing={2} container>
-                                            <Grid item xs={12}>
-                                                <TextFieldWrapper
-                                                    name="billingUser.name"
-                                                    label="Name"
-                                                    variant='outlined'
-                                                    size='small'
-                                                    fullWidth
-                                                />
-                                            </Grid>
-                                            <Grid item xs={12}>
-                                                <TextFieldWrapper
-                                                    name="billingUser.address"
-                                                    label="Address"
-                                                    variant='outlined'
-                                                    size='small'
-                                                    fullWidth
-                                                />
-                                            </Grid>
-                                            <Grid item xs={12}>
-                                                <TextFieldWrapper
-                                                    name="billingUser.gst"
-                                                    label="GST Number"
-                                                    variant='outlined'
-                                                    size='small'
-                                                    fullWidth
-                                                />
-                                            </Grid>
-                                            <Grid item xs={6}>
-                                                <TextFieldWrapper
-                                                    name="billingUser.state"
-                                                    label="State"
-                                                    variant='outlined'
-                                                    size='small'
-                                                />
-                                            </Grid>
-                                            <Grid item xs={6}>
-                                                <TextFieldWrapper
-                                                    name="billingUser.stateCode"
-                                                    label="State Code"
-                                                    variant='outlined'
-                                                    size='small'
-                                                />
-                                            </Grid>
-                                        </Grid>
-                                    </Paper>
+                                        </LocalizationProvider>
+                                    </Grid>
                                 </Grid>
-                                <Grid item xs={12} sm={6}>
-                                    <Paper elevation={2} sx={{ p: 2 }}>
-                                        <Typography variant="body1" color="initial" sx={{ textAlign: 'center', mb: 2 }}>
-                                            Shipping Address
-                                        </Typography>
-                                        {/* a search bar for user */}
-                                        <Box sx={{ mb: 4 }}>
-                                            <AsyncSelect
-                                                name='shippingUser'
-                                                styles={customStyles}
-                                                loadOptions={loadOptions}
-                                                cacheOptions
-                                                placeholder='Select any other user'
-                                                defaultValue={{ label: singleOrder.user.username, value: singleOrder.user }}
-                                                onChange={(value, e) => {
-                                                    handleUserChange(value, e, setFieldValue)
-                                                }}
+                                <Grid container spacing={2} sx={{ mb: 4 }} >
+                                    <Grid item xs={12} sm={6}>
+                                        <Paper elevation={2} sx={{ p: 2 }}>
+                                            <Typography variant="body1" color="initial" sx={{ textAlign: 'center', mb: 2 }}>
+                                                Billing Address
+                                            </Typography>
+                                            {/* a search bar for user */}
+                                            <Box sx={{ mb: 4 }}>
+                                                <AsyncSelect
+                                                    styles={customStyles}
+                                                    name='billingUser'
+                                                    loadOptions={loadOptions}
+                                                    cacheOptions
+                                                    placeholder='Select any other user'
+                                                    defaultValue={{ label: singleOrder.user.username, value: singleOrder.user }}
+                                                    onChange={(e, value) => {
+                                                        handleUserChange(e, value, setFieldValue)
+                                                    }}
+                                                />
+                                            </Box>
+                                            <Grid spacing={2} container>
+                                                <Grid item xs={12}>
+                                                    <TextFieldWrapper
+                                                        name="billingUser.name"
+                                                        label="Name"
+                                                        variant='outlined'
+                                                        size='small'
+                                                        fullWidth
+                                                    />
+                                                </Grid>
+                                                <Grid item xs={12}>
+                                                    <TextFieldWrapper
+                                                        name="billingUser.address"
+                                                        label="Address"
+                                                        variant='outlined'
+                                                        size='small'
+                                                        fullWidth
+                                                    />
+                                                </Grid>
+                                                <Grid item xs={12}>
+                                                    <TextFieldWrapper
+                                                        name="billingUser.gst"
+                                                        label="GST Number"
+                                                        variant='outlined'
+                                                        size='small'
+                                                        fullWidth
+                                                    />
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <TextFieldWrapper
+                                                        name="billingUser.state"
+                                                        label="State"
+                                                        variant='outlined'
+                                                        size='small'
+                                                    />
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <TextFieldWrapper
+                                                        name="billingUser.stateCode"
+                                                        label="State Code"
+                                                        variant='outlined'
+                                                        size='small'
+                                                    />
+                                                </Grid>
+                                            </Grid>
+                                        </Paper>
+                                    </Grid>
+                                    <Grid item xs={12} sm={6}>
+                                        <Paper elevation={2} sx={{ p: 2 }}>
+                                            <Typography variant="body1" color="initial" sx={{ textAlign: 'center', mb: 2 }}>
+                                                Shipping Address
+                                            </Typography>
+                                            {/* a search bar for user */}
+                                            <Box sx={{ mb: 4 }}>
+                                                <AsyncSelect
+                                                    name='shippingUser'
+                                                    styles={customStyles}
+                                                    loadOptions={loadOptions}
+                                                    cacheOptions
+                                                    placeholder='Select any other user'
+                                                    defaultValue={{ label: singleOrder.user.username, value: singleOrder.user }}
+                                                    onChange={(value, e) => {
+                                                        handleUserChange(value, e, setFieldValue)
+                                                    }}
 
-                                            />
-                                        </Box>
-                                        <Grid spacing={2} container>
-                                            <Grid item xs={12}>
-                                                <TextFieldWrapper
-                                                    name="shippingUser.name"
-                                                    label="Name"
-                                                    variant='outlined'
-                                                    size='small'
-                                                    fullWidth
                                                 />
+                                            </Box>
+                                            <Grid spacing={2} container>
+                                                <Grid item xs={12}>
+                                                    <TextFieldWrapper
+                                                        name="shippingUser.name"
+                                                        label="Name"
+                                                        variant='outlined'
+                                                        size='small'
+                                                        fullWidth
+                                                    />
+                                                </Grid>
+                                                <Grid item xs={12}>
+                                                    <TextFieldWrapper
+                                                        name="shippingUser.address"
+                                                        label="Address"
+                                                        variant='outlined'
+                                                        size='small'
+                                                        fullWidth
+                                                    />
+                                                </Grid>
+                                                <Grid item xs={12}>
+                                                    <TextFieldWrapper
+                                                        name="shippingUser.gst"
+                                                        label="GST Number"
+                                                        variant='outlined'
+                                                        size='small'
+                                                        fullWidth
+                                                    />
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <TextFieldWrapper
+                                                        name="shippingUser.state"
+                                                        label="State"
+                                                        variant='outlined'
+                                                        size='small'
+                                                    />
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <TextFieldWrapper
+                                                        name="shippingUser.stateCode"
+                                                        label="State Code"
+                                                        variant='outlined'
+                                                        size='small'
+                                                    />
+                                                </Grid>
                                             </Grid>
-                                            <Grid item xs={12}>
-                                                <TextFieldWrapper
-                                                    name="shippingUser.address"
-                                                    label="Address"
-                                                    variant='outlined'
-                                                    size='small'
-                                                    fullWidth
-                                                />
-                                            </Grid>
-                                            <Grid item xs={12}>
-                                                <TextFieldWrapper
-                                                    name="shippingUser.gst"
-                                                    label="GST Number"
-                                                    variant='outlined'
-                                                    size='small'
-                                                    fullWidth
-                                                />
-                                            </Grid>
-                                            <Grid item xs={6}>
-                                                <TextFieldWrapper
-                                                    name="shippingUser.state"
-                                                    label="State"
-                                                    variant='outlined'
-                                                    size='small'
-                                                />
-                                            </Grid>
-                                            <Grid item xs={6}>
-                                                <TextFieldWrapper
-                                                    name="shippingUser.stateCode"
-                                                    label="State Code"
-                                                    variant='outlined'
-                                                    size='small'
-                                                />
-                                            </Grid>
-                                        </Grid>
-                                    </Paper>
+                                        </Paper>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
+                                <Grid container>
+                                    <Grid item xs={12} >
+                                        <TextFieldWrapper
+                                            name="discount"
+                                            label="Discount"
+                                            variant='outlined'
+                                            type='number'
+                                            InputProps={{
+                                                inputProps: { min: 0 },
+                                                endAdornment: <InputAdornment position="end">%</InputAdornment>,
+                                            }}
+                                        />
+                                    </Grid>
+                                </Grid>
+                            </Form>
+                            <OrderCartList values={values} />
                             <Grid container>
-                                <Grid item xs={12} >
-                                    <TextFieldWrapper
-                                        name="discount"
-                                        label="Discount"
-                                        variant='outlined'
-                                        type='number'
-                                        InputProps={{
-                                            inputProps: { min: 0 },
-                                            endAdornment: <InputAdornment position="end">%</InputAdornment>,
-                                        }}
-
-                                    />
+                                <Grid item xs={12} sm={6} />
+                                <Grid item xs={12} sm={6}>
+                                    <ButtonWrapper
+                                        variant="contained"
+                                        color="primary"
+                                        type="submit"
+                                        sx={{ p: 2 }}
+                                        disabled={isBillSubmitting}
+                                    >
+                                        Generate Bill
+                                    </ButtonWrapper>
                                 </Grid>
                             </Grid>
-                        </Form>
+                        </>
                     )}
-
                 </Formik>
             </Container>
         </>

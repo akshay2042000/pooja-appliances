@@ -200,6 +200,7 @@ const NavBar = () => {
         },
         width: '90%',
     }));
+    console.log("🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑 ", searchedProductsLoading)
 
     return (
 
