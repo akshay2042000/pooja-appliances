@@ -322,7 +322,7 @@ const OrderForm = () => {
                                     </Grid>
                                 </Grid>
                             </Form>
-                            <OrderCartList values={values} />
+                            <OrderCartList values={values} setFieldValue={setFieldValue} />
                             <Grid container>
                                 <Grid item xs={12} sm={6} />
                                 <Grid item xs={12} sm={6}>
