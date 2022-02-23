@@ -72,6 +72,9 @@ const getSearchedUsers = (key) => {
 const submitBill = (bill) => {
     return axios.post(`${baseUrl}/bills`, bill);
 }
+const postInvoice = (name) => {
+    return axios.post(`${baseUrl}/invoicePdf`, { name: name });
+}
 
 const Api = {
     getCompanies,
@@ -88,7 +91,8 @@ const Api = {
     getOrderList,
     getSingleOrder,
     getSearchedUsers,
-    submitBill
+    submitBill,
+    postInvoice
 }
 
 export default Api;

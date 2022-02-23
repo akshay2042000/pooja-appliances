@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useState } from 'react'
 import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
 import TextFieldWrapper from '../../Formik/TextFieldWrapper';
@@ -10,16 +10,20 @@ import inLocale from 'date-fns/locale/en-IN';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import AsyncSelect from 'react-select/async';
 import { useTheme } from '@mui/material/styles';
-import { Box, Container, Grid, InputAdornment, Paper, Typography } from '@mui/material';
+import { Box, Container, Grid, InputAdornment, Paper, Typography, CircularProgress } from '@mui/material';
 import OrderCartList from './OrderCartList';
 import { useDispatch, useSelector } from 'react-redux';
 import Api from '../../../api';
+import OrderSuccess from './OrderSuccess';
+import { submitBillError, submitBillLoading, submitBillThunk } from '../../../redux/billSlice';
+
 
 
 const OrderForm = () => {
     const dispatch = useDispatch();
     const { singleOrder } = useSelector(state => state.orderState);
-    const { isBillSubmitting, billSubmittingError, submittedBill } = useSelector(state => state.orderState);
+    const { isBillSubmitting, billSubmittingError, submittedBill } = useSelector(state => state.billState);
+    const [downloadLink, setDownloadLink] = useState('');
     const theme = useTheme();
 
     const INITIAL_FORM_STATE = {
@@ -44,6 +48,8 @@ const OrderForm = () => {
         },
         discount: 0
     };
+
+    const [open, setOpen] = useState(false);
 
     const FORM_VALIDATION = Yup.object().shape({
         invoiceNumber: Yup.number().required('Invoice Number is required').typeError('you must specify a number').min(0, 'Min value 0.'),
@@ -130,6 +136,23 @@ const OrderForm = () => {
         })
     }
 
+    const postInvoice = async (values) => {
+
+        const name = singleOrder.app + '_' + values.invoiceNumber + '_' + values.date.getDate() + "_" + (values.date.getMonth() + 1) + "_" + values.date.getUTCFullYear()
+
+        try {
+            dispatch(submitBillLoading(true));
+            const { data } = await Api.postInvoice(name);
+            setDownloadLink(data.url)
+            dispatch(submitBillLoading(false));
+        } catch (err) {
+            dispatch(submitBillError(err));
+            dispatch(submitBillLoading(false));
+        }
+        setOpen(true);
+    }
+
+
     return (
         <>
             <Container sx={{ padding: { md: 4, xs: 2 } }}>
@@ -141,17 +164,21 @@ const OrderForm = () => {
                     }}
                     validationSchema={FORM_VALIDATION}
                     enableReinitialize={true}
-                    onSubmit={values => {
+                    onSubmit={(values) => {
                         console.log(values);
+                        postInvoice(values);
+                        // dispatch({ type: 'SUBMIT_BILL', payload: values });
+                        // dispatch(submitBillThunk());
+
                     }}>
                     {({ values, setFieldValue }) => (
                         <>
                             <Form>
-                                <Typography variant="h4" color='inherit' sx={{ textTransform: 'capitalize', textAlign: 'center', mb: 6 }} >
+                                <Typography variant="h4" color='inherit' sx={{ textTransform: 'capitalize', textAlign: 'center', mb: 8 }} >
                                     {`${singleOrder.app} appliances invoice`}
                                 </Typography>
 
-                                <Grid spacing={2} container sx={{ alignItems: 'center', mb: 4 }}>
+                                <Grid spacing={2} container sx={{ alignItems: 'center', mb: 6 }}>
                                     <Grid item xs={6} >
                                         <TextFieldWrapper
                                             name="invoiceNumber"
@@ -326,17 +353,24 @@ const OrderForm = () => {
                             <Grid container>
                                 <Grid item xs={12} sm={6} />
                                 <Grid item xs={12} sm={6}>
+
                                     <ButtonWrapper
                                         variant="contained"
                                         color="primary"
                                         type="submit"
-                                        sx={{ p: 2 }}
+                                        sx={{ p: 3 }}
                                         disabled={isBillSubmitting}
                                     >
-                                        Generate Bill
+                                        {isBillSubmitting ? (
+                                            <CircularProgress color="primary" size='30px' />
+                                        ) : 'Generate Bill'}
+
                                     </ButtonWrapper>
+
+
                                 </Grid>
                             </Grid>
+                            <OrderSuccess open={open} setOpen={setOpen} values={values} downloadLink={downloadLink} />
                         </>
                     )}
                 </Formik>

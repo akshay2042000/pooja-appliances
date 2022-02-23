@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
 import { DeleteOutline } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
-import { Box, Button, Chip, IconButton, Typography } from "@mui/material";
+import { Box, Button, Chip, Grid, IconButton, Typography } from "@mui/material";
 import { useSelector, useDispatch } from 'react-redux';
 import { getOrderListThunk, deleteOrderThunk } from "../../../redux/orderSlice";
 import LoadingComponent from '../../Skeletons/LoadingComponent';
@@ -315,35 +315,52 @@ const OrderCartList = ({ values, setFieldValue }) => {
                         <NoComponentFound error={singleOrderError} />
                         :
                         (
-                            <Box sx={{ display: 'flex', paddingY: 5 }} >
-                                <DataGrid
-                                    autoHeight
-                                    rows={items}
-                                    sx={{
-                                        '& .MuiDataGrid-cell:focus': {
-                                            outline: 'none',
-                                        },
-                                        '& .editable-cell': {
-                                            cursor: 'pointer',
-                                        }
-                                    }}
-                                    disableSelectionOnClick
-                                    columns={columns}
-                                    pageSize={pageSize}
-                                    onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-                                    rowsPerPageOptions={[5, 10, 20]}
-                                    pagination
-                                    density='comfortable'
-                                    getRowId={(row) => row.id}
-                                    getCellClassName={(params) => {
-                                        if (params.colDef.editable) {
-                                            return 'editable-cell';
-                                        }
-                                    }}
-                                    onCellEditCommit={handleChange}
+                            <>
+                                <Box sx={{ display: 'flex', paddingY: 5 }} >
+                                    <DataGrid
+                                        autoHeight
+                                        rows={items}
+                                        sx={{
+                                            '& .MuiDataGrid-cell:focus': {
+                                                outline: 'none',
+                                            },
+                                            '& .editable-cell': {
+                                                cursor: 'pointer',
+                                            }
+                                        }}
+                                        disableSelectionOnClick
+                                        columns={columns}
+                                        pageSize={pageSize}
+                                        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+                                        rowsPerPageOptions={[5, 10, 20]}
+                                        pagination
+                                        density='comfortable'
+                                        getRowId={(row) => row.id}
+                                        getCellClassName={(params) => {
+                                            if (params.colDef.editable) {
+                                                return 'editable-cell';
+                                            }
+                                        }}
+                                        onCellEditCommit={handleChange}
 
-                                />
-                            </Box >
+                                    />
+
+                                </Box >
+                                <Grid container sx={{ mb: 6 }}>
+                                    <Grid item xs={12} sm={6}>
+                                        <Typography variant="body1" color="initial" sx={{ textTransform: 'capitalize', fontWeight: 'bold' }}>
+                                            total taxable amount : <Typography variant="h6" sx={{ fontWeight: 'normal' }} component='span'>₹{items.reduce((previous, current) => previous + current.taxableValue, 0)}</Typography>
+                                        </Typography>
+                                        <Typography variant="body1" color="initial" sx={{ textTransform: 'capitalize', fontWeight: 'bold' }}>
+                                            total gst : <Typography variant="h6" sx={{ fontWeight: 'normal' }} component='span'>₹{items.reduce((previous, current) => previous + current.cgst + current.sgst + current.igst, 0)}</Typography>
+                                        </Typography>
+                                        <Typography variant="body1" color="initial" sx={{ textTransform: 'capitalize', fontWeight: 'bold' }}>
+                                            Invoice total : <Typography variant="h6" sx={{ fontWeight: 'normal' }} component='span'>₹{items.reduce((previous, current) => previous + current.subtotal, 0)}</Typography>
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={12} sm={6} />
+                                </Grid>
+                            </>
                         )
             }
         </>

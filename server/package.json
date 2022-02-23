@@ -11,17 +11,23 @@
     "cors": "^2.8.5",
     "crypto-js": "^4.1.1",
     "debug": "~2.6.9",
+    "docx-pdf": "^0.0.1",
+    "docxtemplater": "^3.29.0",
     "dotenv": "^10.0.0",
     "express": "~4.16.1",
-    "firebase": "^9.6.2",
-    "get-closest": "^0.0.4",
+    "firebase": "^9.6.7",
+    "firebase-admin": "^10.0.2",
     "http-errors": "~1.6.3",
+    "install": "^0.13.0",
     "jade": "~1.11.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.5",
     "mongoose-sequence": "^5.3.1",
     "morgan": "~1.9.1",
-    "string-similarity": "^4.0.4"
+    "npm": "^8.5.1",
+    "pizzip": "^3.1.1",
+    "string-similarity": "^4.0.4",
+    "uuid": "^3.4.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"

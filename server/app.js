@@ -21,6 +21,7 @@ var productRouter = require('./routes/product');
 var orderRouter = require('./routes/order');
 var authRouter = require('./routes/auth');
 var billRouter = require('./routes/bill');
+var pdfRouter = require('./routes/invoicePdf');
 
 
 
@@ -61,6 +62,7 @@ app.use('/products', productRouter);
 app.use('/orders', orderRouter);
 app.use('/auth', authRouter);
 app.use('/bills', billRouter);
+app.use('/invoicePdf', pdfRouter);
 
 
 
