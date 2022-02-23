@@ -67,10 +67,9 @@ const postBill = async (req, res, next) => {
             data: newBill,
         })
     }
-    catch {
-        err = new Error('Error while creating bill');
-        err.status = 500;
-        next(err);
+    catch (err) {
+        res.status(500).json(err);
+        console.log(err);
     }
 }
 

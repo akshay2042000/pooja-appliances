@@ -72,9 +72,26 @@ const getSearchedUsers = (key) => {
 const submitBill = (bill) => {
     return axios.post(`${baseUrl}/bills`, bill);
 }
-const postInvoice = (name) => {
-    return axios.post(`${baseUrl}/invoicePdf`, { name: name });
+const postInvoice = (name, invoiceData) => {
+    return axios.post(`${baseUrl}/invoicePdf`, { name: name, invoiceData: invoiceData });
 }
+
+const getBillList = () => {
+    return axios.get(`${baseUrl}/bills`)
+}
+
+const deleteBill = (id) => {
+    return axios.delete(`${baseUrl}/bills/${id}`)
+}
+
+const getSingleBill = (id) => {
+    return axios.get(`${baseUrl}/bills/${id}`);
+}
+
+const updateOrder = (id, order) => {
+    return axios.put(`${baseUrl}/orders/${id}`, order);
+}
+
 
 const Api = {
     getCompanies,
@@ -92,7 +109,11 @@ const Api = {
     getSingleOrder,
     getSearchedUsers,
     submitBill,
-    postInvoice
+    postInvoice,
+    getBillList,
+    deleteBill,
+    getSingleBill,
+    updateOrder
 }
 
 export default Api;

@@ -23,7 +23,6 @@ const OrderForm = () => {
     const dispatch = useDispatch();
     const { singleOrder } = useSelector(state => state.orderState);
     const { isBillSubmitting, billSubmittingError, submittedBill } = useSelector(state => state.billState);
-    const [downloadLink, setDownloadLink] = useState('');
     const theme = useTheme();
 
     const INITIAL_FORM_STATE = {
@@ -140,15 +139,29 @@ const OrderForm = () => {
 
         const name = singleOrder.app + '_' + values.invoiceNumber + '_' + values.date.getDate() + "_" + (values.date.getMonth() + 1) + "_" + values.date.getUTCFullYear()
 
-        try {
-            dispatch(submitBillLoading(true));
-            const { data } = await Api.postInvoice(name);
-            setDownloadLink(data.url)
-            dispatch(submitBillLoading(false));
-        } catch (err) {
-            dispatch(submitBillError(err));
-            dispatch(submitBillLoading(false));
+        const invoiceData = {
+            first_name: "potato",
+            last_name: "patata",
+            phone: "0652455478",
+            description: "New Website",
         }
+
+        const billData = {
+            app: singleOrder.app,
+            invoiceNumber: values.invoiceNumber,
+            invoiceData: {
+                billingUser: values.billingUser,
+                shippingUser: values.shippingUser,
+                discount: values.discount,
+                date: values.date,
+                orderId: singleOrder.orderId,
+                items: values.items
+            },
+            order: { ...singleOrder }
+        }
+
+        await dispatch(submitBillThunk(billData, name, invoiceData));
+
         setOpen(true);
     }
 
@@ -165,11 +178,7 @@ const OrderForm = () => {
                     validationSchema={FORM_VALIDATION}
                     enableReinitialize={true}
                     onSubmit={(values) => {
-                        console.log(values);
                         postInvoice(values);
-                        // dispatch({ type: 'SUBMIT_BILL', payload: values });
-                        // dispatch(submitBillThunk());
-
                     }}>
                     {({ values, setFieldValue }) => (
                         <>
@@ -358,7 +367,7 @@ const OrderForm = () => {
                                         variant="contained"
                                         color="primary"
                                         type="submit"
-                                        sx={{ p: 3 }}
+                                        sx={{ p: 2 }}
                                         disabled={isBillSubmitting}
                                     >
                                         {isBillSubmitting ? (
@@ -370,7 +379,7 @@ const OrderForm = () => {
 
                                 </Grid>
                             </Grid>
-                            <OrderSuccess open={open} setOpen={setOpen} values={values} downloadLink={downloadLink} />
+                            <OrderSuccess open={open} setOpen={setOpen} values={values} />
                         </>
                     )}
                 </Formik>

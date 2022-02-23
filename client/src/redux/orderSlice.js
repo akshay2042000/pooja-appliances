@@ -11,15 +11,6 @@ const orderSlice = createSlice({
         singleOrder: null,
         singleOrderLoading: true,
         singleOrderError: null,
-        // orderForm: {
-        //     orderId: null,
-        //     orderDate: null,
-        //     orderStatus: null,
-        //     orderTotal: null,
-        //     orderItems: [],
-        //     orderCustomer: null,
-        //     orderCompany: null,
-        // }
     },
     reducers: {
         getOrderListStart: (state) => {
@@ -57,7 +48,7 @@ const orderSlice = createSlice({
         getSingleOrderFailure: (state, action) => {
             state.singleOrderLoading = false;
             state.singleOrderError = action.payload;
-        }
+        },
     },
 });
 

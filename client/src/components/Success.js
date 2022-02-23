@@ -96,7 +96,7 @@ const Success = ({ open, setOpen, order }) => {
                 </DialogContent>
 
                 <DialogActions>
-                    <Button autoFocus variant='contained' onClick={handleClose}>
+                    <Button variant='outlined' color='error' autoFocus onClick={handleClose} >
                         Close
                     </Button>
                 </DialogActions>

@@ -35,12 +35,7 @@ router.route('/')
             paragraphLoop: true,
             linebreaks: true,
         });
-        doc.render({
-            first_name: "sarthak",
-            last_name: "ahuja",
-            phone: "0652455478",
-            description: "New Website",
-        })
+        doc.render(req.body.invoiceData)
 
         const buf = doc.getZip().generate({
             type: "nodebuffer",
