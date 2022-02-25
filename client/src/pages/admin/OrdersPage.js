@@ -1,11 +1,11 @@
 import React from 'react'
 import OrderList from '../../components/Admin/orderList/OrderList'
-import OrderListForm from '../../components/Admin/orderList/OrderListForm'
+import ListForm from '../../components/Admin/ListForm'
 
 const OrdersPage = () => {
     return (
         <div>
-            <OrderListForm />
+            <ListForm page='orders'/>
             <OrderList />
         </div>
     )

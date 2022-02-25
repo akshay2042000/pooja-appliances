@@ -89,7 +89,7 @@ export default function OrderList() {
             minWidth: 100,
             renderCell: (params) => {
                 return (
-                    <Typography title={params.row.app} variant='body2' sx={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                    <Typography title={params.row.app} variant='body2' sx={{ textOverflow: 'ellipsis', overflow: 'hidden', textTransform: 'capitalize' }}>
                         {params.row.app}
                     </Typography>
                 );

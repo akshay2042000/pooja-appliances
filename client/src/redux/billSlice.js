@@ -75,10 +75,10 @@ export default billSlice.reducer;
 
 //  thunks
 
-export const fetchBillListThunk = () => async (dispatch) => {
+export const fetchBillListThunk = (form) => async (dispatch) => {
     dispatch(getBillListStart);
     try {
-        const { data } = await Api.getBillList()
+        const { data } = await Api.getBillList(form)
         dispatch(getBillListSuccess(data.data))
     } catch (err) {
         dispatch(getBillListFailure(err));

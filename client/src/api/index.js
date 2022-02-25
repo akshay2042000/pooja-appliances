@@ -76,8 +76,11 @@ const postInvoice = (name, invoiceData) => {
     return axios.post(`${baseUrl}/invoicePdf`, { name: name, invoiceData: invoiceData });
 }
 
-const getBillList = () => {
-    return axios.get(`${baseUrl}/bills`)
+const getBillList = (form) => {
+    if (form.appliance === "all") {
+        return axios.get(`${baseUrl}/bills`);
+    }
+    return axios.get(`${baseUrl}/bills?app=${form.appliance}`);
 }
 
 const deleteBill = (id) => {

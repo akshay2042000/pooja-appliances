@@ -1,9 +1,10 @@
 import { Box, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 import React, { useState, useEffect } from 'react'
-import { getOrderListThunk } from '../../../redux/orderSlice';
+import { getOrderListThunk } from '../../redux/orderSlice';
 import { useDispatch } from 'react-redux';
+import { fetchBillListThunk } from '../../redux/billSlice';
 
-const OrderListForm = () => {
+const ListForm = ({ page }) => {
     const dispatch = useDispatch();
     const [form, setForm] = useState({
         appliance: 'all',
@@ -17,7 +18,12 @@ const OrderListForm = () => {
     };
 
     useEffect(() => {
-        dispatch(getOrderListThunk(form));
+        if (page === 'orders') {
+            dispatch(getOrderListThunk(form));
+        } else if (page === 'bills') {
+            dispatch(getOrderListThunk(form));
+            dispatch(fetchBillListThunk(form));
+        }
     }, [form]);
 
     return (
@@ -45,4 +51,4 @@ const OrderListForm = () => {
     )
 }
 
-export default OrderListForm
+export default ListForm

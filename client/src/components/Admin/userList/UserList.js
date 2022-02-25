@@ -143,7 +143,7 @@ export default function UserList() {
         },
         {
             field: "action",
-            headerName: "Action",
+            headerName: "",
             width: 180,
             renderCell: (params) => {
                 return (
