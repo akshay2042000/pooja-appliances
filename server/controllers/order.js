@@ -11,7 +11,7 @@ const getOrders = async (req, res, next) => {
                 app: appliances
             }).populate({ path: 'user', select: 'name' });
         } else {
-            orders = await Order.find({}).populate({ path: 'user', select: 'name' });
+            orders = await Order.find({}).populate('user');
         }
 
         if (orders && orders.length > 0) {

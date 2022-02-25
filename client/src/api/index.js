@@ -83,8 +83,12 @@ const getBillList = (form) => {
     return axios.get(`${baseUrl}/bills?app=${form.appliance}`);
 }
 
-const deleteBill = (id) => {
-    return axios.delete(`${baseUrl}/bills/${id}`)
+const deleteBill = (id, name) => {
+    return axios.delete(`${baseUrl}/bills/${id}`, {
+        data: {
+            name: name
+        }
+    });
 }
 
 const getSingleBill = (id) => {

@@ -54,8 +54,8 @@ export default function OrderList() {
             field: 'user',
             headerName: "User",
             flex: 1,
-            valueGetter: ({ value }) => {
-                return value.name;
+            valueGetter: (params) => {
+                return params.row.user.name;
             },
             minWidth: 120,
             renderCell: (params) => {
@@ -63,6 +63,25 @@ export default function OrderList() {
                     <Box sx={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
                         <Typography title={params.row.user.name} variant='body2' sx={{ textTransform: 'capitalize', textOverflow: 'ellipsis', overflow: 'hidden' }}>
                             {params.row.user.name}
+                        </Typography>
+                    </Box>
+                );
+            },
+        },
+        {
+            field: 'username',
+            headerName: "username",
+            flex: 1,
+            valueGetter: (params) => {
+                return params.row.user.username;
+            },
+
+            minWidth: 120,
+            renderCell: (params) => {
+                return (
+                    <Box sx={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
+                        <Typography title={params.row.user.username} variant='body2' sx={{ textTransform: 'capitalize', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                            {params.row.user.username}
                         </Typography>
                     </Box>
                 );
@@ -114,19 +133,13 @@ export default function OrderList() {
         },
         {
             field: "action",
-            flex: 1,
-            headerName: "Action",
-            minWidth: 180,
+            flex: 0.3,
+            headerName: "",
+            minWidth: 80,
             renderCell: (params) => {
                 return (
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>
-                        <Link to={params.row._id}>
-                            <Button variant='contained' color='secondary'>Invoice</Button>
-                        </Link>
-
-
                         <IconButton sx={{ ml: 1 }} color='error' onClick={() => handleDelete(params.row._id)}>
-
                             <DeleteOutline />
                         </IconButton>
                     </Box>

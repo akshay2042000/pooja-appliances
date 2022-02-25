@@ -22,6 +22,7 @@ const OrderSuccess = ({ open, setOpen }) => {
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+        setOpen(false);
     }
 
     return (

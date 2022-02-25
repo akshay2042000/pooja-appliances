@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Bill = require('../models/bills');
+const cloudinary = require('../cloudinary')
+
 
 const getBills = async (req, res, next) => {
     try {
@@ -69,7 +71,6 @@ const postBill = async (req, res, next) => {
     }
     catch (err) {
         res.status(500).json(err);
-        console.log(err);
     }
 }
 
@@ -95,7 +96,9 @@ const updateBillById = async (req, res, next) => {
     }
 }
 
+
 const deleteBillById = async (req, res, next) => {
+
     try {
         const bill = await Bill.findByIdAndDelete(req.params.id);
         if (bill) {
@@ -115,6 +118,14 @@ const deleteBillById = async (req, res, next) => {
         err.status = 500;
         next(err);
     }
+ 
+
+    cloudinary.uploader.destroy(`invoices/${req.body.name}`, function (result) {
+        console.log(result);
+    });
+
+
+
 }
 const deleteBills = async (req, res, next) => {
     try {

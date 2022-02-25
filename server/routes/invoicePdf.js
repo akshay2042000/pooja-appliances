@@ -5,22 +5,13 @@ const path = require('path');
 var docxConverter = require('docx-pdf');
 const PizZip = require("pizzip");
 const Docxtemplater = require("docxtemplater");
+const cloudinary = require('../cloudinary');
 
 
 const { verifyToken,
     verifyTokenAndAuthorization,
     verifyTokenAndAdmin, } = require('../middleware/authenticate');
-const { storageRef } = require('../firebase');
 
-
-
-async function uploadFile(path, filename) {
-    const storage = await storageRef.upload(path, {
-        public: true,
-        destination: `invoices/${filename}`,
-    });
-    return storage[0].metadata.mediaLink;
-}
 
 router.route('/')
     .post(verifyTokenAndAdmin, async (req, res) => {
@@ -42,15 +33,22 @@ router.route('/')
             compression: "DEFLATE",
         });
         fs.writeFileSync('./assets/output.docx', buf);
-        docxConverter('./assets/output.docx', './assets/output.pdf', async (err, result) => {
+        docxConverter('./assets/output.docx', './assets/output.pdf', (err, result) => {
             if (err) console.log(err);
             else {
-                const url = await uploadFile('./assets/output.pdf', req.body.name + '.pdf')
-                res.status(200).json({
-                    url: url
-                });
-                fs.unlinkSync('./assets/output.docx');
-                fs.unlinkSync('./assets/output.pdf');
+                // const url = await uploadFile('./assets/output.pdf', req.body.name + '.pdf')
+                cloudinary.uploader.upload('./assets/output.pdf', {
+                    public_id: 'invoices/' + req.body.name,
+                    flags: 'attachment',
+                    discard_original_filename: true,
+                },
+                    function (error, result) {
+                        res.status(200).json({
+                            url: result.url,
+                        });
+                        fs.unlinkSync('./assets/output.docx');
+                        fs.unlinkSync('./assets/output.pdf');
+                    });
             }
         });
     })

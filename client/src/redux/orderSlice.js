@@ -70,7 +70,6 @@ export const getOrderListThunk = (form) => async (dispatch) => {
 export const deleteOrderThunk = (id) => async (dispatch) => {
     dispatch(deleteOrderStart());
     try {
-        console.log(id)
         const { data } = await Api.deleteOrder(id);
         dispatch(deleteOrderSuccess(data.data));
     }

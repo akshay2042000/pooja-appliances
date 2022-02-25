@@ -21,7 +21,6 @@ const ListForm = ({ page }) => {
         if (page === 'orders') {
             dispatch(getOrderListThunk(form));
         } else if (page === 'bills') {
-            dispatch(getOrderListThunk(form));
             dispatch(fetchBillListThunk(form));
         }
     }, [form]);

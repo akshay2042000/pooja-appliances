@@ -76,7 +76,7 @@ export default billSlice.reducer;
 //  thunks
 
 export const fetchBillListThunk = (form) => async (dispatch) => {
-    dispatch(getBillListStart);
+    dispatch(getBillListStart());
     try {
         const { data } = await Api.getBillList(form)
         dispatch(getBillListSuccess(data.data))
@@ -85,10 +85,10 @@ export const fetchBillListThunk = (form) => async (dispatch) => {
     }
 }
 
-export const deleteBillThunk = (id) => async (dispatch) => {
-    dispatch(deleteBillStart);
+export const deleteBillThunk = (id,name) => async (dispatch) => {
+    dispatch(deleteBillStart());
     try {
-        const { data } = await Api.deleteBill(id)
+        const { data } = await Api.deleteBill(id,name)
         dispatch(deleteBillSuccess(data.data))
     } catch (err) {
         dispatch(deleteBillFailure(err));
