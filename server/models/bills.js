@@ -34,6 +34,10 @@ var billSchema = new Schema({
         type: invoiceSchema,
         required: true,
     },
+    invoiceViewBill: {
+        type: invoiceSchema,
+        required: true,
+    },
     invoiceNumber:{
         type: Number,
         required: true,

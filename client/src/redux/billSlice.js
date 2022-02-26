@@ -85,10 +85,16 @@ export const fetchBillListThunk = (form) => async (dispatch) => {
     }
 }
 
-export const deleteBillThunk = (id,name) => async (dispatch) => {
+export const deleteBillThunk = (id, bill) => async (dispatch) => {
     dispatch(deleteBillStart());
     try {
-        const { data } = await Api.deleteBill(id,name)
+        console.log(bill)
+        const date = new Date(bill.date);
+        const name = bill.app + '_' + bill.invoiceNumber + '_' + date.getDate() + "_" + (date.getMonth() + 1) + "_" + date.getUTCFullYear()
+        const [{ data }, updatedOrder] = await Promise.all([
+            Api.deleteBill(id, name),
+            Api.updateOrder(bill.order._id, { ...bill.order, isBilled: false })
+        ])
         dispatch(deleteBillSuccess(data.data))
     } catch (err) {
         dispatch(deleteBillFailure(err));
@@ -120,8 +126,12 @@ export const submitBillThunk = (billData, name, invoiceData) => async (dispatch)
             Api.postInvoice(name, invoiceData),
             Api.updateOrder(billData.order._id, { ...billData.order, isBilled: true })
         ])
+
         billData.invoiceBill = {
-            path: invoice.data.url,
+            path: invoice.data.downloadUrl,
+        }
+        billData.invoiceViewBill = {
+            path: invoice.data.resultView,
         }
         const { data } = await Api.submitBill(billData);
         dispatch(submitBillSuccess(data.data));

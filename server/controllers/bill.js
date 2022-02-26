@@ -12,9 +12,9 @@ const getBills = async (req, res, next) => {
         if (appliances) {
             bills = await Bill.find({
                 app: appliances
-            });
+            }).populate('order');
         } else {
-            bills = await Bill.find({});
+            bills = await Bill.find({}).populate('order');;
         }
 
         if (bills && bills.length > 0) {
@@ -118,10 +118,11 @@ const deleteBillById = async (req, res, next) => {
         err.status = 500;
         next(err);
     }
- 
 
-    cloudinary.uploader.destroy(`invoices/${req.body.name}`, function (result) {
-        console.log(result);
+
+    cloudinary.uploader.destroy(`invoices/download/${req.body.name}`, function (result) {
+    });
+    cloudinary.uploader.destroy(`invoices/view/${req.body.name}`, function (result) {
     });
 
 

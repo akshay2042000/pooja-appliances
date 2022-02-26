@@ -27,8 +27,9 @@ export default function BillList() {
             totalTaxable: bill.invoiceData.items.reduce((previous, current) => previous + current.taxableValue, 0),
             totalGst: bill.invoiceData.items.reduce((previous, current) => previous + current.cgst + current.sgst + current.igst, 0),
             invoiceTotal: bill.invoiceData.items.reduce((previous, current) => previous + current.subtotal, 0),
-            orderId: bill.invoiceData.orderId,
+            order: bill.order,
             downloadLink: bill.invoiceBill.path,
+            viewLink : bill.invoiceViewBill.path,
             username: bill.invoiceData.billingUser.username,
             name: bill.invoiceData.billingUser.name,
         }
@@ -38,8 +39,10 @@ export default function BillList() {
 
     const navigate = useNavigate();
 
+
     const handleDelete = (id) => {
-        dispatch(deleteBillThunk(id));
+        const bill = bills.find(bill => bill.id === id)
+        dispatch(deleteBillThunk(id, bill));
     };
 
     const download = async (downloadLink) => {
@@ -123,14 +126,14 @@ export default function BillList() {
             },
         },
         {
-            field: "orderId",
+            field: "order",
             flex: 0.3,
             headerName: "Order ID",
             minWidth: 100,
             renderCell: (params) => {
                 return (
-                    <Typography title={params.row.orderId} variant='body2' sx={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                        {params.row.orderId}
+                    <Typography title={params.row.order.orderId} variant='body2' sx={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                        {params.row.order.orderId}
                     </Typography>
                 );
             },
