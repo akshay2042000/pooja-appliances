@@ -22,6 +22,7 @@ import OrdersPage from './pages/admin/OrdersPage';
 import BillsPage from './pages/admin/BillsPage';
 import SingleOrderPage from './pages/admin/SingleOrderPage';
 import OrderParent from './components/Admin/orderForm/OrderParent';
+import SingleBillPage from './pages/admin/SingleBillPage';
 
 function App() {
     const dispatch = useDispatch();
@@ -68,7 +69,10 @@ function App() {
                         <Route index element={<OrdersPage />} />
                         <Route path=':orderId' element={<SingleOrderPage />} />
                     </Route>
-                    <Route path='bills' element={<BillsPage />} />
+                    <Route path='bills'  >
+                        <Route index element={<BillsPage />} />
+                        <Route path=':billId' element={<SingleBillPage />} />
+                    </Route>
                     <Route path="*" element={<NotFoundPage />} />
                 </Route>
                 <Route path="*" element={<NotFoundPage />} />

@@ -12,6 +12,7 @@ const initialState = {
     singleBill: null,
     singleBillLoading: true,
     singleBillError: null,
+    lastBill: null,
 };
 
 const billSlice = createSlice({
@@ -66,11 +67,14 @@ const billSlice = createSlice({
         getSingleBillFailure: (state, action) => {
             state.singleBillLoading = false;
             state.singleBillError = action.payload;
+        },
+        getLastBill: (state, action) => {
+            state.lastBill = action.payload;
         }
     }
 })
 
-export const { submitBillStart, submitBillSuccess, getSingleBillSuccess, submitBillFailure, getBillListStart, getBillListSuccess, getSingleOrderFailure, getSingleOrderSuccess, getSingleBillStart, deleteBillStart, deleteBillFailure, deleteBillSuccess, getBillListFailure } = billSlice.actions;
+export const { submitBillStart, submitBillSuccess, getSingleBillSuccess, submitBillFailure, getBillListStart, getBillListSuccess, getSingleOrderFailure, getSingleOrderSuccess, getLastBill, getSingleBillStart, deleteBillStart, deleteBillFailure, deleteBillSuccess, getBillListFailure } = billSlice.actions;
 export default billSlice.reducer;
 
 //  thunks
@@ -88,13 +92,10 @@ export const fetchBillListThunk = (form) => async (dispatch) => {
 export const deleteBillThunk = (id, bill) => async (dispatch) => {
     dispatch(deleteBillStart());
     try {
-        console.log(bill)
         const date = new Date(bill.date);
         const name = bill.app + '_' + bill.invoiceNumber + '_' + date.getDate() + "_" + (date.getMonth() + 1) + "_" + date.getUTCFullYear()
-        const [{ data }, updatedOrder] = await Promise.all([
-            Api.deleteBill(id, name),
-            Api.updateOrder(bill.order._id, { ...bill.order, isBilled: false })
-        ])
+        const { data } = await Api.deleteBill(id, name, bill.order._id)
+
         dispatch(deleteBillSuccess(data.data))
     } catch (err) {
         dispatch(deleteBillFailure(err));
@@ -131,11 +132,20 @@ export const submitBillThunk = (billData, name, invoiceData) => async (dispatch)
             path: invoice.data.downloadUrl,
         }
         billData.invoiceViewBill = {
-            path: invoice.data.resultView,
+            path: invoice.data.viewUrl,
         }
         const { data } = await Api.submitBill(billData);
         dispatch(submitBillSuccess(data.data));
     } catch (err) {
         dispatch(submitBillFailure(err));
+    }
+}
+
+export const getLastBillThunk = (appliance) => async (dispatch) => {
+    try {
+        const { data } = await Api.getLastBill(appliance);
+        dispatch(getLastBill(data.data));
+    } catch (err) {
+        console.log(err)
     }
 }

@@ -4,9 +4,11 @@ import CloseIcon from '@mui/icons-material/Close';
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux'
+import LoadingComponent from '../../Skeletons/LoadingComponent';
+import NoComponentFound from '../../NoComponentFound';
 
 const OrderSuccess = ({ open, setOpen }) => {
-    const { submittedBill } = useSelector(state => state.billState)
+    const { submittedBill, isBillSubmitting, billSubmittingError } = useSelector(state => state.billState)
 
     const navigate = useNavigate();
 
@@ -27,62 +29,66 @@ const OrderSuccess = ({ open, setOpen }) => {
 
     return (
         <>
-            <Dialog open={open} fullWidth={true} onClose={handleClose} sx={{
-                backdropFilter: "blur(5px)",
-                backgroundColor: 'rgba(111, 126, 140, 0.1)',
-            }}>
-                <DialogTitle >
-                    <Box sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        width: '100%',
-                    }}>
-                        <Typography variant="h5" color='primary.main' sx={{ textTransform: 'capitalize' }}>
-                            {submittedBill?.app} appliances
-                        </Typography>
-                        <IconButton
-                            aria-label="close"
-                            onClick={handleClose}
-                        >
-                            <CloseIcon fontSize='large' />
-                        </IconButton>
-                    </Box>
-                </DialogTitle>
+            {
 
-                <DialogContent>
-                    <Box sx={{ paddingX: 2 }}>
-                        <Typography variant="h6" >
-                            Bill Generated!!
-                        </Typography>
-                        <Typography variant="body1" >
-                            Invoice Number : {submittedBill?.invoiceNumber}
-                        </Typography>
-                        <Typography variant="body1" >
-                            Order Number : {submittedBill?.invoiceData?.orderId}
-                        </Typography>
-                        <Typography variant="body1" >
-                            Invoice Subtotal : ₹{submittedBill?.invoiceData?.items.reduce((previous, current) => previous + current.subtotal, 0)}
-                        </Typography>
-                    </Box>
-
-                </DialogContent>
-
-                <DialogActions >
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', paddingX: 4, paddingBottom: 1, width: '100%' }}>
-                        <Button autoFocus variant='contained' color='primary' onClick={(e) => {
-                            getPdf()
+                <Dialog open={open} fullWidth={true} onClose={handleClose} sx={{
+                    backdropFilter: "blur(5px)",
+                    backgroundColor: 'rgba(111, 126, 140, 0.1)',
+                }}>
+                    <DialogTitle >
+                        <Box sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            width: '100%',
                         }}>
-                            Download Invoice
-                        </Button>
+                            <Typography variant="h5" color='primary.main' sx={{ textTransform: 'capitalize' }}>
+                                {submittedBill?.app} appliances
+                            </Typography>
+                            <IconButton
+                                aria-label="close"
+                                onClick={handleClose}
+                            >
+                                <CloseIcon fontSize='large' />
+                            </IconButton>
+                        </Box>
+                    </DialogTitle>
 
-                        <Button variant='outlined' color='error' onClick={handleClose} >
-                            Close
-                        </Button>
-                    </Box>
+                    <DialogContent>
+                        <Box sx={{ paddingX: 2 }}>
+                            <Typography variant="h6" >
+                                Bill Generated!!
+                            </Typography>
+                            <Typography variant="body1" >
+                                Invoice Number : {submittedBill?.invoiceNumber}
+                            </Typography>
+                            <Typography variant="body1" >
+                                Order Number : {submittedBill?.invoiceData?.orderId}
+                            </Typography>
+                            <Typography variant="body1" >
+                                Invoice Subtotal : ₹{submittedBill?.invoiceData?.items?.reduce((previous, current) => previous + current.subtotal, 0)}
+                            </Typography>
+                        </Box>
 
-                </DialogActions>
-            </Dialog>
+                    </DialogContent>
+
+                    <DialogActions >
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', paddingX: 4, paddingBottom: 1, width: '100%' }}>
+                            <Button autoFocus variant='contained' color='primary' onClick={(e) => {
+                                getPdf()
+                            }}>
+                                Download Invoice
+                            </Button>
+
+                            <Button variant='outlined' color='error' onClick={handleClose} >
+                                Close
+                            </Button>
+                        </Box>
+
+                    </DialogActions>
+                </Dialog>
+
+            }
         </>
     )
 }

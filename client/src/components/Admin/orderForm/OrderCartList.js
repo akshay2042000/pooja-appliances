@@ -16,34 +16,12 @@ const OrderCartList = ({ values, setFieldValue }) => {
     const [pageSize, setPageSize] = useState(10);
     const dispatch = useDispatch();
     const { singleOrder, singleOrderLoading, singleOrderError } = useSelector(state => state.orderState);
-    var [items, setItems] = useState(singleOrder.items.map(item => {
-        const obj = {
-            id: item._id,
-            itemName: item.product.name + ', ' + item.color.name + ' (' + item.size.val + ')',
-            hsn: item.product.hsnCode.hsnNumber,
-            quantity: item.quantity,
-            unit: item.unit,
-            rate: item.size.price,
-            cgstPercentage: item.product.hsnCode.CGST,
-            sgstPercentage: item.product.hsnCode.SGST,
-            igstPercentage: item.product.hsnCode.IGST,
-            color: item.color.name,
-            size: item.size.val,
-        }
-        obj.total = obj.quantity * obj.rate;
-        obj.taxableValue = Math.floor(obj.total - (obj.total / 100 * values.discount))
-        obj.cgst = Math.floor(obj.taxableValue * obj.cgstPercentage / 100)
-        obj.sgst = Math.floor(obj.taxableValue * obj.sgstPercentage / 100)
-        obj.igst = Math.floor(obj.taxableValue * obj.igstPercentage / 100)
-        obj.subtotal = obj.taxableValue + obj.cgst + obj.sgst + obj.igst
-        return obj
-    }))
-    useEffect(() => {
-        setFieldValue('items', items)
-    }, [])
+
+    const [items, setItems] = useState(values.items);
 
     useEffect(() => {
-        setItems(items.map(item => {
+
+        const array = items.map(item => {
             const obj = {
                 ...item,
                 taxableValue: Math.floor(item.total - (item.total / 100 * values.discount))
@@ -53,7 +31,9 @@ const OrderCartList = ({ values, setFieldValue }) => {
             obj.igst = Math.floor(obj.taxableValue * obj.igstPercentage / 100)
             obj.subtotal = obj.taxableValue + obj.cgst + obj.sgst + obj.igst
             return obj
-        }))
+        })
+        setFieldValue('items', array);
+        setItems(array);
     }, [values.discount])
 
 

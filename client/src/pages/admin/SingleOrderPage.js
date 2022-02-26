@@ -17,8 +17,7 @@ const SingleOrderPage = () => {
     useEffect(() => {
         dispatch(getSingleOrderThunk(orderId));
     }, [orderId])
-    // const productState = useSelector(state => state.productState)
-    // const product = productState.selectedProduct;
+
 
     return (
         <>

@@ -1,20 +1,19 @@
 const mongoose = require('mongoose');
 const Bill = require('../models/bills');
 const cloudinary = require('../cloudinary')
+const Order = require('../models/orders');
 
 
 const getBills = async (req, res, next) => {
     try {
         const appliances = req.query.app;
-
         let bills
-
         if (appliances) {
             bills = await Bill.find({
                 app: appliances
             }).populate('order');
         } else {
-            bills = await Bill.find({}).populate('order');;
+            bills = await Bill.find({}).populate({ path: 'order', select: 'orderId' });
         }
 
         if (bills && bills.length > 0) {
@@ -32,6 +31,33 @@ const getBills = async (req, res, next) => {
         err = new Error('Error while fetching bills');
         err.status = 500;
         next(err);
+    }
+}
+
+
+const getLastBill = async (req, res, next) => {
+
+    const app = req.query.app;
+    if (app) {
+        try {
+            const bill = await Bill.find({
+                app: app
+            }).sort({ invoiceNumber: -1 }).limit(1);
+
+            if (bill && bill.length > 0) {
+                res.status(200).json({
+                    status: 'success',
+                    data: bill[0],
+                });
+            } else {
+                res.status(404).json({
+                    status: 'fail',
+                    message: 'No bills found'
+                })
+            }
+        } catch (err) {
+            res.state(500).json(err);
+        }
     }
 }
 
@@ -100,7 +126,13 @@ const updateBillById = async (req, res, next) => {
 const deleteBillById = async (req, res, next) => {
 
     try {
-        const bill = await Bill.findByIdAndDelete(req.params.id);
+
+        const [bill, updateOrder] = await Promise.all([
+            Bill.findByIdAndDelete(req.params.id),
+            Order.findByIdAndUpdate(req.body.order, { $set: { isBilled: false } })
+        ])
+
+        // const bill = await Bill.findByIdAndDelete(req.params.id);
         if (bill) {
             res.status(200).json({
                 status: 'success',
@@ -113,10 +145,8 @@ const deleteBillById = async (req, res, next) => {
             })
         }
     }
-    catch {
-        err = new Error('Error while deleting bill');
-        err.status = 500;
-        next(err);
+    catch (err) {
+        res.status(500).json(err);
     }
 
 
@@ -156,5 +186,6 @@ module.exports = {
     postBill,
     updateBillById,
     deleteBillById,
-    deleteBills
+    deleteBills,
+    getLastBill
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
 import TextFieldWrapper from '../../Formik/TextFieldWrapper';
@@ -15,19 +15,24 @@ import OrderCartList from './OrderCartList';
 import { useDispatch, useSelector } from 'react-redux';
 import Api from '../../../api';
 import OrderSuccess from './OrderSuccess';
-import { submitBillError, submitBillLoading, submitBillThunk } from '../../../redux/billSlice';
+import { getLastBillThunk, submitBillError, submitBillLoading, submitBillThunk } from '../../../redux/billSlice';
 
 
 
 const OrderForm = () => {
     const dispatch = useDispatch();
     const { singleOrder } = useSelector(state => state.orderState);
-    const { isBillSubmitting, billSubmittingError, submittedBill } = useSelector(state => state.billState);
+    const { isBillSubmitting, billSubmittingError, submittedBill, lastBill } = useSelector(state => state.billState);
     const theme = useTheme();
+
+
+    useEffect(() => {
+        dispatch(getLastBillThunk(singleOrder?.app));
+    }, [])
 
     const INITIAL_FORM_STATE = {
         // TODO: get last invoice number from server
-        invoiceNumber: '1002',
+        invoiceNumber: lastBill ? lastBill.invoiceNumber + 1 : 1,
         date: new Date(),
         billingUser: {
             username: singleOrder.user.username,
@@ -45,7 +50,29 @@ const OrderForm = () => {
             state: singleOrder.user.state.name,
             stateCode: singleOrder.user.state.code
         },
-        discount: 0
+        discount: 0,
+        items: singleOrder.items.map(item => {
+            const obj = {
+                id: item._id,
+                itemName: item.product.name + ', ' + item.color.name + ' (' + item.size.val + ')',
+                hsn: item.product.hsnCode.hsnNumber,
+                quantity: item.quantity,
+                unit: item.unit,
+                rate: item.size.price,
+                cgstPercentage: item.product.hsnCode.CGST,
+                sgstPercentage: item.product.hsnCode.SGST,
+                igstPercentage: item.product.hsnCode.IGST,
+                color: item.color.name,
+                size: item.size.val,
+            }
+            obj.total = obj.quantity * obj.rate;
+            obj.taxableValue = Math.floor(obj.total - (obj.total / 100 * 0))
+            obj.cgst = Math.floor(obj.taxableValue * obj.cgstPercentage / 100)
+            obj.sgst = Math.floor(obj.taxableValue * obj.sgstPercentage / 100)
+            obj.igst = Math.floor(obj.taxableValue * obj.igstPercentage / 100)
+            obj.subtotal = obj.taxableValue + obj.cgst + obj.sgst + obj.igst
+            return obj
+        })
     };
 
     const [open, setOpen] = useState(false);
@@ -159,7 +186,6 @@ const OrderForm = () => {
             },
             order: { ...singleOrder }
         }
-
         await dispatch(submitBillThunk(billData, name, invoiceData));
 
         setOpen(true);
@@ -379,6 +405,8 @@ const OrderForm = () => {
 
                                 </Grid>
                             </Grid>
+
+
                             <OrderSuccess open={open} setOpen={setOpen} values={values} />
                         </>
                     )}

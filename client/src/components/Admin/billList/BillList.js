@@ -128,6 +128,10 @@ export default function BillList() {
         {
             field: "order",
             flex: 0.3,
+            valueGetter: (params) => {
+                return params.row.order.orderId;
+            },
+
             headerName: "Order ID",
             minWidth: 100,
             renderCell: (params) => {

@@ -83,10 +83,11 @@ const getBillList = (form) => {
     return axios.get(`${baseUrl}/bills?app=${form.appliance}`);
 }
 
-const deleteBill = (id, name) => {
+const deleteBill = (id, name ,order) => {
     return axios.delete(`${baseUrl}/bills/${id}`, {
         data: {
-            name: name
+            name: name,
+            order: order
         }
     });
 }
@@ -99,6 +100,9 @@ const updateOrder = (id, order) => {
     return axios.put(`${baseUrl}/orders/${id}`, order);
 }
 
+const getLastBill = (appliance) => {
+    return axios.get(`${baseUrl}/bills/last?app=${appliance}`);
+}
 
 const Api = {
     getCompanies,
@@ -120,7 +124,8 @@ const Api = {
     getBillList,
     deleteBill,
     getSingleBill,
-    updateOrder
+    updateOrder,
+    getLastBill
 }
 
 export default Api;
