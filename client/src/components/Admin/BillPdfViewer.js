@@ -1,4 +1,4 @@
-import { Button, Container } from '@mui/material';
+import { Box, Button, Container } from '@mui/material';
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 
@@ -15,13 +15,11 @@ const BillPdfViewer = () => {
         <>
 
             {/* button to download the pdf */}
-
-            <Container sx={{ padding: { md: 4, xs: 2 } }}>
+            <Box sx={{ padding: { md: 4, xs: 2 } }}>
                 <Button variant="contained" color="primary" href={singleBill.invoiceBill.path} download>
-                    Download Bill 
+                    Download Bill
                 </Button>
-            </Container>
-
+            </Box>
 
             <div style={{
                 // backgroundColor: '#e4e4e4',

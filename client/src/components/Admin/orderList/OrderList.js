@@ -52,7 +52,7 @@ export default function OrderList() {
         },
         {
             field: 'user',
-            headerName: "User",
+            headerName: "Name",
             flex: 1,
             valueGetter: (params) => {
                 return params.row.user.name;
@@ -70,13 +70,13 @@ export default function OrderList() {
         },
         {
             field: 'username',
-            headerName: "username",
+            headerName: "Username",
             flex: 1,
             valueGetter: (params) => {
                 return params.row.user.username;
             },
 
-            minWidth: 120,
+            minWidth: 140,
             renderCell: (params) => {
                 return (
                     <Box sx={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>

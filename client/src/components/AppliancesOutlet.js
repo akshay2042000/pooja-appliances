@@ -15,7 +15,9 @@ const Appliances = () => {
 
 
     useEffect(() => {
-        dispatch(setAppliances(pathname));
+        if (pathname && (pathname === 'pooja' || pathname === 'creative')) {
+            dispatch(setAppliances(pathname));
+        }
     }, [])
 
 

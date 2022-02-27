@@ -6,6 +6,8 @@ import SingleCartItem from './SingleCartItem';
 import { useNavigate } from 'react-router-dom';
 import Api from '../api/index';
 import Success from './Success';
+import AsyncSelect from 'react-select/async';
+import { useTheme } from '@mui/material/styles';
 
 
 const StyledBox = styled(Box)(({ theme }) => ({
@@ -22,11 +24,78 @@ const CartComponent = () => {
     const [open, setOpen] = useState(false);
     const [order, setOrder] = useState(null);
     const navigate = useNavigate();
+    const theme = useTheme();
+
+    const [selectedUser, setSelectedUser] = useState(currentUser);
+
+    const loadOptions = async (inputValue, callback) => {
+        const requestResults = [];
+        const { data } = await Api.getSearchedUsers(inputValue)
+        const users = data.data
+        users.map(user => {
+            requestResults.push({
+                value: user,
+                label: user.username
+            })
+        })
+        callback(requestResults)
+    }
+
+    const handleUserChange = (value, e) => {
+        const user = value.value
+        setSelectedUser(user)
+    }
+
+
+    const customStyles = {
+        control: (provided, state) => ({
+            ...provided,
+            borderRadius: theme.shape.borderRadius,
+            marginBottom: theme.spacing(1),
+            '&:hover': {
+                cursor: 'pointer',
+            },
+            fontFamily: theme.typography.body2.fontFamily,
+            fontWeight: theme.typography.body2.fontWeight,
+            fontSize: theme.typography.body2.fontSize,
+        }),
+        menu: (provided, state) => ({
+            ...provided,
+            color: theme.palette.text.primary,
+            fontFamily: theme.typography.body2.fontFamily,
+            fontWeight: theme.typography.body2.fontWeight,
+            fontSize: theme.typography.body2.fontSize,
+            zIndex: 10
+        }),
+
+        input: (provided, state) => ({
+            ...provided,
+            color: theme.palette.text.primary,
+            fontFamily: theme.typography.body2.fontFamily,
+            fontWeight: theme.typography.body2.fontWeight,
+            fontSize: theme.typography.body2.fontSize,
+        }),
+        option: (styles, { isFocused, isSelected }) => {
+            return {
+                ...styles,
+                backgroundColor: isFocused ? theme.palette.secondary.light : isSelected ? theme.palette.primary.main : '',
+                color: isFocused ? theme.palette.primary.contrastText : isSelected ? theme.palette.primary.contrastText : theme.palette.text.primary,
+                cursor: isFocused &&
+                    'pointer'
+            };
+        },
+    }
 
     const placeOrder = async () => {
         if (currentUser) {
-            const {data} = await Api.placeOrder({
-                user: currentUser,
+            let user;
+            if (currentUser.isAdmin) {
+                user = selectedUser
+            } else {
+                user = currentUser
+            }
+            const { data } = await Api.placeOrder({
+                user: user,
                 app: app,
                 items: cart.items.map(item => {
                     return {
@@ -80,6 +149,24 @@ const CartComponent = () => {
                                 <Typography variant="h6" color="initial">₹1320</Typography>
                             </StyledBox>
                         </Paper>
+
+                        {
+                            currentUser && currentUser.isAdmin &&
+                            (
+                                <AsyncSelect
+                                    styles={customStyles}
+                                    name='billingUser'
+                                    loadOptions={loadOptions}
+                                    cacheOptions
+                                    placeholder='Select any other user'
+                                    defaultValue={{ label: currentUser.username, value: currentUser }}
+                                    onChange={(e, value) => {
+                                        handleUserChange(e, value)
+                                    }}
+                                />
+                            )
+
+                        }
 
                         <Button variant="contained" color="primary" sx={{ p: 2, minWidth: '50%' }} onClick={placeOrder}>
                             Place Order

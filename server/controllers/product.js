@@ -93,7 +93,7 @@ const getSearchedProducts = async (req, res, next) => {
     const appliances = req.query.app;
 
     try {
-        if (!search) {
+        if (!search || !appliances || appliances === "null") {
             res.status(200).json({
                 status: 'success',
                 data: [],

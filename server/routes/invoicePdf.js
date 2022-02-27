@@ -40,7 +40,7 @@ function uploadViewableToCloudinary(image,name) {
 router.route('/')
     .post(verifyTokenAndAdmin, async (req, res) => {
         const content = fs.readFileSync(
-            './assets/doc.docx',
+            './public/assets/invoice.docx',
             "binary"
         );
 
@@ -56,21 +56,21 @@ router.route('/')
             type: "nodebuffer",
             compression: "DEFLATE",
         });
-        fs.writeFileSync('./assets/output.docx', buf);
-        docxConverter('./assets/output.docx', './assets/output.pdf', async (err, result) => {
+        fs.writeFileSync('./public/assets/output.docx', buf);
+        docxConverter('./public/assets/output.docx', './public/assets/output.pdf', async (err, result) => {
             if (err) console.log(err);
             else {
                 const name = req.body.name;
                 const [resultDownload, resultView] = await Promise.all([
-                    uploadToCloudinary('./assets/output.pdf', name),
-                    uploadViewableToCloudinary('./assets/output.pdf', name),
+                    uploadToCloudinary('./public/assets/output.pdf', name),
+                    uploadViewableToCloudinary('./public/assets/output.pdf', name),
                 ])
                 res.status(200).json({
                     downloadUrl: resultDownload.url,
                     viewUrl: resultView.url,
                 });
-                fs.unlinkSync('./assets/output.docx');
-                fs.unlinkSync('./assets/output.pdf');
+                fs.unlinkSync('./public/assets/output.docx');
+                fs.unlinkSync('./public/assets/output.pdf');
             }
         });
     })

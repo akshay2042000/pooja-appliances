@@ -11,6 +11,11 @@ a {
 input:-webkit-autofill {
 }
 
+.active {
+  background-color:#F0F7FF;
+  color: #0072E5;
+}
+
 .my-masonry-grid {
   display: -webkit-box; /* Not needed if autoprefixing */
   display: -ms-flexbox; /* Not needed if autoprefixing */

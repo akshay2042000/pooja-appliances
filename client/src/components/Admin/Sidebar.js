@@ -12,7 +12,7 @@ import CategoryIcon from '@mui/icons-material/Category';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import DescriptionIcon from '@mui/icons-material/Description';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -22,49 +22,49 @@ const Sidebar = (props) => {
     const drawer = (
         <div>
             <List sx={{ mt: '80px' }}>
-                <Link to='products'>
-                    <ListItem button >
+                <NavLink activeClassName="active" to='products'>
+                    <ListItem button sx={{ backgroundColor: 'inherit' }} >
                         <ListItemIcon >
                             <Inventory2Icon />
                         </ListItemIcon>
                         <ListItemText primary={"Products"} />
                     </ListItem>
-                </Link>
-                <Link to='categories'>
-                    <ListItem button >
+                </NavLink >
+                <NavLink activeClassName="active" to='categories'>
+                    <ListItem button sx={{ backgroundColor: 'inherit' }} >
                         <ListItemIcon>
                             <CategoryIcon />
                         </ListItemIcon>
                         <ListItemText primary={"Categoriess"} />
                     </ListItem>
-                </Link>
-                <Link to='users'>
-                    <ListItem button >
+                </NavLink >
+                <NavLink activeClassName="active" to='users'>
+                    <ListItem button sx={{ backgroundColor: 'inherit' }} >
                         <ListItemIcon>
                             <PeopleAltIcon />
                         </ListItemIcon>
                         <ListItemText primary={"Users"} />
                     </ListItem>
-                </Link>
+                </NavLink >
             </List>
             <Divider />
             <List>
-                <Link to='orders'>
-                    <ListItem button >
+                <NavLink activeClassName="active" to='orders'>
+                    <ListItem button sx={{ backgroundColor: 'inherit' }} >
                         <ListItemIcon>
                             <ShoppingCartIcon />
                         </ListItemIcon>
                         <ListItemText primary={"Orders"} />
                     </ListItem>
-                </Link>
-                <Link to='bills'>
-                    <ListItem button >
+                </NavLink >
+                <NavLink activeClassName="active" to='bills'>
+                    <ListItem button sx={{ backgroundColor: 'inherit' }} >
                         <ListItemIcon>
                             <DescriptionIcon />
                         </ListItemIcon>
                         <ListItemText primary={"Bills"} />
                     </ListItem>
-                </Link>
+                </NavLink >
             </List>
         </div>
     );

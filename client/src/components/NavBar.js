@@ -9,7 +9,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import { Alert, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, InputLabel, Menu, MenuItem, Paper, Select, Snackbar, TextField, Tooltip } from '@mui/material';
 import { StyledAppBar, Search, SearchIconWrapper, StyledInputBase } from '../styles/navbarStyles';
-import { NavLink, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { styled, alpha, useTheme } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
@@ -115,19 +115,19 @@ const NavBar = () => {
                     )
                     :
                     (
-                        <NavLink to={`/${appliances ? appliances : 'creative'}/login`}>
+                        <Link to={`/${appliances ? appliances : 'creative'}/login`}>
                             <MenuItem onClick={handleMobileMenuClose}>
                                 <IconButton color='inherit' size="large" >
                                     <LoginIcon />
                                 </IconButton>
                                 <p>Login</p>
                             </MenuItem>
-                        </NavLink>
+                        </Link>
 
                     )
             }
 
-            <NavLink to={`/${appliances ? appliances : 'creative'}/cart`}>
+            <Link to={`/${appliances ? appliances : 'creative'}/cart`}>
                 <MenuItem onClick={handleMobileMenuClose}>
                     <IconButton size="large" color="inherit">
                         <Badge badgeContent={count} color="secondary">
@@ -136,32 +136,32 @@ const NavBar = () => {
                     </IconButton>
                     <p>Cart</p>
                 </MenuItem>
-            </NavLink>
+            </Link>
 
             {
                 currentUser?.isAdmin &&
                 (
-                    <NavLink to={`/admin`}>
+                    <Link to={`/admin`}>
                         <MenuItem onClick={handleMobileMenuClose}>
                             <IconButton color='inherit' size="large">
                                 <BuildCircleIcon />
                             </IconButton>
                             <p>Admin Console</p>
                         </MenuItem>
-                    </NavLink>
+                    </Link>
                 )
             }
 
             {
                 location.pathname.split('/')[1] !== 'admin' &&
-                (<NavLink to={`/${appliances === 'creative' ? 'pooja' : 'creative'}`}>
+                (<Link to={`/${appliances === 'creative' ? 'pooja' : 'creative'}`}>
                     <MenuItem onClick={handleMobileMenuClose}>
                         <IconButton color='inherit' size="large">
                             <ChangeCircleIcon />
                         </IconButton>
                         <p>Switch to {appliances === 'creative' ? 'Pooja' : 'Creative'}</p>
                     </MenuItem>
-                </NavLink>)
+                </Link>)
             }
 
         </Menu>
@@ -207,7 +207,7 @@ const NavBar = () => {
 
             <StyledAppBar position="sticky" >
                 <Toolbar>
-                    <NavLink to={location.pathname.split('/')[1] === 'admin' ? '/admin' : `/${appliances}`} >
+                    <Link to={location.pathname.split('/')[1] === 'admin' ? '/admin' : `/${appliances}`} >
                         <Typography
                             variant="h5"
                             noWrap
@@ -217,7 +217,7 @@ const NavBar = () => {
                             Pooja Appliances
 
                         </Typography>
-                    </NavLink>
+                    </Link>
                     <Search sx={{ flexGrow: 1 }}>
                         <SearchIconWrapper>
                             <SearchIcon />
@@ -253,11 +253,11 @@ const NavBar = () => {
                                 (
                                     <>
                                         <Tooltip title="login" arrow>
-                                            <NavLink to={`/${appliances ? appliances : 'creative'}/login`}>
+                                            <Link to={`/${appliances ? appliances : 'creative'}/login`}>
                                                 <IconButton color='inherit' size="large">
                                                     <LoginIcon />
                                                 </IconButton>
-                                            </NavLink>
+                                            </Link>
                                         </Tooltip>
                                     </>
                                 )
@@ -275,13 +275,13 @@ const NavBar = () => {
                                 </>
                             )
                         }
-                        <NavLink to={`/${appliances ? appliances : 'creative'}/cart`}>
+                        <Link to={`/${appliances ? appliances : 'creative'}/cart`}>
                             <IconButton size="large" color="inherit">
                                 <Badge badgeContent={count} color="secondary">
                                     <ShoppingBagIcon />
                                 </Badge>
                             </IconButton>
-                        </NavLink>
+                        </Link>
                     </Box>
 
 

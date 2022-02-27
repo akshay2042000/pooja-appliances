@@ -29,7 +29,7 @@ export default function BillList() {
             invoiceTotal: bill.invoiceData.items.reduce((previous, current) => previous + current.subtotal, 0),
             order: bill.order,
             downloadLink: bill.invoiceBill.path,
-            viewLink : bill.invoiceViewBill.path,
+            viewLink: bill.invoiceViewBill.path,
             username: bill.invoiceData.billingUser.username,
             name: bill.invoiceData.billingUser.name,
         }

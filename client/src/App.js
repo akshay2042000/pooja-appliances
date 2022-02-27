@@ -1,6 +1,6 @@
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from './themes';
-import { Outlet, Route, Routes, useLocation, useParams } from 'react-router-dom';
+import { Navigate, Outlet, Route, Routes, useLocation, useParams } from 'react-router-dom';
 import Layout from './components/Layout';
 import HomePage from './pages/HomePage';
 import ProductsPage from './pages/ProductsPage';
@@ -12,7 +12,7 @@ import NotFoundPage from './pages/NotFoundPage';
 import { useEffect } from 'react';
 import MainPage from './pages/MainPage';
 import AdminPage from './pages/AdminPage';
-import Appliances from './components/Appliances';
+import Appliances from './components/AppliancesOutlet';
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchCompaniesThunk } from './redux/companySlice';
 import { setAppliances } from './redux/applianceSlice';
@@ -23,6 +23,8 @@ import BillsPage from './pages/admin/BillsPage';
 import SingleOrderPage from './pages/admin/SingleOrderPage';
 import OrderParent from './components/Admin/orderForm/OrderParent';
 import SingleBillPage from './pages/admin/SingleBillPage';
+import ProtectedRoute from './utils/protectedRoute';
+import PrivateRoute from './utils/protectedRoute';
 
 function App() {
     const dispatch = useDispatch();
@@ -39,9 +41,10 @@ function App() {
     return (
         <ThemeProvider theme={theme}>
             <Routes>
-                <Route path='/' element={<Layout />} >
+                {/* <Route path='/' element={<Layout />} >
                     <Route index element={<MainPage />} />
-                </Route>
+                </Route> */}
+                <Route path='/' element={<Navigate to="/creative" />} />
                 <Route element={<Layout />} >
                     <Route path=':app' element={<Appliances />}>
                         <Route index element={<HomePage />} />
@@ -57,7 +60,13 @@ function App() {
                 <Route path=':app' element={<Appliances />}>
                     <Route path='login' element={<LoginPage />} />
                 </Route>
-                <Route path='admin' element={<AdminPage />} >
+
+
+                <Route path='admin' element={
+                    <PrivateRoute>
+                        <AdminPage />
+                    </PrivateRoute>
+                } >
                     <Route index element={<NotFoundPage />} />
                     <Route path='products' element={<NotFoundPage />} />
                     <Route path='categories' element={<NotFoundPage />} />
