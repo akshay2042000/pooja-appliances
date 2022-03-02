@@ -84,6 +84,27 @@ const getBillById = async (req, res, next) => {
 }
 
 
+const getLatestBills = async (req, res, next) => {
+    try {
+        const bills = await Bill.find({}).populate({ path: 'order', select: 'orderId' }).sort({ createdAt: -1 }).limit(5);
+        if (bills) {
+            res.status(200).json({
+                status: 'success',
+                data: bills,
+            });
+        } else {
+            res.status(404).json({
+                status: 'fail',
+                message: 'No bills found'
+            })
+        }
+    } catch (err) {
+        err = new Error('Error while fetching bills');
+        err.status = 500;
+        next(err);
+    }
+}
+
 
 const postBill = async (req, res, next) => {
     const bill = new Bill(req.body)
@@ -187,5 +208,6 @@ module.exports = {
     updateBillById,
     deleteBillById,
     deleteBills,
-    getLastBill
+    getLastBill,
+    getLatestBills
 }

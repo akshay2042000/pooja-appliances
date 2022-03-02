@@ -60,10 +60,10 @@ const SingleCartItem = ({ index }) => {
             </Box > */}
 
 
-            <Grid container spacing={2} sx={{ borderBottom: '1px solid #ebebeb' }}>
-                <Grid item xs={12} md={5} >
+            <Grid container sx={{ borderBottom: '1px solid #ebebeb' }}>
+                <Grid item xs={12} lg={5} >
                     <Card variant='' sx={{
-                        paddingLeft: [1, 3], py: [3], display: 'flex'
+                        paddingLeft: 3, py: [3], display: 'flex'
                     }}>
                         <Link to={`/${app}/products/${item._id}`} >
                             <CardMedia
@@ -88,12 +88,12 @@ const SingleCartItem = ({ index }) => {
                         </Box>
                     </Card>
                 </Grid>
-                <Grid item xs={12} md={7} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} md={9} >
+                <Grid item xs={12} lg={7} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Grid container spacing={2} sx={{ paddingX: { xs: 3, lg: 0 }, mb: { xs: 2, lg: 0 } }}>
+                        <Grid item xs={9} lg={9} >
                             <CartItemForm index={index} />
                         </Grid>
-                        <Grid item xs={12} md={3} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Grid item xs={3} lg={3} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <Box >
                                 <Typography variant="h6" color="initial">₹{item.quantity * item.size.price}</Typography>
                             </Box>

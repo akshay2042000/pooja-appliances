@@ -54,7 +54,26 @@ const getOrderById = async (req, res, next) => {
     }
 }
 
-
+const getLatestOrders = async (req, res, next) => {
+    try {
+        const orders = await Order.find({}).sort({ createdAt: -1 }).limit(5).populate('user');
+        if (orders && orders.length > 0) {
+            res.status(200).json({
+                status: 'success',
+                data: orders,
+            });
+        } else {
+            res.status(404).json({
+                status: 'fail',
+                message: 'No orders found'
+            });
+        }
+    } catch (err) {
+        err = new Error('Error while fetching orders');
+        err.status = 500;
+        next(err);
+    }
+}
 
 const postOrder = async (req, res, next) => {
     const order = new Order(req.body)
@@ -144,5 +163,6 @@ module.exports = {
     postOrder,
     updateOrderById,
     deleteOrderById,
-    deleteOrders
+    deleteOrders,
+    getLatestOrders
 }

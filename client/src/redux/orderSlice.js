@@ -11,6 +11,9 @@ const orderSlice = createSlice({
         singleOrder: null,
         singleOrderLoading: true,
         singleOrderError: null,
+        latestOrders: [],
+        latestOrdersLoading: true,
+        latestOrdersError: null,
     },
     reducers: {
         getOrderListStart: (state) => {
@@ -49,10 +52,21 @@ const orderSlice = createSlice({
             state.singleOrderLoading = false;
             state.singleOrderError = action.payload;
         },
+        getLatestOrdersStart: (state) => {
+            state.latestOrdersLoading = true;
+        },
+        getLatestOrdersSuccess: (state, action) => {
+            state.latestOrders = action.payload;
+            state.latestOrdersLoading = false;
+        },
+        getLatestOrdersFailure: (state, action) => {
+            state.latestOrdersLoading = false;
+            state.latestOrdersError = action.payload;
+        }
     },
 });
 
-export const { getOrderListStart, getOrderListSuccess, getOrderListFailure, deleteOrderStart, deleteOrderSuccess, deleteOrderFailure, getSingleOrderStart, getSingleOrderSuccess, getSingleOrderFailure } = orderSlice.actions;
+export const { getOrderListStart, getLatestOrdersStart, getLatestOrdersSuccess, getLatestOrdersFailure, getOrderListSuccess, getOrderListFailure, deleteOrderStart, deleteOrderSuccess, deleteOrderFailure, getSingleOrderStart, getSingleOrderSuccess, getSingleOrderFailure } = orderSlice.actions;
 export default orderSlice.reducer;
 
 
@@ -89,4 +103,14 @@ export const getSingleOrderThunk = (id) => async (dispatch) => {
     }
 }
 
+export const getLatestOrdersThunk = () => async (dispatch) => {
+    dispatch(getLatestOrdersStart());
+    try {
+        const { data } = await Api.getLatestOrders();
+        dispatch(getLatestOrdersSuccess(data.data));
+    }
+    catch (err) {
+        dispatch(getLatestOrdersFailure(err));
+    }
+}
 

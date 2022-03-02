@@ -119,6 +119,6 @@ export const theme = createTheme({
 })
 
 theme.shadows.push(
-    " 0px 0px 22px -12px rgba(0,0,0,0.69)"
+    " 0px 0px 22px -14px rgba(0,0,0,0.69)"
   );
   

@@ -13,6 +13,9 @@ const initialState = {
     singleBillLoading: true,
     singleBillError: null,
     lastBill: null,
+    latestBillsLoading: true,
+    latestBillsError: null,
+    latestBills: [],
 };
 
 const billSlice = createSlice({
@@ -70,11 +73,22 @@ const billSlice = createSlice({
         },
         getLastBill: (state, action) => {
             state.lastBill = action.payload;
+        },
+        getLatestBillsStart: (state) => {
+            state.latestBillsLoading = true;
+        },
+        getLatestBillsSuccess: (state, action) => {
+            state.latestBills = action.payload;
+            state.latestBillsLoading = false;
+        },
+        getLatestBillsFailure: (state, action) => {
+            state.latestBillsLoading = false;
+            state.latestBillsError = action.payload;
         }
     }
 })
 
-export const { submitBillStart, submitBillSuccess, getSingleBillSuccess, submitBillFailure, getBillListStart, getBillListSuccess, getSingleOrderFailure, getSingleOrderSuccess, getLastBill, getSingleBillStart, deleteBillStart, deleteBillFailure, deleteBillSuccess, getBillListFailure } = billSlice.actions;
+export const { submitBillStart, getLatestBillsStart, getLatestBillsSuccess, getLatestBillsFailure, submitBillSuccess, getSingleBillSuccess, submitBillFailure, getBillListStart, getBillListSuccess, getSingleOrderFailure, getSingleOrderSuccess, getLastBill, getSingleBillStart, deleteBillStart, deleteBillFailure, deleteBillSuccess, getBillListFailure } = billSlice.actions;
 export default billSlice.reducer;
 
 //  thunks
@@ -147,5 +161,15 @@ export const getLastBillThunk = (appliance) => async (dispatch) => {
         dispatch(getLastBill(data.data));
     } catch (err) {
         console.log(err)
+    }
+}
+
+export const getLatestBillsThunk = () => async (dispatch) => {
+    dispatch(getLatestBillsStart());
+    try {
+        const { data } = await Api.getLatestBills();
+        dispatch(getLatestBillsSuccess(data.data));
+    } catch (err) {
+        dispatch(getLatestBillsFailure(err));
     }
 }

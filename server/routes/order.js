@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getOrders, postOrder, getOrderById, updateOrderById, deleteOrderById,deleteOrders } = require('../controllers/order');
+const { getOrders, postOrder, getOrderById, updateOrderById, deleteOrderById,deleteOrders , getLatestOrders} = require('../controllers/order');
 const { forbiddenGet, forbiddenPost, forbiddenPut, forbiddenDelete } = require('../controllers/forbiddenController');
 const { verifyToken,
     verifyTokenAndAuthorization,
@@ -11,6 +11,9 @@ router.route('/')
     .post(verifyToken,postOrder)
     .put(forbiddenPut)
     .delete(verifyTokenAndAdmin,deleteOrders)
+
+router.route('/latest')  
+    .get(verifyTokenAndAdmin, getLatestOrders)
 
 router.route('/:id')
     .get(verifyTokenAndAuthorization,getOrderById)

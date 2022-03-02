@@ -10,7 +10,6 @@ import LoginPage from './pages/LoginPage';
 import SingleProductPage from './pages/SingleProductPage';
 import NotFoundPage from './pages/NotFoundPage';
 import { useEffect } from 'react';
-import MainPage from './pages/MainPage';
 import AdminPage from './pages/AdminPage';
 import Appliances from './components/AppliancesOutlet';
 import { useDispatch, useSelector } from 'react-redux'
@@ -23,8 +22,8 @@ import BillsPage from './pages/admin/BillsPage';
 import SingleOrderPage from './pages/admin/SingleOrderPage';
 import OrderParent from './components/Admin/orderForm/OrderParent';
 import SingleBillPage from './pages/admin/SingleBillPage';
-import ProtectedRoute from './utils/protectedRoute';
 import PrivateRoute from './utils/protectedRoute';
+import AdminHomePage from './pages/admin/AdminHomePage';
 
 function App() {
     const dispatch = useDispatch();
@@ -41,9 +40,6 @@ function App() {
     return (
         <ThemeProvider theme={theme}>
             <Routes>
-                {/* <Route path='/' element={<Layout />} >
-                    <Route index element={<MainPage />} />
-                </Route> */}
                 <Route path='/' element={<Navigate to="/creative" />} />
                 <Route element={<Layout />} >
                     <Route path=':app' element={<Appliances />}>
@@ -67,7 +63,7 @@ function App() {
                         <AdminPage />
                     </PrivateRoute>
                 } >
-                    <Route index element={<NotFoundPage />} />
+                    <Route index element={<AdminHomePage />} />
                     <Route path='products' element={<NotFoundPage />} />
                     <Route path='categories' element={<NotFoundPage />} />
                     <Route path='users'  >

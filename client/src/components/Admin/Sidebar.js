@@ -13,15 +13,31 @@ import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import DescriptionIcon from '@mui/icons-material/Description';
 import { NavLink } from 'react-router-dom';
+import HomeIcon from '@mui/icons-material/Home';
 
 const drawerWidth = 240;
 
+const checkActive = (match, location) => {
+    //some additional logic to verify you are in the home URI
+    if (!location) return false;
+    const { pathname } = location;
+    console.log(pathname);
+    return pathname === "/";
+}
 
 const Sidebar = (props) => {
     const { window } = props;
     const drawer = (
         <div>
             <List sx={{ mt: '80px' }}>
+                <NavLink to='' end='active'>
+                    <ListItem button sx={{ backgroundColor: 'inherit' }} >
+                        <ListItemIcon >
+                            <HomeIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={"Home"} />
+                    </ListItem>
+                </NavLink >
                 <NavLink activeClassName="active" to='products'>
                     <ListItem button sx={{ backgroundColor: 'inherit' }} >
                         <ListItemIcon >
