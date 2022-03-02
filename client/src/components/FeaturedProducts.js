@@ -19,7 +19,7 @@ const FeaturedProducts = () => {
 
     return (
         <>
-            <Container disableGutters={true}>
+            <Container fixed disableGutters={true}>
                 {
                     featuredProductsLoading ?
                         (

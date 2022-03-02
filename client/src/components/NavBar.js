@@ -24,6 +24,7 @@ import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
 import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import decode from 'jwt-decode';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import { Img } from './NoComponentFound';
 
 const NavBar = () => {
     const applianceState = useSelector(state => state.applianceState);
@@ -139,6 +140,18 @@ const NavBar = () => {
             </Link>
 
             {
+                location.pathname.split('/')[1] !== 'admin' &&
+                (<Link to={`/${appliances === 'creative' ? 'pooja' : 'creative'}`}>
+                    <MenuItem onClick={handleMobileMenuClose}>
+                        <IconButton color='inherit' size="large">
+                            <ChangeCircleIcon />
+                        </IconButton>
+                        <p>Switch to {appliances === 'creative' ? 'Pooja' : 'Creative'}</p>
+                    </MenuItem>
+                </Link>)
+            }
+
+            {
                 currentUser?.isAdmin &&
                 (
                     <Link to={`/admin`}>
@@ -152,17 +165,7 @@ const NavBar = () => {
                 )
             }
 
-            {
-                location.pathname.split('/')[1] !== 'admin' &&
-                (<Link to={`/${appliances === 'creative' ? 'pooja' : 'creative'}`}>
-                    <MenuItem onClick={handleMobileMenuClose}>
-                        <IconButton color='inherit' size="large">
-                            <ChangeCircleIcon />
-                        </IconButton>
-                        <p>Switch to {appliances === 'creative' ? 'Pooja' : 'Creative'}</p>
-                    </MenuItem>
-                </Link>)
-            }
+
 
         </Menu>
     );
@@ -202,9 +205,7 @@ const NavBar = () => {
     }));
 
     return (
-
         <>
-
             <StyledAppBar position="sticky" >
                 <Toolbar>
                     <Link to={location.pathname.split('/')[1] === 'admin' ? '/admin' : `/${appliances}`} >
@@ -212,11 +213,33 @@ const NavBar = () => {
                             variant="h5"
                             noWrap
                             component="div"
-                            sx={{ display: { xs: 'none', sm: 'block' } }}
+                            sx={{ display: { xs: 'none', md: 'block' } }}
                         >
-                            Pooja Appliances
-
+                            {
+                                location.pathname.split('/')[1] === 'admin' ?
+                                    (
+                                        <>
+                                            <span>Admin Console</span>
+                                        </>
+                                    )
+                                    :
+                                    (
+                                        <>
+                                            <span>{appliances === 'creative' ? 'Creative' : 'Pooja'} Appliance</span>
+                                        </>
+                                    )
+                            }
                         </Typography>
+                        {
+                            appliances === 'creative' ?
+                                <Img sx={{ width: '80px', display: { xs: 'block', md: 'none' } }} src={process.env.PUBLIC_URL + '/assets/creativeLogo.png'} alt="" />
+                                :
+                                appliances === 'pooja' ?
+                                    <Img sx={{ width: '80px', display: { xs: 'block', md: 'none' } }} src={process.env.PUBLIC_URL + '/assets/poojaLogo.png'} alt="" />
+                                    :
+                                    ""
+                        }
+
                     </Link>
                     <Search sx={{ flexGrow: 1 }}>
                         <SearchIconWrapper>
