@@ -1,14 +1,14 @@
 import { Box, Typography } from '@mui/material'
 import React from 'react'
 import ProductsGrid from './ProductsGrid'
-import LoadingComponent from './Skeletons/LoadingComponent'
+import ProductsSkeleton from './Skeletons/ProductsSkeleton'
 
 const RelatedProducts = ({ products }) => {
     return (
         <div>
             {
                 !products ?
-                    (<LoadingComponent />)
+                    (<ProductsSkeleton products={4} />)
                     :
                     (<Box sx={{ py: 8, px: 0 }}>
                         <Typography mb={2} textAlign='center' variant="h2" fontWeight='bold' color="initial">Related Products</Typography>

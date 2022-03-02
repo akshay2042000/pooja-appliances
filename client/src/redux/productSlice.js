@@ -11,6 +11,9 @@ const initialState = {
     searchedProducts: [],
     searchedProductsLoading: false,
     searchedProductsError: null,
+    featuredProducts: [],
+    featuredProductsLoading: true,
+    featuredProductsError: null,
 }
 
 
@@ -54,11 +57,25 @@ const productSlice = createSlice({
         getSearchedProductsError: (state, action) => {
             state.searchedProductsError = action.payload;
             state.searchedProducts = [];
+        },
+        getFeaturedProductsStart: (state, action) => {
+            state.featuredProductsLoading = true;
+        },
+        getFeaturedProductsSuccess: (state, action) => {
+            state.featuredProducts = action.payload;
+            state.featuredProductsLoading = false;
+            state.featuredProductsError = null;
+        },
+        getFeaturedProductsError: (state, action) => {
+            state.featuredProductsError = action.payload;
+            state.featuredProducts = [];
+            state.featuredProductsLoading = false;
         }
+
     }
 })
 
-export const { getProducts, getProductsLoading, getProductsError, getSearchedProducts, getSearchedProductsLoading, getSearchedProductsError, getSingleProductStart, updateSelectedProduct, getSingleProductFailure, getSingleProductSuccess } = productSlice.actions;
+export const { getFeaturedProductsStart, getFeaturedProductsSuccess, getFeaturedProductsError, getProducts, getProductsLoading, getProductsError, getSearchedProducts, getSearchedProductsLoading, getSearchedProductsError, getSingleProductStart, updateSelectedProduct, getSingleProductFailure, getSingleProductSuccess } = productSlice.actions;
 
 export default productSlice.reducer;
 
@@ -99,3 +116,14 @@ export const fetchSearchedProducts = (appliances, key) => async (dispatch) => {
     }
 
 }
+
+export const fetchFeaturedProducts = (appliance) => async (dispatch) => {
+    dispatch(getFeaturedProductsStart(true));
+    try {
+        const { data } = await Api.getFeaturedProducts(appliance);
+        dispatch(getFeaturedProductsSuccess(data.data));
+    } catch (err) {
+        dispatch(getFeaturedProductsError(err));
+    }
+}
+

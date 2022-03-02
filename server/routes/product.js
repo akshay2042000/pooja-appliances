@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getProducts, postProduct, getProductById, updateProductById, deleteProductById, deleteProducts, getSearchedProducts, getRelatedProducts } = require('../controllers/product');
+const { getProducts, postProduct, getProductById, updateProductById, deleteProductById, deleteProducts, getSearchedProducts, getRelatedProducts, getFeaturedProducts } = require('../controllers/product');
 
 const { forbiddenGet, forbiddenPost, forbiddenPut, forbiddenDelete } = require('../controllers/forbiddenController');
 const { verifyToken,
@@ -19,6 +19,9 @@ router.route('/search')
 
 router.route('/related')
     .get(getRelatedProducts)
+
+router.route('/featured')
+    .get(getFeaturedProducts)
 
 router.route('/:id')
     .get(getProductById)

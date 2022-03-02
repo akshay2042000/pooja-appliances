@@ -99,7 +99,7 @@ const getSearchedProducts = async (req, res, next) => {
                 data: [],
             });
         } else {
-            const companies = await Company.find({ app: appliances }).select('_id').catch(err=>res.status(500).json(err));
+            const companies = await Company.find({ app: appliances }).select('_id').catch(err => res.status(500).json(err));
 
             // Find all the products to find closest match 
 
@@ -107,7 +107,7 @@ const getSearchedProducts = async (req, res, next) => {
                 company: {
                     $in: companies
                 }
-            }).select('name').catch(err=>res.status(500).json(err));
+            }).select('name').catch(err => res.status(500).json(err));
 
             const AllProductNames = AllProducts.map(product => product.name);
 
@@ -125,7 +125,7 @@ const getSearchedProducts = async (req, res, next) => {
                     }
                 }]
 
-            }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' }).catch(err=>res.status(500).json(err));;
+            }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' }).catch(err => res.status(500).json(err));;
 
             // find match as per string similarity
 
@@ -143,7 +143,7 @@ const getSearchedProducts = async (req, res, next) => {
                     }
                 }]
 
-            }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' }).catch(err=>res.status(500).json(err));;
+            }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' }).catch(err => res.status(500).json(err));;
             products.push(...closestMatchesProducts);
 
             //  remove duplicates from products
@@ -174,6 +174,42 @@ const getSearchedProducts = async (req, res, next) => {
     }
 }
 
+const getFeaturedProducts = async (req, res, next) => {
+    const appliances = req.query.app;
+    const companies = await Company.find({ app: appliances }).select('_id').catch(err => res.status(500).json(err));
+
+
+    try {
+        const products = await Product.find({
+
+            $and: [{
+                company: {
+                    $in: companies
+                }
+            }, {
+                isFeatured: true,
+            }]
+
+
+        }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' }).sort({ updatedAt: -1 }).limit(4);
+
+        if (products.length > 0) {
+            res.status(200).json({
+                status: 'success',
+                data: products,
+            });
+        } else {
+            res.status(404).json({
+                status: 'fail',
+                message: 'No products found'
+            })
+        }
+    }
+    catch (err) {
+        res.status(500).json(err);
+        console.log(err);
+    }
+}
 
 const getRelatedProducts = async (req, res, next) => {
     const cats = req.query.categories;
@@ -338,5 +374,6 @@ module.exports = {
     deleteProductById,
     deleteProducts,
     getSearchedProducts,
-    getRelatedProducts
+    getRelatedProducts,
+    getFeaturedProducts
 }

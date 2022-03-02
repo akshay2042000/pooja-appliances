@@ -68,10 +68,10 @@ const ProductsPage = () => {
             }
             {
                 productState.isLoading ?
-                    <ProductsSkeleton products={productsPerPage} />
+                    <ProductsSkeleton products={8} />
                     :
                     productState.error ?
-                        <NoComponentFound error={productState.error} />
+                        <NoComponentFound message={"No products found"} />
                         :
 
                         <Container disableGutters={true} fixed >

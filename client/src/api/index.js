@@ -112,7 +112,9 @@ const getLatestBills = () => {
     return axios.get(`${baseUrl}/bills/latest`);
 }
 
-
+const getFeaturedProducts = (appliance) => {
+    return axios.get(`${baseUrl}/products/featured?app=${appliance}`);
+}
 
 
 const Api = {
@@ -138,7 +140,8 @@ const Api = {
     updateOrder,
     getLastBill,
     getLatestOrders,
-    getLatestBills
+    getLatestBills,
+    getFeaturedProducts
 }
 
 export default Api;

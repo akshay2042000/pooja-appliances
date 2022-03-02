@@ -73,6 +73,10 @@ var productSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'HsnCode',
         required: true,
+    },
+    isFeatured: {
+        type: Boolean,
+        default: false,
     }
 
 }, {
