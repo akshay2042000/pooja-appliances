@@ -1,11 +1,9 @@
 import { MenuItem, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom';
 import { StyledPaper } from '../styles/navbarStyles';
-import { useDispatch, useSelector } from 'react-redux';
-import Api from '../api/index'
+import { useSelector } from 'react-redux';
 import CategoriesCompSkeleton from './Skeletons/CategoriesCompSkeleton';
-import { Box } from '@mui/system';
 
 
 const CategoriesComp = () => {

@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Alert, Box, Button, CardActionArea, Container, Skeleton, Snackbar } from '@mui/material';
+import { Alert, Box, Button, CardActionArea, Snackbar } from '@mui/material';
 import { Link } from 'react-router-dom';
-import AddToCartComp from './AddToCartComp';
-import { useLocation, useParams } from 'react-router-dom';
-import SizeAndColorForm from './SizeAndColorForm';
+import {  useParams } from 'react-router-dom';
 import Chip from '@mui/material/Chip';
 import CardSkeleton from './Skeletons/CardSkeleton';
 import { addItem } from '../redux/cartSlice';

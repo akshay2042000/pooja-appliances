@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const Category = require('../models/categories');
 
 const getCategories = async (req, res, next) => {

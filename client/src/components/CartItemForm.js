@@ -3,7 +3,7 @@ import { Box, FormControl, IconButton, InputLabel, MenuItem, Select, TextField, 
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { useSelector, useDispatch } from 'react-redux';
-import { addItem, removeItem, updateItem } from '../redux/cartSlice';
+import { removeItem, updateItem } from '../redux/cartSlice';
 import { useParams } from 'react-router-dom';
 
 

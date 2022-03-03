@@ -5,7 +5,7 @@ const HomeCard = ({ heading }) => {
     return (
         <Box sx={{
             width: '100%',
-            minHeight: 150,
+            minHeight: 130,
             borderRadius: 5,
             display: 'flex',
             alignItems: 'center',

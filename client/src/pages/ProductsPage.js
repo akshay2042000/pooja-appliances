@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Typography from '@mui/material/Typography'
 import { useSearchParams } from 'react-router-dom'
 import Container from '@mui/material/Container'
-import { Box, Grid, Pagination, Skeleton } from '@mui/material'
+import { Box, Pagination, Skeleton } from '@mui/material'
 import ProductsGrid from '../components/ProductsGrid'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchProductsThunk } from '../redux/productSlice'
@@ -55,14 +55,6 @@ const ProductsPage = () => {
                                         products[0]?.categories?.filter(category => category._id === cat)[0]?.name
                                         : 'All Products'
                         }</Typography>
-                        {/* TODO: make a search form here */}
-                        {/* <Search >
-                            <SearchIconWrapper>
-                                <SearchIcon />
-                            </SearchIconWrapper>
-                            <StyledInputBase placeholder='Search...' />
-                        </Search> */}
-
                     </Box>
                 )
             }
@@ -80,8 +72,6 @@ const ProductsPage = () => {
                                 <Pagination sx={{ width: 'fit-content', mx: 'auto', my: 4 }} count={Math.ceil(products.length / productsPerPage)} color="secondary" size="large" onChange={handleChange} />
                             </Box>
                         </Container>
-
-
             }
         </div>
     )

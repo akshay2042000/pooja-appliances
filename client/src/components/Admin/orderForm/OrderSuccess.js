@@ -1,14 +1,12 @@
 import { Button } from '@mui/material'
-import { Avatar, Box, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Typography } from '@mui/material';
+import { Box, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux'
-import LoadingComponent from '../../Skeletons/LoadingComponent';
-import NoComponentFound from '../../NoComponentFound';
 
 const OrderSuccess = ({ open, setOpen }) => {
-    const { submittedBill, isBillSubmitting, billSubmittingError } = useSelector(state => state.billState)
+    const { submittedBill} = useSelector(state => state.billState)
 
     const navigate = useNavigate();
 

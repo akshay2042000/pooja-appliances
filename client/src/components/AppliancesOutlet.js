@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Outlet, useParams } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import NotFoundPage from '../pages/NotFoundPage';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -7,7 +7,6 @@ import { setAppliances } from '../redux/applianceSlice';
 
 const Appliances = () => {
     const applianceState = useSelector(state => state.applianceState);
-    const appliances = applianceState.appliances;
 
     const dispatch = useDispatch();
     let { pathname } = useLocation();

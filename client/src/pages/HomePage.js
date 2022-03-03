@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import CarouselComp from '../components/CarouselComp'
 import CategoriesHome from '../components/CategoriesHome'
-import { Container, Paper } from '@mui/material'
+import { Container } from '@mui/material'
 import HomeCard from '../components/HomeCard'
 import { Box } from '@mui/system'
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { HashLink } from 'react-router-hash-link';
 import { useSelector } from 'react-redux'
 import FeaturedProducts from '../components/FeaturedProducts'

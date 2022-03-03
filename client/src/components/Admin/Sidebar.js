@@ -1,5 +1,4 @@
 import React from 'react'
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
@@ -15,15 +14,9 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import { NavLink } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 
+
 const drawerWidth = 240;
 
-const checkActive = (match, location) => {
-    //some additional logic to verify you are in the home URI
-    if (!location) return false;
-    const { pathname } = location;
-    console.log(pathname);
-    return pathname === "/";
-}
 
 const Sidebar = (props) => {
     const { window } = props;

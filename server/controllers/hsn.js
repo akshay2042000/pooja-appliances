@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const HsnCode = require('../models/hsnCodes');
 
 const getHsnCodes = async (req, res, next) => {

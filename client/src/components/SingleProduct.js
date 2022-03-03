@@ -1,14 +1,11 @@
 import Typography from '@mui/material/Typography'
 import { Box, Card, Chip, CardContent, CardMedia } from '@mui/material'
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useParams } from 'react-router-dom';
-import AddToCartComp from './AddToCartComp';
-import { useTheme } from '@mui/material/styles';
-import SizeAndColorForm from './SizeAndColorForm';
 import { Link } from 'react-router-dom';
 import CarouselComp from './CarouselComp';
 import SingleProductSkeleton from './Skeletons/SingleProductSkeleton';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import SingleProductForm from './SingleProductForm';
 import NoComponentFound from './NoComponentFound';
 

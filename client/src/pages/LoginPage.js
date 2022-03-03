@@ -1,6 +1,4 @@
 import React from 'react'
-import Typography from '@mui/material/Typography'
-import Footer from '../components/Footer'
 import { Box } from '@mui/material'
 import LoginForm from '../components/LoginForm'
 

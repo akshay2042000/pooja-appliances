@@ -30,10 +30,10 @@ const FeaturedProducts = () => {
                         :
                         featuredProductsError ?
                             (
-                                <NoComponentFound error={featuredProductsError} />
+                                <></>
                             ) :
                             (<Box sx={{ py: 4, px: 0, marginTop: 6 }}>
-                                <Typography mb={2} textAlign='center' variant="h2" fontWeight='bold' color="initial">Featured Products</Typography>
+                                <Typography mb={2} textAlign='center' variant="h3" fontWeight='bold' color="initial">Featured Products</Typography>
                                 <Box sx={{ py: 4 }}>
                                     <ProductsGrid products={featuredProducts} />
                                 </Box>

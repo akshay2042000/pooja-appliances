@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const Company = require('../models/companies');
 
 const getCompanies = async (req, res, next) => {

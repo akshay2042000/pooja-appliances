@@ -1,5 +1,5 @@
 import { Box, Grid, Typography, Container, Paper, styled, Button, Divider } from '@mui/material'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import SingleCartItem from './SingleCartItem';

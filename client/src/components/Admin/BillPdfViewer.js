@@ -1,7 +1,6 @@
-import { Box, Button, Container } from '@mui/material';
-import React, { useState } from 'react'
+import { Box, Button } from '@mui/material';
+import React from 'react'
 import { useSelector } from 'react-redux'
-
 import { Worker } from '@react-pdf-viewer/core';
 import { Viewer } from '@react-pdf-viewer/core';
 import '@react-pdf-viewer/core/lib/styles/index.css';

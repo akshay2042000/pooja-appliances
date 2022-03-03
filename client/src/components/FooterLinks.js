@@ -2,7 +2,7 @@ import { Box, Stack, Typography } from '@mui/material'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { HashLink } from 'react-router-hash-link';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const FooterLinks = () => {
     const applianceState = useSelector(state => state.applianceState);

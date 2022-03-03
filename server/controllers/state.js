@@ -1,8 +1,6 @@
 const State = require('../models/states');
 
 
-
-
 const getStates = async (req, res, next) => {
     try {
         const states = await State.find({});

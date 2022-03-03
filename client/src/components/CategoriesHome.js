@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import { Container, Grid, Paper, Typography } from '@mui/material';
+import React from 'react'
+import { Container, Grid, Paper } from '@mui/material';
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
+import {  useSelector } from 'react-redux';
 import SingleCategory from './SingleCategory.js';
-import Api from '../api/index'
-import LoadingComponent from './Skeletons/LoadingComponent.js';
 import SingleCategorySkeleton from './Skeletons/SingleCategorySkeleton.js';
 
 

@@ -5,7 +5,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const { MongoClient } = require('mongodb');
 require('dotenv').config();
 
 //IMPORT ROUTES 
