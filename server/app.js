@@ -28,12 +28,12 @@ var app = express();
 
 // redirect to https
 
-app.all('*', (req, res, next) => {
-    if (req.protocol == 'http') {
-        res.redirect(307, 'https://' + req.hostname + ':' + app.get('httpsPort') + req.url);
-    }
-    next();
-});
+// app.all('*', (req, res, next) => {
+//     if (req.protocol == 'http') {
+//         res.redirect(307, 'https://' + req.hostname + ':' + app.get('httpsPort') + req.url);
+//     }
+//     next();
+// });
 
 
 // view engine setup
