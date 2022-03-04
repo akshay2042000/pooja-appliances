@@ -49,7 +49,7 @@ const ProductCard = ({ product }) => {
                                 <CardActionArea>
                                     <CardMedia
                                         component="img"
-                                        height="180"
+                                        height="160"
                                         image={product.images[0].path}
                                         sx={{ borderRadius: 1 }}
                                     />

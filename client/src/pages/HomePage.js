@@ -22,7 +22,7 @@ const HomePage = () => {
 
 
             <Container disableGutters={true} sx={{ padding: 4, paddingTop: 0, mb: 6 }}>
-                <Grid container sx={{ width: '100%' }} spacing={2}>
+                <Grid container sx={{ width: '100%' }} spacing={{ xs: 0, md: 4 }}>
 
                     <Grid item sx={{ width: '100%', height: '100%' }} md={6} xs={12} >
                         <Link to='products' style={{ width: '100%', height: '100%' }}>

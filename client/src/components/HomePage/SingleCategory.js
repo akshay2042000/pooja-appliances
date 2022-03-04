@@ -15,7 +15,7 @@ const SingleCategory = ({ category }) => {
                 <CardActionArea>
                     <CardMedia
                         component="img"
-                        height="300"
+                        height="250"
                         image={category.image.path}
                         sx={{ filter: 'brightness(50%)' }}
                     />

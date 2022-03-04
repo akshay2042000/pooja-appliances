@@ -15,7 +15,7 @@ const FooterLinks = () => {
             }
         }}>
 
-            <Typography variant='h5' mb={3}>Quick links</Typography>
+            <Typography variant='h5' mb={3}>Quick Links</Typography>
             <Stack
                 direction="column"
                 justifyContent="center"
