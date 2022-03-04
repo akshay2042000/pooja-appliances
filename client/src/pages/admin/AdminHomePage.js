@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material';
 import React from 'react'
-import LatestBills from '../../components/Admin/LatestBills';
-import LatestOrders from '../../components/Admin/LatestOrders';
+import LatestBills from '../../components/Admin/adminHome/LatestBills';
+import LatestOrders from '../../components/Admin/adminHome/LatestOrders';
 
 const AdminHomePage = () => {
 

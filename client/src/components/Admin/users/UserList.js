@@ -7,7 +7,7 @@ import { getUserListThunk, deleteUserThunk } from "../../../redux/userSlice";
 import LoadingComponent from '../../Skeletons/LoadingComponent';
 import CloseIcon from '@mui/icons-material/Close';
 import DoneIcon from '@mui/icons-material/Done';
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import NoComponentFound from '../../NoComponentFound';
 
 

@@ -3,7 +3,7 @@ import { Container, Grid, Paper } from '@mui/material';
 import { Link } from "react-router-dom";
 import {  useSelector } from 'react-redux';
 import SingleCategory from './SingleCategory.js';
-import SingleCategorySkeleton from './Skeletons/SingleCategorySkeleton.js';
+import SingleCategorySkeleton from '../Skeletons/SingleCategorySkeleton.js';
 
 
 const CategoriesHome = () => {

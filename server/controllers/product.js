@@ -1,7 +1,6 @@
 const Product = require('../models/products');
 const Company = require('../models/companies');
 var stringSimilarity = require("string-similarity");
-const closest_match = require("closest-match");
 
 
 const getProducts = async (req, res, next) => {

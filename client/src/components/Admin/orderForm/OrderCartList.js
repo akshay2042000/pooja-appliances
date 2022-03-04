@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
-import { Box,Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import { useSelector, useDispatch } from 'react-redux';
 import LoadingComponent from '../../Skeletons/LoadingComponent';
 import NoComponentFound from '../../NoComponentFound';
@@ -309,6 +309,7 @@ const OrderCartList = ({ values, setFieldValue }) => {
                                         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
                                         rowsPerPageOptions={[5, 10, 20]}
                                         pagination
+                                        hideFooter
                                         density='comfortable'
                                         getRowId={(row) => row.id}
                                         getCellClassName={(params) => {

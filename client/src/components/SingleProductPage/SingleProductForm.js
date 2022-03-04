@@ -2,9 +2,9 @@ import { Alert, Box, Button, CardActions, Container, FormControl, IconButton, In
 import React, { useState } from 'react'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { addItem } from '../redux/cartSlice'
+import { addItem } from '../../redux/cartSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { updateSelectedProduct } from '../redux/productSlice';
+import { updateSelectedProduct } from '../../redux/productSlice';
 
 const SingleProductForm = () => {
     const max = 100;

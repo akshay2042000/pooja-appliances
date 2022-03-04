@@ -9,7 +9,7 @@ export const StyledAppBar = styled(AppBar)(({ theme }) => ({
     },
     backgroundColor: alpha(theme.palette.primary.main, 0.85),
     backdropFilter: 'blur(20px)',
-    zIndex:1300
+    zIndex: 1300
 
 }));
 
@@ -55,4 +55,9 @@ export const StyledPaper = styled(Paper)(({ theme }) => ({
     justifyContent: 'space-between',
     borderBottomLeftRadius: theme.shape.borderRadius,
     borderBottomRightRadius: theme.shape.borderRadius,
+}));
+
+export const Img = styled('img')(({ theme }) => ({
+    width: '100%',
+
 }));

@@ -5,7 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from './App';
 import { store, persistor } from './redux/configureStore';
 import { Provider } from 'react-redux';
-import ScrollToTop from './components/ScrollToTop';
+import ScrollToTop from './utils/ScrollToTop';
 import LoadingComponent from './components/Skeletons/LoadingComponent';
 import { PersistGate } from 'redux-persist/integration/react'
 import * as serviceWorker from './serviceWorker';

@@ -3,12 +3,9 @@ import { Box } from '@mui/system'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { styled } from '@mui/material/styles';
+import { Img } from '../styles'
 
-export const Img = styled('img')(({ theme }) => ({
-    width: '100%',
 
-}));
 
 const NoComponentFound = ({ error, message }) => {
     const applianceState = useSelector(state => state.applianceState);

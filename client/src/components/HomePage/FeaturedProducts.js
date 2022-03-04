@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import ProductsGrid from './ProductsGrid'
+import ProductsGrid from '../Products/ProductsGrid'
 import { Box, Container, Typography } from '@mui/material'
-import NoComponentFound from './NoComponentFound'
-import ProductsSkeleton from './Skeletons/ProductsSkeleton'
-import { fetchFeaturedProducts } from '../redux/productSlice'
+import ProductsSkeleton from '../Skeletons/ProductsSkeleton'
+import { fetchFeaturedProducts } from '../../redux/productSlice'
 import { useParams } from 'react-router-dom'
 
 const FeaturedProducts = () => {
@@ -19,7 +18,7 @@ const FeaturedProducts = () => {
 
     return (
         <>
-            <Container fixed disableGutters={true}>
+            <Container fixed disableGutters={true} sx={{ paddingX: 4 }}>
                 {
                     featuredProductsLoading ?
                         (

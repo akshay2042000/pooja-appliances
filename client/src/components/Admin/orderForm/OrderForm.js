@@ -21,7 +21,7 @@ import { getLastBillThunk, submitBillThunk } from '../../../redux/billSlice';
 const OrderForm = () => {
     const dispatch = useDispatch();
     const { singleOrder } = useSelector(state => state.orderState);
-    const { isBillSubmitting, billSubmittingError, submittedBill, lastBill } = useSelector(state => state.billState);
+    const { isBillSubmitting, lastBill } = useSelector(state => state.billState);
     const theme = useTheme();
 
 
@@ -30,7 +30,6 @@ const OrderForm = () => {
     }, [])
 
     const INITIAL_FORM_STATE = {
-        // TODO: get last invoice number from server
         invoiceNumber: lastBill ? lastBill.invoiceNumber + 1 : 1,
         date: new Date(),
         billingUser: {
@@ -219,7 +218,6 @@ const OrderForm = () => {
                                             label="Invoice Number"
                                             variant='outlined'
                                             InputProps={{
-                                                // TODO: get last invoice number from db and increment
                                                 inputProps: { min: 0 },
                                             }}
                                         />

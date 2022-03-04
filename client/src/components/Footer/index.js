@@ -1,6 +1,5 @@
 import React from 'react'
-import Container from '@mui/material/Container'
-import { Grid, Typography, Box } from '@mui/material'
+import { Grid, Box } from '@mui/material'
 import FooterLogoComponent from './FooterLogoComponent'
 import FooterAddress from './FooterAddress'
 import FooterLinks from './FooterLinks'

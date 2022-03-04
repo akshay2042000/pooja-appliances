@@ -3,7 +3,7 @@ import React from 'react'
 import { Link, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import CartItemForm from './CartItemForm';
-import { removeItem } from '../redux/cartSlice';
+import { removeItem } from '../../redux/cartSlice';
 
 
 const SingleCartItem = ({ index }) => {

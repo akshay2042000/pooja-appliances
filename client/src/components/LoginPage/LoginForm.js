@@ -2,13 +2,13 @@ import { Box, CircularProgress, IconButton, InputAdornment, styled, Typography }
 import React, { useEffect, useState } from 'react'
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { loginThunk } from '../redux/userSlice';
+import { loginThunk } from '../../redux/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
-import TextFieldWrapper from './Formik/TextFieldWrapper';
-import ButtonWrapper from './Formik/ButtonWrapper';
+import TextFieldWrapper from '../Formik/TextFieldWrapper';
+import ButtonWrapper from '../Formik/ButtonWrapper';
 
 const LoginForm = () => {
     const { app } = useParams()

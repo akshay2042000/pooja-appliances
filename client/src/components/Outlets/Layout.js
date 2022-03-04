@@ -1,8 +1,8 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import NavBar from './NavBar'
-import CategoriesComp from './CategoriesComp'
-import Footer from './Footer'
+import NavBar from '../NavBar'
+import CategoriesComp from '../NavBar/CategoriesComp'
+import Footer from '../Footer'
 
 
 

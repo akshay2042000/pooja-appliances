@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react'
 import { Outlet } from 'react-router-dom';
-import NotFoundPage from '../pages/NotFoundPage';
-import { useDispatch, useSelector } from 'react-redux';
+import NotFoundPage from '../../pages/NotFoundPage';
+import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { setAppliances } from '../redux/applianceSlice';
+import { setAppliances } from '../../redux/applianceSlice';
 
-const Appliances = () => {
-    const applianceState = useSelector(state => state.applianceState);
+const AppliancesOutlet = () => {
 
     const dispatch = useDispatch();
     let { pathname } = useLocation();
@@ -36,4 +35,4 @@ const Appliances = () => {
     )
 }
 
-export default Appliances
+export default AppliancesOutlet

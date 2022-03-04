@@ -1,8 +1,8 @@
 import { Container } from '@mui/material'
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import RelatedProducts from '../components/RelatedProducts'
-import SingleProduct from '../components/SingleProduct'
+import RelatedProducts from '../components/SingleProductPage/RelatedProducts'
+import SingleProduct from '../components/SingleProductPage/SingleProduct'
 import Api from '../api/index';
 import { fetchSelectedProductThunk } from '../redux/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -36,7 +36,7 @@ const SingleProductPage = () => {
 
     return (
         <div>
-            <Container disableGutters={true} fixed sx={{ py: 6, px: 2 }}>
+            <Container disableGutters={true} fixed sx={{ py: 6, px: 4 }}>
                 <SingleProduct />
                 <RelatedProducts products={relatedProducts} />
             </Container>

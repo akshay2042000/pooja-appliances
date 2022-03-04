@@ -152,7 +152,6 @@ const deleteBillById = async (req, res, next) => {
             Order.findByIdAndUpdate(req.body.order, { $set: { isBilled: false } })
         ])
 
-        // const bill = await Bill.findByIdAndDelete(req.params.id);
         if (bill) {
             res.status(200).json({
                 status: 'success',

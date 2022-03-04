@@ -1,7 +1,7 @@
 import { Avatar, Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Typography } from '@mui/material';
 import React from 'react'
 import CloseIcon from '@mui/icons-material/Close';
-import { clearCart } from '../redux/cartSlice';
+import { clearCart } from '../../redux/cartSlice';
 import { useDispatch } from 'react-redux';
 
 const Success = ({ open, setOpen, order }) => {

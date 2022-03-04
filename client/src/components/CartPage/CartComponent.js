@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import SingleCartItem from './SingleCartItem';
 import { useNavigate } from 'react-router-dom';
-import Api from '../api/index';
+import Api from '../../api/index';
 import Success from './Success';
 import AsyncSelect from 'react-select/async';
 import { useTheme } from '@mui/material/styles';

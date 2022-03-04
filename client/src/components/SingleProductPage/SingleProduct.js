@@ -3,21 +3,18 @@ import { Box, Card, Chip, CardContent, CardMedia } from '@mui/material'
 import React from 'react'
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import CarouselComp from './CarouselComp';
-import SingleProductSkeleton from './Skeletons/SingleProductSkeleton';
+import CarouselComp from '../CarouselComp';
+import SingleProductSkeleton from '../Skeletons/SingleProductSkeleton';
 import { useSelector } from 'react-redux';
 import SingleProductForm from './SingleProductForm';
-import NoComponentFound from './NoComponentFound';
+import NoComponentFound from '../NoComponentFound';
 
 
 
 const SingleProduct = () => {
     const { app } = useParams()
-
     const productState = useSelector(state => state.productState)
     const product = productState.selectedProduct;
-
-
 
     return (
         <>
@@ -77,8 +74,6 @@ const SingleProduct = () => {
                                             <Typography mt={1} variant="price" component='div' color='text.primary'>₹{product.size.price} </Typography>
                                         </CardContent>
                                         <Box sx={{ px: 2 }}>
-                                            {/* <SizeAndColorForm product={product} />
-                                        <AddToCartComp product={product} /> */}
                                             <SingleProductForm />
                                         </Box>
 
@@ -87,10 +82,6 @@ const SingleProduct = () => {
                             </>
                         )
             }
-
-
-
-            {/* TODO: height of card media single product height: 400, width 100%, 576  */}
         </>
     )
 }

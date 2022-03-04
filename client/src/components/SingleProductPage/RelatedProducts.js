@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material'
 import React from 'react'
-import ProductsGrid from './ProductsGrid'
-import ProductsSkeleton from './Skeletons/ProductsSkeleton'
+import ProductsGrid from '../Products/ProductsGrid'
+import ProductsSkeleton from '../Skeletons/ProductsSkeleton'
 
 const RelatedProducts = ({ products }) => {
     return (

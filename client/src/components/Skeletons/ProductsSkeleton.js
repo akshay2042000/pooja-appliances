@@ -1,7 +1,7 @@
 import { Box, Container, Grid, Pagination } from '@mui/material'
 import React from 'react'
-import ProductCard from '../ProductCard'
-import ProductsGrid from '../ProductsGrid'
+import ProductCard from '../Products/ProductCard'
+import ProductsGrid from '../Products/ProductsGrid'
 
 const ProductsSkeleton = ({ products }) => {
     return (

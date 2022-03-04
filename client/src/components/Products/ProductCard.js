@@ -7,8 +7,8 @@ import { Alert, Box, Button, CardActionArea, Snackbar } from '@mui/material';
 import { Link } from 'react-router-dom';
 import {  useParams } from 'react-router-dom';
 import Chip from '@mui/material/Chip';
-import CardSkeleton from './Skeletons/CardSkeleton';
-import { addItem } from '../redux/cartSlice';
+import CardSkeleton from '../Skeletons/CardSkeleton';
+import { addItem } from '../../redux/cartSlice';
 import { useDispatch, useSelector } from 'react-redux'
 
 
@@ -94,8 +94,6 @@ const ProductCard = ({ product }) => {
                                 <Typography mt={1} variant="price" component='div' color='text.primary'>₹{form.size.price} </Typography>
                             </CardContent>
 
-                            {/* <SizeAndColorForm product={product} form={form} setForm={setForm} />
-                            <AddToCartComp product={product} form={form} setForm={setForm} /> */}
                             <Button size="large" sx={{ width: '100%' }} variant='contained' color="secondary" onClick={addToCart}>
                                 Add To Cart
                             </Button>

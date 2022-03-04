@@ -1,47 +1,44 @@
-import { Box, Typography, Chip, Paper } from '@mui/material'
+import { Box, Paper, Typography } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
 import moment from 'moment'
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { getLatestBillsThunk } from '../../../redux/billSlice'
+import NoComponentFound from '../../NoComponentFound'
+import LoadingComponent from '../../Skeletons/LoadingComponent'
 import { useNavigate } from 'react-router-dom'
-import { getLatestOrdersThunk } from '../../redux/orderSlice'
-import NoComponentFound from '../NoComponentFound'
-import { alpha } from '@mui/material/styles';
-import LoadingComponent from '../Skeletons/LoadingComponent'
 
+const LatestBills = () => {
 
-const LatestOrders = () => {
-    const { latestOrders, latestOrdersLoading, latestOrdersError } = useSelector(state => state.orderState)
+    const { latestBills, latestBillsLoading, latestBillsError } = useSelector(state => state.billState)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     useEffect(() => {
-        dispatch(getLatestOrdersThunk());
+        dispatch(getLatestBillsThunk());
     }, [])
 
-    const orders = latestOrders.map(order => {
+    const bills = latestBills.map(bill => {
         const obj = {
-            id: order._id,
-            isBilled: order.isBilled,
-            app: order.app,
-            orderId: order.orderId,
-            date: order.updatedAt,
-            name: order.user.name,
-            username: order.user.username,
+            id: bill._id,
+            app: bill.app,
+            invoiceNumber: bill.invoiceNumber,
+            date: bill.invoiceData.date,
+            orderId: bill.order.orderId,
+            name: bill.invoiceData.billingUser.name,
         }
         return obj
     })
 
-
     const columns = [
         {
-            field: "orderId", headerName: "Order ID",
+            field: "invoiceNumber", headerName: "Invoice No.",
             minWidth: 110,
             flex: 0.3,
             renderCell: (params) => {
                 return (
-                    <Typography title={params.row.orderId} variant='body2' sx={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                        {params.row.orderId}
+                    <Typography title={params.row.invoiceNumber} variant='body2' sx={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                        {params.row.invoiceNumber}
                     </Typography>
                 );
             },
@@ -64,9 +61,6 @@ const LatestOrders = () => {
             field: 'name',
             headerName: "Name",
             flex: 1,
-            valueGetter: (params) => {
-                return params.row.name;
-            },
             minWidth: 120,
             renderCell: (params) => {
                 return (
@@ -78,30 +72,12 @@ const LatestOrders = () => {
                 );
             },
         },
-        {
-            field: 'username',
-            headerName: "Username",
-            flex: 1,
-            valueGetter: (params) => {
-                return params.row.username;
-            },
 
-            minWidth: 140,
-            renderCell: (params) => {
-                return (
-                    <Box sx={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
-                        <Typography title={params.row.username} variant='body2' sx={{ textTransform: 'capitalize', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                            {params.row.username}
-                        </Typography>
-                    </Box>
-                );
-            },
-        },
         {
             field: "app",
             flex: 1,
             headerName: "Appliance",
-            minWidth: 100,
+            minWidth: 110,
             renderCell: (params) => {
                 return (
                     <Typography title={params.row.app} variant='body2' sx={{ textOverflow: 'ellipsis', overflow: 'hidden', textTransform: 'capitalize' }}>
@@ -111,45 +87,44 @@ const LatestOrders = () => {
             },
         },
         {
-            field: "isBilled",
-            headerName: "Status",
-            flex: 1,
+            field: "order",
+            flex: 0.3,
+            valueGetter: (params) => {
+                return params.row.orderId;
+            },
+
+            headerName: "Order ID",
             minWidth: 100,
             renderCell: (params) => {
                 return (
-                    <div >
-                        {params.row.isBilled ? (
-                            <Chip label="Approved" color="success" variant="outlined" sx={{ backgroundColor: 'success.light' }} />
-                        ) : (
-                            <Chip label="Pending" color="warning" variant="outlined" sx={{ backgroundColor: 'warning.light' }} />
-                        )}
-                    </div>
+                    <Typography title={params.row.orderId} variant='body2' sx={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                        {params.row.orderId}
+                    </Typography>
                 );
             },
         },
-    ];
 
+    ];
 
     return (
         <Paper elevation={4} sx={{ width: '100%', padding: 3, minHeight: { lg: '480px' } }}>
             <Box sx={{ width: '100%', mb: 4 }}>
-                <Typography variant='h4' sx={{ textAlign: 'center' }}>Latest Orders</Typography>
+                <Typography variant='h4' sx={{ textAlign: 'center' }}>Latest Bills</Typography>
             </Box>
             {
-                latestOrdersLoading ?
+                latestBillsLoading ?
                     (
                         <LoadingComponent />
                     ) :
-                    latestOrdersError ?
+                    latestBillsError ?
                         (
-                            <NoComponentFound error={latestOrdersError} />
+                            <NoComponentFound error={latestBillsError} />
                         ) :
                         (
                             <Box sx={{ display: 'flex', width: '100%' }} >
                                 <DataGrid
-                                    hideFooter
                                     autoHeight
-                                    rows={orders}
+                                    rows={bills}
                                     sx={{
                                         '& .MuiDataGrid-cell:focus': {
                                             outline: 'none',
@@ -162,17 +137,9 @@ const LatestOrders = () => {
                                                     theme.palette.common.white,
                                             },
                                         },
-                                        '& .super-app-theme--false': {  // pending
-                                            //  white bg
-                                            backgroundColor: 'paper',
-                                        },
-                                        '& .super-app-theme--true': { // approved
-                                            // slightly dull bg
-                                            bgcolor: (theme) =>
-                                                alpha(theme.palette.common.black, 0.04),
-                                        },
                                     }}
                                     disableSelectionOnClick
+                                    hideFooter
                                     columns={columns}
                                     pageSize={5}
                                     pagination
@@ -180,7 +147,7 @@ const LatestOrders = () => {
                                     getRowId={(row) => row.id}
                                     onRowClick={(row, e) => {
                                         if (e.target.tagName !== 'svg' && e.target.tagName !== 'path' && e.target.type !== 'button') {
-                                            navigate(`orders/${row.id}`)
+                                            navigate(`bills/${row.id}`)
                                         }
                                     }}
                                     initialState={{
@@ -188,13 +155,13 @@ const LatestOrders = () => {
                                             sortModel: [{ field: 'date', sort: 'desc' }],
                                         },
                                     }}
-                                    getRowClassName={(params) => `super-app-theme--${params.row.isBilled}`}
                                 />
                             </Box >
                         )
             }
         </Paper>
     )
+
 }
 
-export default LatestOrders
+export default LatestBills
