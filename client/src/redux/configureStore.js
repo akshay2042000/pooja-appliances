@@ -43,7 +43,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore({
     reducer: persistedReducer,
-    middleware: [thunk, logger],
+    middleware: process.env.NODE_ENV === 'development' ? [thunk, logger] : [thunk],
 })
 
 

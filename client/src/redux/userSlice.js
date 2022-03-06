@@ -87,7 +87,6 @@ export const getUserListThunk = () => async (dispatch) => {
 export const deleteUserThunk = (id) => async (dispatch) => {
     dispatch(deleteUserStart());
     try {
-        console.log(id)
         const { data } = await Api.deleteUser(id);
         dispatch(deleteUserSuccess(data.data));
     }

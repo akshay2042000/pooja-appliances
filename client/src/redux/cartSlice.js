@@ -21,11 +21,11 @@ const cartSlice = createSlice({
         addItem: (state, action) => {
             const payload = action.payload;
             const app = payload.app
-            const index = state[app].items.findIndex(item => (item._id + item.size.val + item.color.name + item.unit) === (payload._id + payload.size.val + payload.color.name + payload.unit))
-            if(index >= 0){
-               state[app].items[index]= { ...state[app].items[index], quantity: (state[app].items[index].quantity + payload.quantity) }
-            }else{
-            state[app].items.push(payload);
+            const index = state[app].items.findIndex(item => (item._id + item.size.val + item.color.name + item.unit.name) === (payload._id + payload.size.val + payload.color.name + payload.unit.name))
+            if (index >= 0) {
+                state[app].items[index] = { ...state[app].items[index], quantity: (state[app].items[index].quantity + payload.quantity) }
+            } else {
+                state[app].items.push(payload);
             }
             state[app].count += payload.quantity;
             state[app].total += payload.quantity * payload.size.price;
@@ -33,7 +33,7 @@ const cartSlice = createSlice({
         removeItem: (state, action) => {
             const payload = action.payload;
             const app = payload.app
-            const index = state[app].items.findIndex(item => (item._id + item.size.val + item.color.name + item.unit) === (payload._id + payload.size.val + payload.color.name + payload.unit))
+            const index = state[app].items.findIndex(item => (item._id + item.size.val + item.color.name + item.unit.name) === (payload._id + payload.size.val + payload.color.name + payload.unit.name))
 
             state[app].items.splice(index, 1);
             state[app].count -= payload.quantity;
@@ -42,7 +42,7 @@ const cartSlice = createSlice({
         updateItem: (state, action) => {
             const payload = action.payload;
             const app = payload.app
-            const index = state[app].items.findIndex(item => (item._id + item.size.val + item.color.name + item.unit) === (payload._id + payload.size.val + payload.color.name + payload.unit))
+            const index = state[app].items.findIndex(item => (item._id + item.size.val + item.color.name + item.unit.name) === (payload._id + payload.size.val + payload.color.name + payload.unit.name))
 
             if (payload.targetName === 'quantity') {
                 state[app].count -= Number(state[app].items[index].quantity);
