@@ -138,17 +138,16 @@ const NavBar = () => {
                 </MenuItem>
             </Link>
 
-            {
-                location.pathname.split('/')[1] !== 'admin' &&
-                (<Link to={`/${appliances === 'creative' ? 'pooja' : 'creative'}`}>
-                    <MenuItem onClick={handleMobileMenuClose}>
-                        <IconButton color='inherit' size="large">
-                            <ChangeCircleIcon />
-                        </IconButton>
-                        <p>Switch to {appliances === 'creative' ? 'Pooja' : 'Creative'}</p>
-                    </MenuItem>
-                </Link>)
-            }
+
+            <Link to={`/${appliances === 'creative' ? 'pooja' : 'creative'}`}>
+                <MenuItem onClick={handleMobileMenuClose}>
+                    <IconButton color='inherit' size="large">
+                        <ChangeCircleIcon />
+                    </IconButton>
+                    <p>Switch to {appliances === 'creative' ? 'Pooja' : 'Creative'}</p>
+                </MenuItem>
+            </Link>
+
 
             {
                 currentUser?.isAdmin &&
@@ -250,12 +249,9 @@ const NavBar = () => {
                     </Box>
                     <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: { xs: 0, md: 4 } }}>
                         {
-                            location.pathname.split('/')[1] !== 'admin' &&
-                            (
-                                <Button variant="outlined" color="white" onClick={() => navigate(`/${appliances === 'creative' ? 'pooja' : 'creative'}`)}>
-                                    Switch to {appliances === 'creative' ? 'Pooja' : 'Creative'}
-                                </Button>
-                            )
+                            <Button variant="outlined" color="white" onClick={() => navigate(`/${appliances === 'creative' ? 'pooja' : 'creative'}`)}>
+                                Switch to {appliances === 'creative' ? 'Pooja' : 'Creative'}
+                            </Button>
                         }
 
                     </Box>
