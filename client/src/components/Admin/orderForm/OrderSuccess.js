@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux'
 
 const OrderSuccess = ({ open, setOpen }) => {
-    const { submittedBill} = useSelector(state => state.billState)
+    const { submittedBill } = useSelector(state => state.billState)
 
     const navigate = useNavigate();
 
@@ -64,7 +64,7 @@ const OrderSuccess = ({ open, setOpen }) => {
                                 Order Number : {submittedBill?.invoiceData?.orderId}
                             </Typography>
                             <Typography variant="body1" >
-                                Invoice Subtotal : ₹{submittedBill?.invoiceData?.items?.reduce((previous, current) => previous + current.subtotal, 0)}
+                                Invoice Subtotal : ₹{new Intl.NumberFormat('en-IN').format(submittedBill?.invoiceData?.items?.reduce((previous, current) => previous + current.subtotal, 0))}
                             </Typography>
                         </Box>
 

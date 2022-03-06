@@ -82,7 +82,7 @@ const Success = ({ open, setOpen, order }) => {
                                         width: '100%',
                                         paddingX: 1
                                     }}>
-                                        <Typography variant="body1" color="initial" >₹{item.size.price * item.unit.pcPerUnit}</Typography>
+                                        <Typography variant="body1" color="initial" >₹{new Intl.NumberFormat('en-IN').format(item.size.price * item.unit.pcPerUnit)}</Typography>
                                         <Typography variant="body1" color="initial" >{item.quantity}
                                             <Typography variant="caption" color="initial" >{item.unit.name}</Typography>
                                         </Typography>

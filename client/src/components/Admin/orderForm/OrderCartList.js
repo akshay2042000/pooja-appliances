@@ -71,7 +71,7 @@ const OrderCartList = ({ values, setFieldValue }) => {
             renderCell: (params) => {
                 return (
                     <Box>
-                        <Typography title={params.row.itemName}  variant='body2' sx={{ textTransform: 'capitalize', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                        <Typography title={params.row.itemName} variant='body2' sx={{ textTransform: 'capitalize', textOverflow: 'ellipsis', overflow: 'hidden' }}>
                             {params.row.itemName}
                         </Typography>
                         <Typography variant='caption' sx={{ textTransform: 'capitalize', textOverflow: 'ellipsis', overflow: 'hidden' }}>
@@ -182,7 +182,7 @@ const OrderCartList = ({ values, setFieldValue }) => {
             renderCell: (params) => {
                 return (
                     <Typography title={params.row.rate} variant='body2' sx={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                        ₹{params.row.rate}
+                        ₹{new Intl.NumberFormat('en-IN').format(params.row.rate)}
                     </Typography>
                 );
             },
@@ -197,7 +197,7 @@ const OrderCartList = ({ values, setFieldValue }) => {
             renderCell: (params) => {
                 return (
                     <Typography title={params.row.total} variant='body2' sx={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                        ₹{params.row.total}
+                        ₹{new Intl.NumberFormat('en-IN').format(params.row.total)}
                     </Typography>
                 );
             },
@@ -212,7 +212,7 @@ const OrderCartList = ({ values, setFieldValue }) => {
             renderCell: (params) => {
                 return (
                     <Typography title={params.row.taxableValue} variant='body2' sx={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                        ₹{params.row.taxableValue} <Typography variant='caption'>{`(${values.discount}%)`}</Typography>
+                        ₹{new Intl.NumberFormat('en-IN').format(params.row.taxableValue)} <Typography variant='caption'>{`(${values.discount}%)`}</Typography>
                     </Typography>
                 );
             },
@@ -227,7 +227,7 @@ const OrderCartList = ({ values, setFieldValue }) => {
             renderCell: (params) => {
                 return (
                     <Typography title={params.row.cgst} variant='body2' sx={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                        ₹{params.row.cgst} <Typography variant='caption'>{`(${params.row.cgstPercentage}%)`}</Typography>
+                        ₹{new Intl.NumberFormat('en-IN').format(params.row.cgst)} <Typography variant='caption'>{`(${params.row.cgstPercentage}%)`}</Typography>
                     </Typography>
                 );
             },
@@ -242,7 +242,7 @@ const OrderCartList = ({ values, setFieldValue }) => {
             renderCell: (params) => {
                 return (
                     <Typography title={params.row.sgst} variant='body2' sx={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                        ₹{params.row.sgst} <Typography variant='caption' >{`(${params.row.sgstPercentage}%)`}</Typography>
+                        ₹{new Intl.NumberFormat('en-IN').format(params.row.sgst)} <Typography variant='caption' >{`(${params.row.sgstPercentage}%)`}</Typography>
                     </Typography>
                 );
             },
@@ -257,7 +257,7 @@ const OrderCartList = ({ values, setFieldValue }) => {
             renderCell: (params) => {
                 return (
                     <Typography title={params.row.igst} variant='body2' sx={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                        ₹{params.row.igst} < Typography variant='caption' >{`(${params.row.igstPercentage}%)`}</Typography>
+                        ₹{new Intl.NumberFormat('en-IN').format(params.row.igst)} < Typography variant='caption' >{`(${params.row.igstPercentage}%)`}</Typography>
                     </Typography >
                 );
 
@@ -274,7 +274,7 @@ const OrderCartList = ({ values, setFieldValue }) => {
             renderCell: (params) => {
                 return (
                     <Typography title={params.row.subtotal} variant='body2' sx={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                        ₹{params.row.subtotal}
+                        ₹{new Intl.NumberFormat('en-IN').format(params.row.subtotal)}
                     </Typography>
                 );
             },
@@ -330,13 +330,13 @@ const OrderCartList = ({ values, setFieldValue }) => {
                                 <Grid container sx={{ mb: 6 }}>
                                     <Grid item xs={12} sm={6}>
                                         <Typography variant="body1" color="initial" sx={{ textTransform: 'capitalize', fontWeight: 'bold' }}>
-                                            total taxable amount : <Typography variant="h6" sx={{ fontWeight: 'normal' }} component='span'>₹{items.reduce((previous, current) => previous + current.taxableValue, 0)}</Typography>
+                                            total taxable amount : <Typography variant="h6" sx={{ fontWeight: 'normal' }} component='span'>₹{new Intl.NumberFormat('en-IN').format(items.reduce((previous, current) => previous + current.taxableValue, 0))}</Typography>
                                         </Typography>
                                         <Typography variant="body1" color="initial" sx={{ textTransform: 'capitalize', fontWeight: 'bold' }}>
-                                            total gst : <Typography variant="h6" sx={{ fontWeight: 'normal' }} component='span'>₹{items.reduce((previous, current) => previous + current.cgst + current.sgst + current.igst, 0)}</Typography>
+                                            total gst : <Typography variant="h6" sx={{ fontWeight: 'normal' }} component='span'>₹{new Intl.NumberFormat('en-IN').format(items.reduce((previous, current) => previous + current.cgst + current.sgst + current.igst, 0))}</Typography>
                                         </Typography>
                                         <Typography variant="body1" color="initial" sx={{ textTransform: 'capitalize', fontWeight: 'bold' }}>
-                                            Invoice total : <Typography variant="h6" sx={{ fontWeight: 'normal' }} component='span'>₹{items.reduce((previous, current) => previous + current.subtotal, 0)}</Typography>
+                                            Invoice total : <Typography variant="h6" sx={{ fontWeight: 'normal' }} component='span'>₹{new Intl.NumberFormat('en-IN').format(items.reduce((previous, current) => previous + current.subtotal, 0))}</Typography>
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={12} sm={6} />

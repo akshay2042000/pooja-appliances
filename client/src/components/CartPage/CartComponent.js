@@ -137,16 +137,16 @@ const CartComponent = () => {
                             <Divider variant="middle" sx={{ my: 1, width: '100%' }} />
                             <StyledBox >
                                 <Typography variant="body1" color="initial" >Total</Typography>
-                                <Typography variant="body1" color="initial">{cart.items.reduce((prev, curr) => (prev + (curr.size.price * curr.quantity * curr.unit.pcPerUnit)), 0)}</Typography>
+                                <Typography variant="body1" color="initial">₹{new Intl.NumberFormat('en-IN').format(cart.items.reduce((prev, curr) => (prev + (curr.size.price * curr.quantity * curr.unit.pcPerUnit)), 0))}</Typography>
                             </StyledBox>
                             <StyledBox >
                                 <Typography variant="body1" color="initial" >Gst</Typography>
-                                <Typography variant="body1" color="initial">₹120 <Typography variant="caption" component='span' color="initial">(10%)</Typography> </Typography>
+                                <Typography variant="body1" color="initial">₹{new Intl.NumberFormat('en-IN').format(2000)}<Typography variant="caption" component='span' color="initial">(10%)</Typography> </Typography>
                             </StyledBox>
                             <Divider variant="middle" sx={{ my: 1, width: '100%' }} />
                             <StyledBox >
                                 <Typography variant="h6" color="initial" >Sub Total</Typography>
-                                <Typography variant="h6" color="initial">₹1320</Typography>
+                                <Typography variant="h6" color="initial">₹{new Intl.NumberFormat('en-IN').format(3000)}</Typography>
                             </StyledBox>
                         </Paper>
 

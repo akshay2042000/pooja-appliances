@@ -91,7 +91,7 @@ const ProductCard = ({ product }) => {
                                         })
                                     }
                                 </Box>
-                                <Typography mt={1} variant="price" component='div' color='text.primary'>₹{form.size.price} </Typography>
+                                <Typography mt={1} variant="price" component='div' color='text.primary'>₹{new Intl.NumberFormat('en-IN').format(form.size.price)} </Typography>
                             </CardContent>
 
                             <Button size="large" sx={{ width: '100%' }} variant='contained' color="secondary" onClick={addToCart}>

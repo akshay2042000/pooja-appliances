@@ -16,7 +16,7 @@ const SingleProduct = () => {
     const productState = useSelector(state => state.productState)
     const product = productState.selectedProduct;
 
-    
+
 
     return (
         <>
@@ -73,7 +73,7 @@ const SingleProduct = () => {
                                                     ))
                                                 }
                                             </Box>
-                                            <Typography mt={1} variant="price" component='div' color='text.primary'>₹{product.size.price * product.unit.pcPerUnit} </Typography>
+                                            <Typography mt={1} variant="price" component='div' color='text.primary'>₹{new Intl.NumberFormat('en-IN').format(product.size.price * product.unit.pcPerUnit)} </Typography>
                                         </CardContent>
                                         <Box sx={{ px: 2 }}>
                                             <SingleProductForm />
