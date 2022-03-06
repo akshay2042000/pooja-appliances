@@ -2,6 +2,16 @@ const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 const imageSchema = require('./images');
 
+unitSchema = new Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    pcPerUnit: {
+        type: Number,
+        default: 1
+    }
+})
 
 colorSchema = new Schema({
     name: {
@@ -38,11 +48,13 @@ var productSchema = new Schema({
         type: imageSchema,
         default: {}
     }],
-    
-    units: [{
-        type: String,
-    }],
 
+    units: [
+        {
+            type: unitSchema,
+            unique: true,
+        }
+    ],
     categories: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category',
@@ -85,4 +97,5 @@ var productSchema = new Schema({
 });
 // Compile model from schema
 var Product = mongoose.model('Product', productSchema);
-module.exports = Product;
+
+module.exports = { Product, unitSchema, colorSchema, sizeSchema };

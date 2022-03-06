@@ -43,6 +43,7 @@ const login = (username, password) => {
 }
 
 const placeOrder = (order) => {
+    console.log(order)
     return axios.post(`${baseUrl}/orders`, order);
 }
 

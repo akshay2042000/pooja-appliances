@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
 import { DeleteOutline } from "@mui/icons-material";
-import { Link, useNavigate } from "react-router-dom";
-import { Box, Button, Chip, IconButton, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { Box, Chip, IconButton, Typography } from "@mui/material";
 import { useSelector, useDispatch } from 'react-redux';
-import { getOrderListThunk, deleteOrderThunk } from "../../../redux/orderSlice";
+import { deleteOrderThunk } from "../../../redux/orderSlice";
 import LoadingComponent from '../../Skeletons/LoadingComponent';
 import moment from 'moment'
 import { alpha } from '@mui/material/styles';
@@ -16,6 +16,20 @@ export default function OrderList() {
     const [pageSize, setPageSize] = useState(10);
     const dispatch = useDispatch();
     const { orderList, orderListLoading, orderListError } = useSelector(state => state.orderState);
+    const orders = orderList.map(order => {
+        const obj = {
+            id: order._id,
+            isBilled: order.isBilled,
+            app: order.app,
+            orderId: order.orderId,
+            date: order.updatedAt,
+            name: order.user.name,
+            username: order.user.username,
+            total: order.items.reduce((prev, curr) => prev + curr.quantity * curr.size.price * curr.unit.pcPerUnit, 0)
+        }
+        return obj
+    })
+
     const navigate = useNavigate();
 
     const handleDelete = (id) => {
@@ -37,32 +51,29 @@ export default function OrderList() {
             },
         },
         {
-            field: "createdAt", headerName: "Date",
+            field: "date", headerName: "Date",
             flex: 1,
             type: 'dateTime',
             minWidth: 120,
             renderCell: (params) => {
 
                 return (
-                    <Typography title={moment(params.row.createdAt).format('MMM Do YY, h:mm a')} variant='body2' sx={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                        {moment(params.row.createdAt).format('MMM Do YY, h:mm a')}
+                    <Typography title={moment(params.row.date).format('MMM Do YY, h:mm a')} variant='body2' sx={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                        {moment(params.row.date).format('MMM Do YY, h:mm a')}
                     </Typography>
                 );
             },
         },
         {
-            field: 'user',
+            field: 'name',
             headerName: "Name",
             flex: 1,
-            valueGetter: (params) => {
-                return params.row.user.name;
-            },
             minWidth: 120,
             renderCell: (params) => {
                 return (
                     <Box sx={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
-                        <Typography title={params.row.user.name} variant='body2' sx={{ textTransform: 'capitalize', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                            {params.row.user.name}
+                        <Typography title={params.row.name} variant='body2' sx={{ textTransform: 'capitalize', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                            {params.row.name}
                         </Typography>
                     </Box>
                 );
@@ -72,16 +83,12 @@ export default function OrderList() {
             field: 'username',
             headerName: "Username",
             flex: 1,
-            valueGetter: (params) => {
-                return params.row.user.username;
-            },
-
             minWidth: 140,
             renderCell: (params) => {
                 return (
                     <Box sx={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
-                        <Typography title={params.row.user.username} variant='body2' sx={{ textTransform: 'capitalize', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                            {params.row.user.username}
+                        <Typography title={params.row.username} variant='body2' sx={{ textTransform: 'capitalize', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                            {params.row.username}
                         </Typography>
                     </Box>
                 );
@@ -165,7 +172,7 @@ export default function OrderList() {
 
                             <Box sx={{ display: 'flex', height: 'calc(100vh - 80px)', padding: { md: 5, xs: 2 } }} >
                                 < DataGrid
-                                    rows={orderList}
+                                    rows={orders}
                                     sx={{
                                         '& .MuiDataGrid-cell:focus': {
                                             outline: 'none',
@@ -195,7 +202,7 @@ export default function OrderList() {
                                     rowsPerPageOptions={[5, 10, 20]}
                                     pagination
                                     density='comfortable'
-                                    getRowId={(row) => row._id}
+                                    getRowId={(row) => row.id}
                                     onRowClick={(row, e) => {
                                         if (e.target.tagName !== 'svg' && e.target.tagName !== 'path' && e.target.type !== 'button') {
                                             navigate(`${row.id}`)

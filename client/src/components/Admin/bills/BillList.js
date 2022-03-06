@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
 import { DeleteOutline } from "@mui/icons-material";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Box, Button, IconButton, Typography } from "@mui/material";
 import { useSelector, useDispatch } from 'react-redux';
 import LoadingComponent from '../../Skeletons/LoadingComponent';

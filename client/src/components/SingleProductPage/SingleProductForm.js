@@ -1,4 +1,4 @@
-import { Alert, Box, Button, CardActions, Container, FormControl, IconButton, InputLabel, MenuItem, Select, Snackbar, TextField, Typography } from '@mui/material'
+import { Alert, Box, Button, CardActions, FormControl, IconButton, InputLabel, MenuItem, Select, Snackbar, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
@@ -12,6 +12,11 @@ const SingleProductForm = () => {
     const app = applianceState.appliances
     const productState = useSelector(state => state.productState)
     const product = productState.selectedProduct
+
+    const [open, setOpen] = useState(false);
+    const handleClose = () => {
+        setOpen(false);
+    }
 
     const dispatch = useDispatch()
 
@@ -46,6 +51,7 @@ const SingleProductForm = () => {
 
     const addToCart = () => {
         dispatch(addItem({ ...product, app: app }))
+        setOpen(true);
     }
 
     return (
@@ -126,8 +132,8 @@ const SingleProductForm = () => {
                             sx={{ textTransform: 'capitalize' }}
                         >
                             {
-                                product.units.map((units, i) => (
-                                    <MenuItem key={i} value={units}>{units}</MenuItem>
+                                product.units.map((unit, i) => (
+                                    <MenuItem key={i} value={unit}>{unit.name}</MenuItem>
                                 ))
                             }
 
@@ -158,6 +164,16 @@ const SingleProductForm = () => {
                 </Button>
 
             </CardActions>
+
+            <Snackbar
+                open={open}
+                autoHideDuration={2000}
+                onClose={handleClose}
+            >
+                <Alert variant='filled' severity="success" sx={{ width: '100%' }}>
+                    Added To Cart!!
+                </Alert>
+            </Snackbar>
         </div>
     )
 }

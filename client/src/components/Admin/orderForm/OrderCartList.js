@@ -70,9 +70,14 @@ const OrderCartList = ({ values, setFieldValue }) => {
             flex: 1,
             renderCell: (params) => {
                 return (
-                    <Typography title={params.row.itemName} variant='body2' sx={{ textTransform: 'capitalize', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                        {params.row.itemName}
-                    </Typography>
+                    <Box>
+                        <Typography title={params.row.itemName}  variant='body2' sx={{ textTransform: 'capitalize', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                            {params.row.itemName}
+                        </Typography>
+                        <Typography variant='caption' sx={{ textTransform: 'capitalize', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                            {params.row.quantity + ' ' + params.row.unit}
+                        </Typography>
+                    </Box>
                 );
             },
         },

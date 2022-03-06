@@ -108,6 +108,7 @@ const CartComponent = () => {
                 }),
                 total: cart.total,
             })
+            console.log(cart)
             setOrder(data.data)
             setOpen(true);
             // clear the cart
@@ -137,7 +138,7 @@ const CartComponent = () => {
                             <Divider variant="middle" sx={{ my: 1, width: '100%' }} />
                             <StyledBox >
                                 <Typography variant="body1" color="initial" >Total</Typography>
-                                <Typography variant="body1" color="initial">{cart.total}</Typography>
+                                <Typography variant="body1" color="initial">{cart.items.reduce((prev, curr) => (prev + (curr.size.price * curr.quantity * curr.unit.pcPerUnit)), 0)}</Typography>
                             </StyledBox>
                             <StyledBox >
                                 <Typography variant="body1" color="initial" >Gst</Typography>
