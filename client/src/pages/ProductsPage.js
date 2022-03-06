@@ -16,7 +16,7 @@ const ProductsPage = () => {
 
     const [currentPage, setCurrentPage] = useState(1);
 
-    const productsPerPage = 4;
+    const productsPerPage = 20;
     const indexOfLastProduct = currentPage * productsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
 
@@ -34,7 +34,9 @@ const ProductsPage = () => {
     }
 
     useEffect(() => {
-        dispatch(fetchProductsThunk(app, cat, comp));
+        if (app) {
+            dispatch(fetchProductsThunk(app, cat, comp));
+        }
         return () => {
             setCurrentPage(1);
         };
@@ -68,6 +70,7 @@ const ProductsPage = () => {
 
                         <Container disableGutters={true} fixed >
                             <Box sx={{ padding: 4 }}>
+                                <Pagination sx={{ width: 'fit-content', mx: 'auto', marginBottom: 2, display: { xs: 'block', md: 'none' } }} count={Math.ceil(products.length / productsPerPage)} color="secondary" size="large" onChange={handleChange} />
                                 <ProductsGrid products={currentProducts} />
                                 <Pagination sx={{ width: 'fit-content', mx: 'auto', my: 4 }} count={Math.ceil(products.length / productsPerPage)} color="secondary" size="large" onChange={handleChange} />
                             </Box>

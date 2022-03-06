@@ -118,10 +118,16 @@ const CartComponent = () => {
         }
     }
 
+    const totalTaxable = cart.items.reduce((prev, curr) => (prev + (curr.size.price * curr.quantity * curr.unit.pcPerUnit)), 0)
+    const cgst = cart.items.reduce((prev, curr) => prev + Math.round(((curr.hsnCode.CGST / 100) * (curr.size.price * curr.quantity * curr.unit.pcPerUnit))), 0)
+    const sgst = cart.items.reduce((prev, curr) => prev + Math.round(((curr.hsnCode.SGST / 100) * (curr.size.price * curr.quantity * curr.unit.pcPerUnit))), 0)
+    const igst = cart.items.reduce((prev, curr) => prev + Math.round(((curr.hsnCode.IGST / 100) * (curr.size.price * curr.quantity * curr.unit.pcPerUnit))), 0)
+    const gst = cgst + sgst + igst
+
     return (
         <>
             <Container fixed disableGutters={true}>
-                <Grid sx={{ my: 8 }} container >
+                <Grid sx={{ my: { xs: 4, sm: 6 } }} container >
                     <Grid item xs={12} md={8} sx={{ p: 1 }}>
                         <Paper variant='outlined' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly' }}>
                             {
@@ -137,16 +143,16 @@ const CartComponent = () => {
                             <Divider variant="middle" sx={{ my: 1, width: '100%' }} />
                             <StyledBox >
                                 <Typography variant="body1" color="initial" >Total</Typography>
-                                <Typography variant="body1" color="initial">₹{new Intl.NumberFormat('en-IN').format(cart.items.reduce((prev, curr) => (prev + (curr.size.price * curr.quantity * curr.unit.pcPerUnit)), 0))}</Typography>
+                                <Typography variant="body1" color="initial">₹{new Intl.NumberFormat('en-IN').format(totalTaxable)}</Typography>
                             </StyledBox>
                             <StyledBox >
                                 <Typography variant="body1" color="initial" >Gst</Typography>
-                                <Typography variant="body1" color="initial">₹{new Intl.NumberFormat('en-IN').format(2000)}<Typography variant="caption" component='span' color="initial">(10%)</Typography> </Typography>
+                                <Typography variant="body1" color="initial">₹{new Intl.NumberFormat('en-IN').format(gst)}</Typography>
                             </StyledBox>
                             <Divider variant="middle" sx={{ my: 1, width: '100%' }} />
                             <StyledBox >
                                 <Typography variant="h6" color="initial" >Sub Total</Typography>
-                                <Typography variant="h6" color="initial">₹{new Intl.NumberFormat('en-IN').format(3000)}</Typography>
+                                <Typography variant="h6" color="initial">₹{new Intl.NumberFormat('en-IN').format(gst + totalTaxable)}</Typography>
                             </StyledBox>
                         </Paper>
 

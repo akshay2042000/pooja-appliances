@@ -1,4 +1,4 @@
-const {Product} = require('../models/products');
+const { Product } = require('../models/products');
 const Company = require('../models/companies');
 var stringSimilarity = require("string-similarity");
 
@@ -26,7 +26,7 @@ const getProducts = async (req, res, next) => {
                                 $in: [category]
                             },
                         }]
-                    }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' })
+                    }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' }).populate('hsnCode')
                 )
                 :
                 company && company !== "null" ? // all product of a company for an appliance
@@ -40,29 +40,29 @@ const getProducts = async (req, res, next) => {
                                 $in: [company]
                             }
                         }]
-                    }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' })
+                    }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' }).populate('hsnCode')
                     :
                     products = await Product.find({ //all products of the appliance
                         company: {
                             $in: companies
                         }
-                    }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' })
+                    }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' }).populate('hsnCode')
             :
             company && company !== "null" ?
                 products = await Product.find({ // all products of a company
                     company: {
                         $in: company
                     }
-                }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' })
+                }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' }).populate('hsnCode')
                 :
                 category && category !== "null" ?
                     products = await Product.find({ // all products of a category
                         categories: {
                             $in: category
                         }
-                    }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' })
+                    }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' }).populate('hsnCode')
                     :
-                    products = await Product.find({}).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' }); // all products
+                    products = await Product.find({}).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' }).populate('hsnCode'); // all products
 
 
         if (products.length > 0) {
@@ -123,7 +123,7 @@ const getSearchedProducts = async (req, res, next) => {
                     }
                 }]
 
-            }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' }).catch(err => res.status(500).json(err));;
+            }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' }).populate('hsnCode').catch(err => res.status(500).json(err));;
 
             // find match as per string similarity
 
@@ -141,7 +141,7 @@ const getSearchedProducts = async (req, res, next) => {
                     }
                 }]
 
-            }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' }).catch(err => res.status(500).json(err));;
+            }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' }).populate('hsnCode').catch(err => res.status(500).json(err));;
             products.push(...closestMatchesProducts);
 
             //  remove duplicates from products
@@ -189,7 +189,7 @@ const getFeaturedProducts = async (req, res, next) => {
             }]
 
 
-        }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' }).sort({ updatedAt: -1 }).limit(4);
+        }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' }).populate('hsnCode').sort({ updatedAt: -1 }).limit(8);
 
         if (products.length > 0) {
             res.status(200).json({
@@ -232,7 +232,7 @@ const getRelatedProducts = async (req, res, next) => {
                 }]
             }]
 
-        }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' }).limit(8);
+        }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' }).populate('hsnCode').limit(8);
 
         if (products) {
             res.status(200).json({
@@ -258,7 +258,7 @@ const getRelatedProducts = async (req, res, next) => {
 
 const getProductById = async (req, res, next) => {
     try {
-        const product = await Product.findById(req.params.id).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' });
+        const product = await Product.findById(req.params.id).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' }).populate('hsnCode');
         if (product) {
             res.status(200).json({
                 status: 'success',
