@@ -11,6 +11,7 @@ colorSchema = new Schema({
     hex: {
         type: String,
         required: true,
+        
     }
 })
 
