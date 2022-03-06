@@ -43,6 +43,9 @@ const Success = ({ open, setOpen, order }) => {
                         Order ID : {order?.orderId}
                     </Typography>
                     {
+                        console.log(order)
+                    }
+                    {
                         order?.items?.map((item, i) => (
                             <Box key={i} sx={{
                                 display: 'flex',
@@ -82,9 +85,12 @@ const Success = ({ open, setOpen, order }) => {
                                         width: '100%',
                                         paddingX: 1
                                     }}>
-                                        <Typography variant="body1" color="initial" >₹{item.size.price}</Typography>
+                                        {
+                                            console.log(item)
+                                        }
+                                        <Typography variant="body1" color="initial" >₹{item.size.price * item.unit.pcPerUnit}</Typography>
                                         <Typography variant="body1" color="initial" >{item.quantity}
-                                            <Typography variant="caption" color="initial" >{item.unit}</Typography>
+                                            <Typography variant="caption" color="initial" >{item.unit.name}</Typography>
                                         </Typography>
                                     </Box>
                                 </Box>

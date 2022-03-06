@@ -1,29 +1,8 @@
 const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-
-
-colorSchema = new Schema({
-    name: {
-        type: String,
-        required: true,
-    },
-    hex: {
-        type: String,
-        required: true,
-    }
-})
-
-sizeSchema = new Schema({
-    val: {
-        type: String,
-        required: true,
-    },
-    price: {
-        type: Number,
-        required: true,
-    },
-})
-
+const { unitSchema } = require('./products');
+const { colorSchema } = require('./products');
+const { sizeSchema } = require('./products');
 
 var cartSchema = new Schema({
     product: {
@@ -32,8 +11,8 @@ var cartSchema = new Schema({
         required: true,
     },
     unit: {
-        type: String,
-        default: 'pc',
+        type: unitSchema,
+        required: true,
     },
     quantity: {
         type: Number,
@@ -48,7 +27,7 @@ var cartSchema = new Schema({
         type: sizeSchema,
         required: true,
     },
-    
+
 });
 // Compile model from schema
 module.exports = cartSchema;

@@ -42,7 +42,7 @@ const SingleCartItem = ({ index }) => {
                                 </Typography>
                             </Link>
 
-                            <Typography variant="body1" color='text.primary' mt={1} fontWeight='bold'>₹{item.size.price} </Typography>
+                            <Typography variant="body1" color='text.primary' mt={1} fontWeight='bold'>₹{item.size.price * item.unit.pcPerUnit} </Typography>
                             <Button variant="outlined" color="error" sx={{ mt: 1 }} onClick={removeFromCart}>
                                 Remove
                             </Button>
@@ -56,7 +56,7 @@ const SingleCartItem = ({ index }) => {
                         </Grid>
                         <Grid item xs={3} lg={3} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <Box >
-                                <Typography variant="h6" color="initial">₹{item.quantity * item.size.price}</Typography>
+                                <Typography variant="h6" color="initial">₹{item.quantity * item.size.price * item.unit.pcPerUnit} </Typography>
                             </Box>
                         </Grid>
                     </Grid>
