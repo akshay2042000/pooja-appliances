@@ -15,7 +15,7 @@ const CartItemForm = ({ index }) => {
     const cart = cartState[app];
     const product = cart.items[index];
     const dispatch = useDispatch();
-
+    
 
     const handleChange = (e, changeQuantity) => {
         if (changeQuantity) {
@@ -42,7 +42,7 @@ const CartItemForm = ({ index }) => {
                 quantity = e.target.value;
             }
             dispatch(updateItem({ ...product, targetName: "quantity", targetValue: quantity }));
-        } else if (e.target.name === 'size' || e.target.name === 'color' || e.target.name === 'unit') {
+        } else if (e.target.name === 'size' || e.target.name === 'color') {
             dispatch(updateItem({ ...product, targetName: e.target.name, targetValue: JSON.parse(e.target.value) }));
         } else {
             dispatch(updateItem({ ...product, targetName: e.target.name, targetValue: e.target.value }));
@@ -64,15 +64,15 @@ const CartItemForm = ({ index }) => {
                         <Select
                             labelId="unit-label"
                             id="unit"
-                            value={JSON.stringify(product.unit)}
+                            value={product.unit}
                             name="unit"
                             onChange={(e) => handleChange(e)}
                             label="unit"
                             sx={{ textTransform: 'capitalize' }}
                         >
                             {
-                                product.units.map((unit, i) => (
-                                    <MenuItem key={i} value={JSON.stringify(unit)}>{unit.name}</MenuItem>
+                                product.units.map((units, i) => (
+                                    <MenuItem key={i} value={units}>{units}</MenuItem>
                                 ))
                             }
 
@@ -148,6 +148,8 @@ const CartItemForm = ({ index }) => {
 
                         </Select>
                     </FormControl>
+
+
                 </Box>
             </Box>
 

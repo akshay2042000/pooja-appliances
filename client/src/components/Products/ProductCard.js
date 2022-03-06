@@ -5,7 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Alert, Box, Button, CardActionArea, Snackbar } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import {  useParams } from 'react-router-dom';
 import Chip from '@mui/material/Chip';
 import CardSkeleton from '../Skeletons/CardSkeleton';
 import { addItem } from '../../redux/cartSlice';
