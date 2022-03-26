@@ -12,10 +12,10 @@ const { verifyToken,
     verifyTokenAndAdmin, } = require('../middleware/authenticate');
 
 
-function uploadToCloudinary(image,name) {
+function uploadToCloudinary(image, name) {
     return new Promise((resolve, reject) => {
         cloudinary.uploader.upload(image, {
-            public_id: 'invoices/' +'download/' + name,
+            public_id: 'invoices/' + 'download/' + name,
             flags: 'attachment',
             discard_original_filename: true,
         }, (err, url) => {
@@ -24,10 +24,10 @@ function uploadToCloudinary(image,name) {
         })
     });
 }
-function uploadViewableToCloudinary(image,name) {
+function uploadViewableToCloudinary(image, name) {
     return new Promise((resolve, reject) => {
         cloudinary.uploader.upload(image, {
-            public_id: 'invoices/' +'view/' + name,
+            public_id: 'invoices/' + 'view/' + name,
             discard_original_filename: true,
         }, (err, url) => {
             if (err) return reject(err);
@@ -64,9 +64,12 @@ router.route('/')
                     uploadToCloudinary('./public/assets/output.pdf', name),
                     uploadViewableToCloudinary('./public/assets/output.pdf', name),
                 ])
+                console.log(resultDownload)
+                console.log(resultView)
+
                 res.status(200).json({
-                    downloadUrl: resultDownload.url,
-                    viewUrl: resultView.url,
+                    downloadUrl: resultDownload.secure_url,
+                    viewUrl: resultView.secure_url,
                 });
                 fs.unlinkSync('./public/assets/output.docx');
                 fs.unlinkSync('./public/assets/output.pdf');
