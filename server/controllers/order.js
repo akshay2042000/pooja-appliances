@@ -34,7 +34,7 @@ const getOrders = async (req, res, next) => {
 
 const getOrderById = async (req, res, next) => {
     try {
-        const order = await Order.findById(req.params.id).populate('user').populate({ path: 'user', populate: { path: 'state' } }).populate({ path: 'items.product' }).populate({ path: 'items.product', populate: { path: 'hsnCode' } });
+        const order = await Order.findById(req.params.id).populate('user').populate({ path: 'user', populate: { path: 'state' } }).populate({ path: 'items.product' }).populate({ path: 'items.product', populate: { path: 'hsnCode' } }).populate('billingId');
         if (order) {
             res.status(200).json({
                 status: 'success',

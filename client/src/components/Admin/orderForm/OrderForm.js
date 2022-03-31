@@ -12,6 +12,7 @@ import { useTheme } from '@mui/material/styles';
 import { Box, Container, Grid, InputAdornment, Paper, Typography, CircularProgress } from '@mui/material';
 import OrderCartList from './OrderCartList';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Api from '../../../api';
 import OrderSuccess from './OrderSuccess';
 import { getLastBillThunk, submitBillThunk } from '../../../redux/billSlice';
@@ -23,6 +24,7 @@ const OrderForm = () => {
     const { singleOrder } = useSelector(state => state.orderState);
     const { isBillSubmitting, lastBill } = useSelector(state => state.billState);
     const theme = useTheme();
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -30,7 +32,7 @@ const OrderForm = () => {
     }, [])
 
     const INITIAL_FORM_STATE = {
-        invoiceNumber: lastBill ? lastBill.invoiceNumber + 1 : 1,
+        invoiceNumber: singleOrder.isBilled ? singleOrder.billingId.invoiceNumber : lastBill ? lastBill.invoiceNumber + 1 : 1,
         date: new Date(),
         billingUser: {
             username: singleOrder.user.username,
@@ -49,6 +51,12 @@ const OrderForm = () => {
             stateCode: singleOrder.user.state.code
         },
         discount: 0,
+        placeOfSupply: 'Gurgaon',
+        transportation: 'Tempo',
+        vehicleNumber: 'NA',
+        reverseChanges: 'NA',
+        insurance: 0,
+        packaging: 0,
         items: singleOrder.items.map(item => {
             const obj = {
                 id: item._id,
@@ -64,10 +72,10 @@ const OrderForm = () => {
                 size: item.size.val,
             }
             obj.total = obj.quantity * obj.rate;
-            obj.taxableValue = Math.floor(obj.total - (obj.total / 100 * 0))
-            obj.cgst = Math.floor(obj.taxableValue * obj.cgstPercentage / 100)
-            obj.sgst = Math.floor(obj.taxableValue * obj.sgstPercentage / 100)
-            obj.igst = Math.floor(obj.taxableValue * obj.igstPercentage / 100)
+            obj.taxableValue = Math.round(obj.total - (obj.total / 100 * 0))
+            obj.cgst = Math.round(obj.taxableValue * obj.cgstPercentage / 100)
+            obj.sgst = Math.round(obj.taxableValue * obj.sgstPercentage / 100)
+            obj.igst = Math.round(obj.taxableValue * obj.igstPercentage / 100)
             obj.subtotal = obj.taxableValue + obj.cgst + obj.sgst + obj.igst
             return obj
         })
@@ -94,7 +102,13 @@ const OrderForm = () => {
             state: Yup.string().required('state required'),
             stateCode: Yup.string().required('stateCode required'),
         }),
-        discount: Yup.number().required('This field is required').typeError('you must specify a number').min(0, 'Min value 0.')
+        discount: Yup.number().required('This field is required').typeError('you must specify a number').min(0, 'Min value 0.').max(100, 'Max value 100.'),
+        insurance: Yup.number().required('This field is required').typeError('you must specify a number').min(0, 'Min value 0.'),
+        packaging: Yup.number().required('This field is required').typeError('you must specify a number').min(0, 'Min value 0.'),
+        placeOfSupply: Yup.string().required('This field is required'),
+        transportation: Yup.string().required('This field is required'),
+        vehicleNumber: Yup.string().required('This field is required'),
+        reverseChanges: Yup.string().required('This field is required'),
     });
 
     const loadOptions = async (inputValue, callback) => {
@@ -161,14 +175,40 @@ const OrderForm = () => {
     }
 
     const postInvoice = async (values) => {
-
+        if (singleOrder.isBilled) {
+            const date = new Date(singleOrder.billingId.updatedAt);
+            const fileName = singleOrder.billingId.app + '_' + singleOrder.billingId.invoiceNumber + '_' + date.getDate() + "_" + (date.getMonth() + 1) + "_" + date.getUTCFullYear()
+            const { data } = await Api.deleteBill(singleOrder.billingId._id, fileName, singleOrder._id)
+        }
         const name = singleOrder.app + '_' + values.invoiceNumber + '_' + values.date.getDate() + "_" + (values.date.getMonth() + 1) + "_" + values.date.getUTCFullYear()
-
         const invoiceData = {
-            first_name: "potato",
-            last_name: "patata",
-            phone: "0652455478",
-            description: "New Website",
+            app: singleOrder.app,
+            invoiceNumber: values.invoiceNumber,
+            date: values.date,
+            billingUser: {
+                username: values.billingUser.username,
+                name: values.billingUser.name,
+                address: values.billingUser.address,
+                gst: values.billingUser.gst,
+                state: values.billingUser.state,
+                stateCode: values.billingUser.stateCode
+            },
+            shippingUser: {
+                username: values.shippingUser.username,
+                name: values.shippingUser.name,
+                address: values.shippingUser.address,
+                gst: values.shippingUser.gst,
+                state: values.shippingUser.state,
+                stateCode: values.shippingUser.stateCode
+            },
+            discount: values.discount,
+            placeOfSupply: values.placeOfSupply,
+            transportation: values.transportation,
+            insurance: values.insurance,
+            packaging: values.packaging,
+            vehicleNumber: values.vehicleNumber,
+            reverseChanges: values.reverseChanges,
+            items: values.items,
         }
 
         const billData = {
@@ -366,8 +406,8 @@ const OrderForm = () => {
                                         </Paper>
                                     </Grid>
                                 </Grid>
-                                <Grid container>
-                                    <Grid item xs={12} >
+                                <Grid container spacing={2}>
+                                    <Grid item xs={6} lg={3} sm={4} >
                                         <TextFieldWrapper
                                             name="discount"
                                             label="Discount"
@@ -379,27 +419,101 @@ const OrderForm = () => {
                                             }}
                                         />
                                     </Grid>
+                                    <Grid item xs={6} lg={3} sm={4}>
+                                        <TextFieldWrapper
+                                            name="placeOfSupply"
+                                            label="Place of Supply"
+                                            variant='outlined'
+                                        />
+                                    </Grid>
+                                    <Grid item xs={6} lg={3} sm={4}>
+                                        <TextFieldWrapper
+                                            name="transportation"
+                                            label="Transportation"
+                                            variant='outlined'
+                                        />
+                                    </Grid>
+                                    <Grid item xs={6} lg={3} sm={4}>
+                                        <TextFieldWrapper
+                                            name="vehicleNumber"
+                                            label="Vehicle Number"
+                                            variant='outlined'
+                                        />
+                                    </Grid>
+                                    <Grid item xs={6} lg={3} sm={4}>
+                                        <TextFieldWrapper
+                                            name="reverseChanges"
+                                            label="Reverse Changes"
+                                            variant='outlined'
+                                        />
+                                    </Grid>
+                                    <Grid item xs={6} lg={3} sm={4}>
+                                        <TextFieldWrapper
+                                            name="insurance"
+                                            label="Freight & Insurance"
+                                            variant='outlined'
+                                        />
+                                    </Grid>
+                                    <Grid item xs={6} lg={3} sm={4}>
+                                        <TextFieldWrapper
+                                            name="packaging"
+                                            label="Packaging & Forwarding"
+                                            variant='outlined'
+                                        />
+                                    </Grid>
                                 </Grid>
                             </Form>
                             <OrderCartList values={values} setFieldValue={setFieldValue} />
-                            <Grid container>
-                                <Grid item xs={12} sm={6} />
-                                <Grid item xs={12} sm={6}>
+                            <Grid container direction='row-reverse'>
+                                <Grid item xs={12} md={12} lg={8}>
+                                    {
+                                        !singleOrder.isBilled ?
+                                            (
+                                                <ButtonWrapper
+                                                    variant="contained"
+                                                    color="primary"
+                                                    type="submit"
+                                                    sx={{ p: 2 }}
+                                                    disabled={isBillSubmitting}
+                                                >
+                                                    {isBillSubmitting ? (
+                                                        <CircularProgress color="primary" size='30px' />
+                                                    ) : 'Generate Bill'}
 
-                                    <ButtonWrapper
-                                        variant="contained"
-                                        color="primary"
-                                        type="submit"
-                                        sx={{ p: 2 }}
-                                        disabled={isBillSubmitting}
-                                    >
-                                        {isBillSubmitting ? (
-                                            <CircularProgress color="primary" size='30px' />
-                                        ) : 'Generate Bill'}
+                                                </ButtonWrapper>
+                                            ) :
+                                            (
+                                                <Grid container spacing={2}>
+                                                    <Grid item xs={12} sm={6}>
+                                                        <ButtonWrapper
+                                                            variant="contained"
+                                                            color="primary"
+                                                            sx={{ p: 2 }}
+                                                            //  go to bill page on click
+                                                            onClick={() => {
+                                                                navigate(`/admin/bills/${singleOrder.billingId}`)
+                                                            }}
+                                                        >
+                                                            View Bill
+                                                        </ButtonWrapper>
+                                                    </Grid>
+                                                    <Grid item xs={12} sm={6}>
+                                                        <ButtonWrapper
+                                                            variant="contained"
+                                                            color="primary"
+                                                            type="submit"
+                                                            sx={{ p: 2 }}
+                                                            disabled={isBillSubmitting}
+                                                        >
+                                                            {isBillSubmitting ? (
+                                                                <CircularProgress color="primary" size='30px' />
+                                                            ) : 'Delete and make new bill'}
 
-                                    </ButtonWrapper>
-
-
+                                                        </ButtonWrapper>
+                                                    </Grid>
+                                                </Grid>
+                                            )
+                                    }
                                 </Grid>
                             </Grid>
 

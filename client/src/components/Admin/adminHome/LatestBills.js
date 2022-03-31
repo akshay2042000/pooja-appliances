@@ -18,14 +18,14 @@ const LatestBills = () => {
         dispatch(getLatestBillsThunk());
     }, [])
 
-    const bills = latestBills.map(bill => {
+    const bills = latestBills?.map(bill => {
         const obj = {
-            id: bill._id,
-            app: bill.app,
-            invoiceNumber: bill.invoiceNumber,
-            date: bill.invoiceData.date,
-            orderId: bill.order.orderId,
-            name: bill.invoiceData.billingUser.name,
+            id: bill?._id,
+            app: bill?.app,
+            invoiceNumber: bill?.invoiceNumber,
+            date: bill?.invoiceData?.date,
+            orderId: bill?.order?.orderId,
+            name: bill?.invoiceData?.billingUser?.name,
         }
         return obj
     })

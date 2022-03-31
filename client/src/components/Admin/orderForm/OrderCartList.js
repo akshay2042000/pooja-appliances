@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
 import { Box, Grid, Typography } from "@mui/material";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import LoadingComponent from '../../Skeletons/LoadingComponent';
 import NoComponentFound from '../../NoComponentFound';
 
@@ -9,8 +9,7 @@ import NoComponentFound from '../../NoComponentFound';
 const OrderCartList = ({ values, setFieldValue }) => {
 
     const [pageSize, setPageSize] = useState(10);
-    const dispatch = useDispatch();
-    const { singleOrder, singleOrderLoading, singleOrderError } = useSelector(state => state.orderState);
+    const { singleOrderLoading, singleOrderError } = useSelector(state => state.orderState);
 
     const [items, setItems] = useState(values.items);
 
@@ -19,11 +18,11 @@ const OrderCartList = ({ values, setFieldValue }) => {
         const array = items.map(item => {
             const obj = {
                 ...item,
-                taxableValue: Math.floor(item.total - (item.total / 100 * values.discount))
+                taxableValue: Math.round(item.total - (item.total / 100 * values.discount))
             }
-            obj.cgst = Math.floor(obj.taxableValue * obj.cgstPercentage / 100)
-            obj.sgst = Math.floor(obj.taxableValue * obj.sgstPercentage / 100)
-            obj.igst = Math.floor(obj.taxableValue * obj.igstPercentage / 100)
+            obj.cgst = Math.round(obj.taxableValue * obj.cgstPercentage / 100)
+            obj.sgst = Math.round(obj.taxableValue * obj.sgstPercentage / 100)
+            obj.igst = Math.round(obj.taxableValue * obj.igstPercentage / 100)
             obj.subtotal = obj.taxableValue + obj.cgst + obj.sgst + obj.igst
             return obj
         })
@@ -45,18 +44,18 @@ const OrderCartList = ({ values, setFieldValue }) => {
             }
         })
         if (params.field === 'rate' || params.field === 'quantity') {
-            array[itemIndex].total = Math.floor(array[itemIndex].quantity * array[itemIndex].rate);
-            array[itemIndex].taxableValue = Math.floor(array[itemIndex].total - (array[itemIndex].total / 100 * values.discount));
-            array[itemIndex].cgst = Math.floor(array[itemIndex].taxableValue * array[itemIndex].cgstPercentage / 100);
-            array[itemIndex].sgst = Math.floor(array[itemIndex].taxableValue * array[itemIndex].sgstPercentage / 100);
-            array[itemIndex].igst = Math.floor(array[itemIndex].taxableValue * array[itemIndex].igstPercentage / 100);
+            array[itemIndex].total = Math.round(array[itemIndex].quantity * array[itemIndex].rate);
+            array[itemIndex].taxableValue = Math.round(array[itemIndex].total - (array[itemIndex].total / 100 * values.discount));
+            array[itemIndex].cgst = Math.round(array[itemIndex].taxableValue * array[itemIndex].cgstPercentage / 100);
+            array[itemIndex].sgst = Math.round(array[itemIndex].taxableValue * array[itemIndex].sgstPercentage / 100);
+            array[itemIndex].igst = Math.round(array[itemIndex].taxableValue * array[itemIndex].igstPercentage / 100);
             array[itemIndex].subtotal = array[itemIndex].taxableValue + array[itemIndex].cgst + array[itemIndex].sgst + array[itemIndex].igst;
         }
         //  change if gst percentages changes
         if (params.field === 'cgstPercentage' || params.field === 'sgstPercentage' || params.field === 'igstPercentage') {
-            array[itemIndex].cgst = Math.floor(array[itemIndex].taxableValue * array[itemIndex].cgstPercentage / 100);
-            array[itemIndex].sgst = Math.floor(array[itemIndex].taxableValue * array[itemIndex].sgstPercentage / 100);
-            array[itemIndex].igst = Math.floor(array[itemIndex].taxableValue * array[itemIndex].igstPercentage / 100);
+            array[itemIndex].cgst = Math.round(array[itemIndex].taxableValue * array[itemIndex].cgstPercentage / 100);
+            array[itemIndex].sgst = Math.round(array[itemIndex].taxableValue * array[itemIndex].sgstPercentage / 100);
+            array[itemIndex].igst = Math.round(array[itemIndex].taxableValue * array[itemIndex].igstPercentage / 100);
             array[itemIndex].subtotal = array[itemIndex].taxableValue + array[itemIndex].cgst + array[itemIndex].sgst + array[itemIndex].igst;
         }
         setFieldValue('items', array);

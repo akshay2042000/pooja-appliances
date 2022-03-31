@@ -149,7 +149,7 @@ const deleteBillById = async (req, res, next) => {
 
         const [bill, updateOrder] = await Promise.all([
             Bill.findByIdAndDelete(req.params.id),
-            Order.findByIdAndUpdate(req.body.order, { $set: { isBilled: false } })
+            Order.findByIdAndUpdate(req.body.order, { $set: { isBilled: false, billingId: null } })
         ])
 
         if (bill) {

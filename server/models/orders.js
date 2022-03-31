@@ -26,6 +26,11 @@ var orderSchema = new Schema({
     isBilled: {
         type: Boolean,
         default: false,
+    },
+    billingId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Bill',
+        default: null,
     }
 }, {
     timestamps: true

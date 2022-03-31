@@ -19,15 +19,15 @@ const LatestOrders = () => {
         dispatch(getLatestOrdersThunk());
     }, [])
 
-    const orders = latestOrders.map(order => {
+    const orders = latestOrders?.map(order => {
         const obj = {
-            id: order._id,
-            isBilled: order.isBilled,
-            app: order.app,
-            orderId: order.orderId,
-            date: order.updatedAt,
-            name: order.user.name,
-            username: order.user.username,
+            id: order?._id,
+            isBilled: order?.isBilled,
+            app: order?.app,
+            orderId: order?.orderId,
+            date: order?.updatedAt,
+            name: order?.user?.name,
+            username: order?.user?.username,
         }
         return obj
     })

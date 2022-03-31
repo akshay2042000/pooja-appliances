@@ -146,7 +146,7 @@ export default function OrderList() {
             renderCell: (params) => {
                 return (
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>
-                        <IconButton sx={{ ml: 1 }} color='error' onClick={() => handleDelete(params.row._id)}>
+                        <IconButton sx={{ ml: 1 }} color='error' onClick={() => handleDelete(params.row.id)}>
                             <DeleteOutline />
                         </IconButton>
                     </Box>

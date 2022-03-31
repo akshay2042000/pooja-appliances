@@ -136,12 +136,7 @@ export const getSingleBillThunk = (id) => async (dispatch) => {
 export const submitBillThunk = (billData, name, invoiceData) => async (dispatch) => {
     dispatch(submitBillStart());
     try {
-        // run 2 async task at the same time
-        const [invoice, updatedOrder] = await Promise.all([
-            Api.postInvoice(name, invoiceData),
-            Api.updateOrder(billData.order._id, { ...billData.order, isBilled: true })
-        ])
-
+        const invoice = await Api.postInvoice(name, invoiceData)
         billData.invoiceBill = {
             path: invoice.data.downloadUrl,
         }
@@ -149,6 +144,7 @@ export const submitBillThunk = (billData, name, invoiceData) => async (dispatch)
             path: invoice.data.viewUrl,
         }
         const { data } = await Api.submitBill(billData);
+        const updatedOrder = await Api.updateOrder(billData.order._id, { ...billData.order, isBilled: true, billingId: data.data._id })
         dispatch(submitBillSuccess(data.data));
     } catch (err) {
         dispatch(submitBillFailure(err));

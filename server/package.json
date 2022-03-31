@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www "
+    "start": "nodemon ./bin/www",
+    "dev": "nodemon ./bin/www"
   },
   "dependencies": {
     "cloudinary": "^1.28.1",
@@ -11,10 +12,9 @@
     "cors": "^2.8.5",
     "crypto-js": "^4.1.1",
     "debug": "~2.6.9",
-    "docx-pdf": "^0.0.1",
-    "docxtemplater": "^3.29.0",
     "dotenv": "^10.0.0",
     "express": "~4.16.1",
+    "html-pdf": "^2.2.0",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "jsonwebtoken": "^8.5.1",
@@ -22,7 +22,6 @@
     "mongoose-sequence": "^5.3.1",
     "morgan": "~1.9.1",
     "npm": "^8.5.1",
-    "pizzip": "^3.1.1",
     "string-similarity": "^4.0.4"
   },
   "devDependencies": {

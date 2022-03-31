@@ -7,7 +7,7 @@ import Badge from '@mui/material/Badge';
 import SearchIcon from '@mui/icons-material/Search';
 import LoginIcon from '@mui/icons-material/Login';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
-import { Alert, Button, Dialog, DialogContent, DialogContentText, DialogTitle, Menu, MenuItem, Paper, Snackbar, Tooltip } from '@mui/material';
+import { Alert, Button, Dialog, DialogContent, DialogContentText, DialogTitle, Menu, MenuItem, Paper, Snackbar, Tooltip, Grid } from '@mui/material';
 import { StyledAppBar, Search, SearchIconWrapper, StyledInputBase, Img } from '../../styles';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -359,19 +359,28 @@ const NavBar = () => {
                                                         backgroundColor: 'rgba(111, 126, 140, 0.1)',
                                                     }
                                                 }}>
-                                                    <Box onClick={(e) => redirect(product._id)} sx={{ flex: 'auto', display: 'flex', flexDirection: 'column' }}>
-                                                        <Typography sx={{ textTransform: 'capitalize' }} variant='h6'>{`${product.name} - ${product.variants.colors[0].name} (${product.variants.sizes[0].val})`}</Typography>
-                                                        <Typography variant='body1'>{product.company.name}</Typography>
-                                                    </Box>
 
-                                                    <Box>
-                                                        <IconButton size='large'>
-                                                            <KeyboardReturnIcon fontSize='medium' color='secondary' onClick={(e) => redirect(product._id)} />
-                                                        </IconButton>
-                                                        <IconButton size='large'>
-                                                            <AddShoppingCartIcon fontSize='medium' color='secondary' onClick={(e) => addToCart(product)} />
-                                                        </IconButton>
-                                                    </Box>
+                                                    <Grid container>
+                                                        <Grid item xs={9}>
+                                                            <Box onClick={(e) => redirect(product._id)} sx={{ flex: 'auto', display: 'flex', flexDirection: 'column' }}>
+                                                                <Typography sx={{ textTransform: 'capitalize' }} variant='h6'>{`${product.name} - ${product.variants.colors[0].name} (${product.variants.sizes[0].val})`}</Typography>
+                                                                <Typography variant='body1'>{product.company.name}</Typography>
+                                                            </Box>
+                                                        </Grid>
+                                                        <Grid item xs={3}>
+                                                            <Box>
+                                                                <IconButton size='large'>
+                                                                    <KeyboardReturnIcon fontSize='medium' color='secondary' onClick={(e) => redirect(product._id)} />
+                                                                </IconButton>
+                                                                <IconButton size='large'>
+                                                                    <AddShoppingCartIcon fontSize='medium' color='secondary' onClick={(e) => addToCart(product)} />
+                                                                </IconButton>
+                                                            </Box>
+                                                        </Grid>
+                                                    </Grid>
+
+
+
 
                                                 </Paper>
 

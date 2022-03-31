@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const fs = require("fs");
-var docxConverter = require('docx-pdf');
-const PizZip = require("pizzip");
-const Docxtemplater = require("docxtemplater");
 const cloudinary = require('../cloudinary');
+const pdfTemplate = require('../public/javascripts/htmlToPdf');
+const pdf = require('html-pdf');
+const applianceData = require('../public/javascripts/applianceData');
 
 
 const { verifyToken,
@@ -38,44 +38,23 @@ function uploadViewableToCloudinary(image, name) {
 
 router.route('/')
     .post(verifyTokenAndAdmin, async (req, res) => {
-        const content = fs.readFileSync(
-            './public/assets/invoice.docx',
-            "binary"
-        );
-
-        const zip = new PizZip(content);
-
-        const doc = new Docxtemplater(zip, {
-            paragraphLoop: true,
-            linebreaks: true,
-        });
-        doc.render(req.body.invoiceData)
-
-        const buf = doc.getZip().generate({
-            type: "nodebuffer",
-            compression: "DEFLATE",
-        });
-        fs.writeFileSync('./public/assets/output.docx', buf);
-        docxConverter('./public/assets/output.docx', './public/assets/output.pdf', async (err, result) => {
-            if (err) console.log(err);
-            else {
-                const name = req.body.name;
-                const [resultDownload, resultView] = await Promise.all([
-                    uploadToCloudinary('./public/assets/output.pdf', name),
-                    uploadViewableToCloudinary('./public/assets/output.pdf', name),
-                ])
-                console.log(resultDownload)
-                console.log(resultView)
-
-                res.status(200).json({
-                    downloadUrl: resultDownload.secure_url,
-                    viewUrl: resultView.secure_url,
-                });
-                fs.unlinkSync('./public/assets/output.docx');
-                fs.unlinkSync('./public/assets/output.pdf');
-            }
+        const name = req.body.name;
+        const invoiceData = req.body.invoiceData;
+        const appliances = invoiceData.app;
+        const appData = applianceData[appliances]
+        const data = { ...appData, ...invoiceData };
+        pdf.create(pdfTemplate(data), { orientation: "landscape" }).toFile('./public/assets/output.pdf', async (err, result) => {
+            if (err) return console.log(err);
+            const [resultDownload, resultView] = await Promise.all([
+                uploadToCloudinary('./public/assets/output.pdf', name),
+                uploadViewableToCloudinary('./public/assets/output.pdf', name),
+            ])
+            res.status(200).json({
+                downloadUrl: resultDownload.secure_url,
+                viewUrl: resultView.secure_url,
+            });
+            fs.unlinkSync('./public/assets/output.pdf');
         });
     })
-
 
 module.exports = router
