@@ -117,6 +117,12 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                 flex: 0 0 auto;
                 width: 40%;
             }
+            .myCol-4{
+                -webkit-box-flex: 0;
+                -ms-flex: 0 0 auto;
+                flex: 0 0 auto;
+                width: 33.3%;
+            }
     
             .myFlex {
                 display: -webkit-box;
@@ -145,7 +151,7 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
             }
             
             .fw-bold {
-                font-weight: 500 !important;
+                font-weight: 600 !important;
             }
         </style>
     
@@ -166,13 +172,13 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                             </div>
                             <div class="myCol-5">
                                 <div class="myRow">
-                                    <p class="myCol gst border border-dark">
+                                    <p class="myCol gst border border-dark border-end-0 border-bottom-0">
                                         INVOICE NO. : <span class="number d-block">
                                             ${invoiceNumber}
                                         </span>
                                     </p>
     
-                                    <p class="myCol gst border border-dark">
+                                    <p class="myCol gst border border-dark border-bottom-0">
                                         DATE : <span class="number d-block">
                                             ${new Date(Date.parse(date)).getDate() + "/" + (new Date(Date.parse(date)).getMonth() + 1) + "/" + new Date(Date.parse(date)).getUTCFullYear()}
                                         </span>
@@ -181,11 +187,11 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                             </div>
                         </div>
                         <div class="myRow border border-dark">
-                            <div class="myCol-6 border border-dark">
+                            <div class="myCol-4 border border-dark border-top-0 border-top-0 border-start-0 border-bottom-0">
                                 <div class="header-width mx-auto">
-                                    <h1 class="name text-primary text-uppercase fw-bold text-capitalize">
+                                    <h2 class="name text-primary text-uppercase fw-bold">
                                         ${name}
-                                    </h1>
+                                    </h2>
                                     <p class="lh-base fw-bold ">
                                         Distributor: ${distributor}
                                         <br />
@@ -198,7 +204,7 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                                 </div>
                             </div>
     
-                            <div class="myCol-3 border border-dark">
+                            <div class="myCol-4 border border-dark border-top-0 border-top-0 border-start-0 border-bottom-0">
                                 <div class="header-width mx-auto">
                                     <h6 class="text-center fw-bold">Invoice To :</h6>
                                     <p class="text-capitalize">
@@ -218,7 +224,7 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                                     </p>
                                 </div>
                             </div>
-                            <div class="myCol-3 border border-dark">
+                            <div class="myCol-4 border border-dark border-top-0 border-start-0 border-bottom-0 border-end-0">
                             <div class="header-width mx-auto">
                                 <h6 class="text-center fw-bolder">Deliver To :</h6>
                                 <p class="text-capitalize">
@@ -240,7 +246,7 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                         </div>
                         </div>
                         <div class="myRow border border-dark border-top-0">
-                            <div class="myCol border border-dark">
+                            <div class="myCol border border-dark border-top-0 border-start-0 border-bottom-0">
                                 <div class="header-width mx-auto text-capitalize">
                                     <p>
                                         Place of Supply: ${placeOfSupply}
@@ -248,21 +254,21 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                                 </div>
                             </div>
     
-                            <div class="myCol border border-dark">
+                            <div class="myCol border border-dark border-top-0 border-start-0 border-bottom-0">
                                 <div class="header-width mx-auto text-capitalize">
                                     <p>
                                         Transportation: ${transportation}
                                     </p>
                                 </div>
                             </div>
-                            <div class="myCol border border-dark">
+                            <div class="myCol border border-dark border-top-0 border-start-0 border-bottom-0">
                                 <div class="header-width mx-auto text-capitalize">
                                     <p>
                                         Vehicle No: ${vehicleNumber}
                                     </p>
                                 </div>
                             </div>
-                            <div class="myCol border border-dark">
+                            <div class="myCol border border-dark border-top-0 border-start-0 border-bottom-0 border-end-0">
                                 <div class="header-width mx-auto text-capitalize">
                                     <p>
                                         Reverse Changes: ${reverseChanges}
@@ -401,110 +407,102 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                             <tbody>
                                 `
 
-        +
-        items.map((item, index) => {
-            return `
-                <tr >
-                <td class="text-center">${index + 1}</td>
-                <td class="text-start text-capitalize">
-                    <p>
-                        ${item.itemName.replace('default', '')}
-                    </p>
-                </td>
-                <td class="text-center">
-                    <p>
-                        ${item.hsn}
-                    </p>
-                </td>
-                <td class="text-center">
-                    <p>
-                       ${item.quantity}
-                    </p>
-                </td>
-                <td class="text-center text-uppercase">
-                    <p>
-                        ${item.unit}
-                    </p>
-                </td>
-                <td class="text-center">
-                    <p>
-                        ${item.rate}
-                    </p>
-                </td>
-                <td class="text-center">
-                    <p>
-                        ${item.total}
-                    </p>
-                </td>
-                <td class="text-center">
-                    <p>
-                        ${discount}
-                    </p>
-                </td>
-                <td class="text-center">
-                    <p>
-                        ${item.taxableValue}
-                    </p>
-                </td>
-                <td class="text-start">
-                    <p>
-                        <div class="myRow">
-                            <div
-                                class="myCol border border-dark border-bottom-0 border-start-0 border-top-0 text-center">
-                                ${item.cgstPercentage}%
-                            </div>
-                            <div
-                                class="myCol border border-dark border-bottom-0 border-start-0 border-end-0 border-top-0 text-center">
-                                ${item.cgst}
-                            </div>
-                        </div>
-                    </p>
-                </td>
-                <td class="text-start">
-                    <p>
-                        <div class="myRow">
-                            <div
-                                class="myCol border border-dark border-bottom-0 border-start-0 border-top-0 text-center">
-                                ${item.sgstPercentage}%
-                            </div>
-                            <div
-                                class="myCol border border-dark border-bottom-0 border-start-0 border-end-0 border-top-0 text-center">
-                                ${item.sgst}
-                            </div>
-                        </div>
-                    </p>
-                </td>
-                <td class="text-start">
-                    <p>
-                        <div class="myRow">
-                            <div
-                                class="myCol border border-dark border-bottom-0 border-start-0 border-top-0 text-center">
-                                ${item.igstPercentage}%
-                            </div>
-                            <div
-                                class="myCol border border-dark border-bottom-0 border-start-0 border-end-0 border-top-0 text-center">
-                                ${item.igst}
-                            </div>
-                        </div>
-                    </p>
-                </td>
-                <td class="text-start text-center">
-                    <p>
-                        ${item.subtotal}
-                    </p>
-                </td>
-            </tr >
-                `
-        })
+                            +
+                                items.map((item, index) => {
+                                    return `
+                                    <tr>
+                                    <td class="text-center">${index + 1}</td>
+                                    <td class="text-start text-capitalize">
+                                        <p>
+                                            ${item.itemName.replace('default', '').replace(',', '')}
+                                        </p>
+                                    </td>
+                                    <td class="text-center">
+                                        <p>
+                                            ${item.hsn}
+                                        </p>
+                                    </td>
+                                    <td class="text-center">
+                                        <p>
+                                            ${item.quantity}
+                                        </p>
+                                    </td>
+                                    <td class="text-center text-uppercase">
+                                        <p>
+                                            ${item.unit}
+                                        </p>
+                                    </td>
+                                    <td class="text-center">
+                                        <p>
+                                            ${item.rate}
+                                        </p>
+                                    </td>
+                                    <td class="text-center">
+                                        <p>
+                                            ${item.total}
+                                        </p>
+                                    </td>
+                                    <td class="text-center">
+                                        <p>
+                                            ${discount}
+                                        </p>
+                                    </td>
+                                    <td class="text-center">
+                                        <p>
+                                            ${item.taxableValue}
+                                        </p>
+                                    </td>
+                                    <td class="text-start">
+                                        <p>
+                                        <div class="myRow">
+                                            <div class="myCol border border-dark border-bottom-0 border-start-0 border-top-0 text-center">
+                                                ${item.cgstPercentage}%
+                                            </div>
+                                            <div class="myCol border border-dark border-bottom-0 border-start-0 border-end-0 border-top-0 text-center">
+                                                ${item.cgst}
+                                            </div>
+                                        </div>
+                                        </p>
+                                    </td>
+                                    <td class="text-start">
+                                        <p>
+                                        <div class="myRow">
+                                            <div class="myCol border border-dark border-bottom-0 border-start-0 border-top-0 text-center">
+                                                ${item.sgstPercentage}%
+                                            </div>
+                                            <div class="myCol border border-dark border-bottom-0 border-start-0 border-end-0 border-top-0 text-center">
+                                                ${item.sgst}
+                                            </div>
+                                        </div>
+                                        </p>
+                                    </td>
+                                    <td class="text-start">
+                                        <p>
+                                        <div class="myRow">
+                                            <div class="myCol border border-dark border-bottom-0 border-start-0 border-top-0 text-center">
+                                                ${item.igstPercentage}%
+                                            </div>
+                                            <div class="myCol border border-dark border-bottom-0 border-start-0 border-end-0 border-top-0 text-center">
+                                                ${item.igst}
+                                            </div>
+                                        </div>
+                                        </p>
+                                    </td>
+                                    <td class="text-start text-center">
+                                        <p>
+                                            ${item.subtotal}
+                                        </p>
+                                    </td>
+                                </tr>
+                                    `
+                                })
+                            +
 
-
-        +
-
-        `
+                                `
                             </tbody >
                         </table >
-                        <div class="myRow border border-dark border-top-0">
-                            <div class="myCol-7 border border-dark">
+                        <div class="myRow border border-dark border-top-0 border-bottom-0 border-start-0">
+                            <div class="myCol-7 border border-dark border-top-0 border-bottom-0 border-end-0">
                                 <div class="header-width mx-auto">
                                     <p class="fw-bold">
                                         Bank Details: ${bankDetails}
@@ -515,14 +513,14 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                                 </div>
                             </div>
     
-                            <div class="myCol-3 border border-dark">
+                            <div class="myCol-3 border border-dark border-top-0 border-bottom-0">
                                 <div class="header-width mx-auto">
-                                    <p class="fw-bolder">
+                                    <p class="fw-bold">
                                         TOTAL TAXABLE AMOUNT
                                     </p>
                                 </div>
                             </div>
-                            <div class="myCol-2 border border-dark">
+                            <div class="myCol-2 border border-dark border-bottom-0 border-start-0 border-end-0 border-top-0">
                                 <div class="header-width mx-auto">
                                     <h6 class="fw-bold text-center">
                                         ${items.reduce((previous, current) => previous + current.taxableValue, 0)}
@@ -531,7 +529,7 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                             </div>
                         </div>
                         <div class="myRow border border-dark border-top-0">
-                            <div class="myCol-7 border border-dark">
+                            <div class="myCol-7 border border-dark border-start-0 border-bottom-0">
                                 <div class="header-width mx-auto">
                                     <p class="fw-bold">
                                         Terms And Conditions:
@@ -554,14 +552,14 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                             <div class="myCol-5">
                                 <div class="w-100 h-100 myFlex">
                                     <div class="myRow ">
-                                        <div class="myCol-60 border border-dark">
+                                        <div class="myCol-60 border border-dark border-bottom-0 border-start-0">
                                             <div class="header-width mx-auto">
                                                 <p class="fw-bold">
                                                     TOTAL GST
                                                 </p>
                                             </div>
                                         </div>
-                                        <div class="myCol-40 border border-dark">
+                                        <div class="myCol-40 border border-dark border-bottom-0 border-start-0 border-bottom-0 border-end-0">
                                             <div class="header-width mx-auto">
                                                 <h6 class="fw-bold text-center">
                                                     ${items.reduce((previous, current) => previous + current.cgst + current.sgst + current.igst, 0)}
@@ -570,14 +568,14 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                                         </div>
                                     </div>
                                     <div class="myRow ">
-                                        <div class="myCol-60 border border-dark">
+                                        <div class="myCol-60 border border-dark border-bottom-0 border-start-0 border-bottom-0">
                                             <div class="header-width mx-auto">
                                                 <p class="fw-bold">
                                                     FREIGHT AND INSURANCE
                                                 </p>
                                             </div>
                                         </div>
-                                        <div class="myCol-40 border border-dark">
+                                        <div class="myCol-40 border border-dark border-bottom-0 border-start-0 border-bottom-0 border-end-0">
                                             <div class="header-width mx-auto">
                                                 <h6 class="fw-bold text-center">
                                                     ${insurance}
@@ -586,33 +584,33 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                                         </div>
                                     </div>
                                     <div class="myRow ">
-                                        <div class="myCol-60 border border-dark">
+                                        <div class="myCol-60 border border-dark border-bottom-0 border-start-0 border-bottom-0 ">
                                             <div class="header-width mx-auto">
                                                 <p class="fw-bold">
                                                     PACKAGING AND FORWARDING
                                                 </p>
                                             </div>
                                         </div>
-                                        <div class="myCol-40 border border-dark">
+                                        <div class="myCol-40 border border-dark border-bottom-0 border-start-0 border-bottom-0 border-end-0">
                                             <div class="header-width mx-auto">
                                                 <h6 class="fw-bold text-center">
                                                     ${packaging}
-                                                </h6>h6
+                                                </h6>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="myRow ">
-                                        <div class="myCol-60 border border-dark">
+                                        <div class="myCol-60 border border-dark border-start-0">
                                             <div class="header-width mx-auto">
                                                 <p class="fw-bold">
                                                     INVOICE TOTAL
                                                 </p>
                                             </div>
                                         </div>
-                                        <div class="myCol-40 border border-dark">
+                                        <div class="myCol-40 border border-dark  border-start-0 border-end-0">
                                             <div class="header-width mx-auto">
                                                 <h6 class="fw-bold text-center ">
-                                                ${items.reduce((previous, current) => previous + current.subtotal, 0) + parseInt(insurance) + parseInt(packaging)}
+                                                ${(items.reduce((previous, current) => previous + current.subtotal, 0) + parseInt(insurance) + parseInt(packaging))}
                                                 </h6>
                                             </div>
                                         </div>
