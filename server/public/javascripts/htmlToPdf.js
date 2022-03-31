@@ -153,6 +153,7 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
             .fw-bold {
                 font-weight: 600 !important;
             }
+
         </style>
     
     </head>
@@ -161,7 +162,7 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
         <div id="invoice">
             <div class="invoice overflow-auto">
                 <div style="min-width: 600px">
-                    <header class="mt-3">
+                    <header >
                         <div class="myRow">
                             <div class="myCol-7">
                                 <p class="gst">
@@ -407,9 +408,9 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                             <tbody>
                                 `
 
-                            +
-                                items.map((item, index) => {
-                                    return `
+        +
+        items.map((item, index) => {
+            return `
                                     <tr>
                                     <td class="text-center">${index + 1}</td>
                                     <td class="text-start text-capitalize">
@@ -495,10 +496,10 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                                     </td>
                                 </tr>
                                     `
-                                })
-                            +
+        }).join('')
+        +
 
-                                `
+        `
                             </tbody >
                         </table >
                         <div class="myRow border border-dark border-top-0 border-bottom-0 border-start-0">
