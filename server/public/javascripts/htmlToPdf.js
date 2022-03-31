@@ -20,6 +20,7 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
         <style>
             html {
                 height: 0;
+                zoom: 0.7;
             }
     
             body {
@@ -88,6 +89,12 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                 -ms-flex: 0 0 auto;
                 flex: 0 0 auto;
                 width: 25%;
+            }
+            .myCol-6 {
+                -webkit-box-flex: 0;
+                -ms-flex: 0 0 auto;
+                flex: 0 0 auto;
+                width: 50%;
             }
     
             .myCol-2 {
@@ -193,7 +200,7 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                             </div>
                         </div>
                         <div class="myRow border border-dark">
-                            <div class="myCol border border-dark">
+                            <div class="myCol-6 border border-dark">
                                 <div class="header-width mx-auto">
                                     <h1 class="name text-primary text-uppercase fw-bold text-capitalize">
                                         ${name}
@@ -210,7 +217,7 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                                 </div>
                             </div>
     
-                            <div class="myCol border border-dark">
+                            <div class="myCol-3 border border-dark">
                                 <div class="header-width mx-auto">
                                     <h5 class="text-center fw-bolder">Invoice To :</h5>
                                     <h6 class="text-capitalize">
@@ -230,9 +237,9 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                                     </h6>
                                 </div>
                             </div>
-                            <div class="myCol border border-dark">
+                            <div class="myCol-3 border border-dark">
                             <div class="header-width mx-auto">
-                                <h5 class="text-center fw-bolder">Invoice To :</h5>
+                                <h5 class="text-center fw-bolder">Deliver To :</h5>
                                 <h6 class="text-capitalize">
                                     <span class="underline"> Name :</span> ${shippingUser.name}
                                 </h6>
@@ -521,7 +528,7 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                                     <h6 class="fw-bold">
                                         Bank Details: ${bankDetails}
                                         <br />
-                                        Account No. ${accountNumber}, IFS Code: ${IFSCCode}
+                                        Account No. ${accountNumber}, IFC Code: ${IFSCCode}
     
                                     </h6>
                                 </div>

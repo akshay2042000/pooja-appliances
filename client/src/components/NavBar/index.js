@@ -316,7 +316,7 @@ const NavBar = () => {
             </StyledAppBar >
             {renderMobileMenu}
 
-            <Dialog scroll={'body'} open={open} fullWidth={true} fullScreen={fullScreen} onClose={handleClose} sx={{
+            <Dialog open={open} scroll='paper' fullWidth={true} fullScreen={fullScreen} onClose={handleClose} sx={{
                 backdropFilter: "blur(5px)",
                 backgroundColor: 'rgba(111, 126, 140, 0.1)',
             }}>

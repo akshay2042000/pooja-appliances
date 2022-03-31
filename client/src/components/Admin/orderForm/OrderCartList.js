@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { DataGrid } from '@mui/x-data-grid';
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography , IconButton} from "@mui/material";
+import { DeleteOutline } from "@mui/icons-material";
 import { useSelector } from 'react-redux';
 import LoadingComponent from '../../Skeletons/LoadingComponent';
 import NoComponentFound from '../../NoComponentFound';
@@ -43,6 +44,14 @@ const OrderCartList = ({ values, setFieldValue }) => {
                 return { ...item };
             }
         })
+        if (params.field === 'quantity') {
+            //  remove the item if quantity is 0
+            if (params.value === 0) {
+                array.splice(itemIndex, 1);
+            }
+            
+        }
+
         if (params.field === 'rate' || params.field === 'quantity') {
             array[itemIndex].total = Math.round(array[itemIndex].quantity * array[itemIndex].rate);
             array[itemIndex].taxableValue = Math.round(array[itemIndex].total - (array[itemIndex].total / 100 * values.discount));
@@ -62,7 +71,28 @@ const OrderCartList = ({ values, setFieldValue }) => {
         setItems(array);
     })
 
+    const handleDelete = (id) => {
+        const array = items.filter(item => item.id !== id);
+        setFieldValue('items', array);
+        setItems(array);
+    }
+
     const columns = [
+        {
+            field: "action",
+            flex: 0.3,
+            headerName: "",
+            minWidth: 80,
+            renderCell: (params) => {
+                return (
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>
+                        <IconButton sx={{ ml: 1 }} color='error' onClick={() => handleDelete(params.row.id)}>
+                            <DeleteOutline />
+                        </IconButton>
+                    </Box>
+                );
+            },
+        },
         {
             field: "itemName", headerName: "Item Name",
             minWidth: 180,

@@ -35,7 +35,6 @@ function uploadViewableToCloudinary(image, name) {
         })
     });
 }
-
 router.route('/')
     .post(verifyTokenAndAdmin, async (req, res) => {
         const name = req.body.name;
