@@ -491,7 +491,7 @@ const OrderForm = () => {
                                                             sx={{ p: 2 }}
                                                             //  go to bill page on click
                                                             onClick={() => {
-                                                                navigate(`/admin/bills/${singleOrder.billingId}`)
+                                                                navigate(`/admin/bills/${singleOrder.billingId._id}`)
                                                             }}
                                                         >
                                                             View Bill

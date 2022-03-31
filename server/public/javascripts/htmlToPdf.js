@@ -18,20 +18,13 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     
         <style>
+            p{
+                margin-bottom: 0;
+            }
+
             html {
-                height: 0;
                 zoom: 0.7;
             }
-    
-            body {
-                height: 0;
-                margin: 0;
-            }
-    
-            #invoice {
-                padding: 0px 0px;
-            }
-    
             .invoice {
                 position: relative;
                 background-color: #FFF;
@@ -143,28 +136,16 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
     
             th {
                 border: 1px solid black;
+                font-weight: normal;
             }
     
-            td>h6 {
+            td>p {
                 width: 95%;
                 margin: auto;
             }
-    
-            @media print {
-                .invoice {
-                    font-size: 11px !important;
-                    overflow: hidden !important
-                }
-    
-                .invoice footer {
-                    position: absolute;
-                    bottom: 10px;
-                    page-break-after: always
-                }
-    
-                .invoice>div:last-child {
-                    page-break-before: always
-                }
+            
+            .fw-bold {
+                font-weight: 500 !important;
             }
         </style>
     
@@ -174,28 +155,28 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
         <div id="invoice">
             <div class="invoice overflow-auto">
                 <div style="min-width: 600px">
-                    <header class="mb-0 pb-0 mt-0 pt-0">
+                    <header class="mt-3">
                         <div class="myRow">
                             <div class="myCol-7">
-                                <h6 class="gst">
+                                <p class="gst">
                                     GST No. : <span class="number ">
                                         ${gstNumber}
                                     </span>
-                                </h6>
+                                </p>
                             </div>
                             <div class="myCol-5">
                                 <div class="myRow">
-                                    <h6 class="myCol gst border border-dark">
+                                    <p class="myCol gst border border-dark">
                                         INVOICE NO. : <span class="number d-block">
                                             ${invoiceNumber}
                                         </span>
-                                    </h6>
+                                    </p>
     
-                                    <h6 class="myCol gst border border-dark">
+                                    <p class="myCol gst border border-dark">
                                         DATE : <span class="number d-block">
                                             ${new Date(Date.parse(date)).getDate() + "/" + (new Date(Date.parse(date)).getMonth() + 1) + "/" + new Date(Date.parse(date)).getUTCFullYear()}
                                         </span>
-                                    </h6>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -205,7 +186,7 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                                     <h1 class="name text-primary text-uppercase fw-bold text-capitalize">
                                         ${name}
                                     </h1>
-                                    <h6 class="lh-base fw-bold ">
+                                    <p class="lh-base fw-bold ">
                                         Distributor: ${distributor}
                                         <br />
                                         ${address}
@@ -213,79 +194,79 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                                         Tel: ${tel}
                                         <br />
                                         Email: ${email}
-                                    </h6>
+                                    </p>
                                 </div>
                             </div>
     
                             <div class="myCol-3 border border-dark">
                                 <div class="header-width mx-auto">
-                                    <h5 class="text-center fw-bolder">Invoice To :</h5>
-                                    <h6 class="text-capitalize">
+                                    <h6 class="text-center fw-bold">Invoice To :</h6>
+                                    <p class="text-capitalize">
                                         <span class="underline"> Name :</span> ${billingUser.name}
-                                    </h6>
-                                    <h6 class="text-capitalize">
+                                    </p>
+                                    <p class="text-capitalize">
                                         <span class="underline"> Address :</span> ${billingUser.address.replace('/b', '<br />')}
-                                    </h6>
-                                    <h6>
+                                    </p>
+                                    <p>
                                         <span class="underline"> GST No. :</span> ${billingUser.gst === 'NA' ? 'NA' : billingUser.gst}
-                                    </h6>
-                                    <h6 class="text-capitalize">
+                                    </p>
+                                    <p class="text-capitalize">
                                         <span class="underline"> State :</span> ${billingUser.state}
-                                    </h6>
-                                    <h6>
+                                    </p>
+                                    <p>
                                         <span class="underline"> State Code:</span> ${billingUser.stateCode}
-                                    </h6>
+                                    </p>
                                 </div>
                             </div>
                             <div class="myCol-3 border border-dark">
                             <div class="header-width mx-auto">
-                                <h5 class="text-center fw-bolder">Deliver To :</h5>
-                                <h6 class="text-capitalize">
+                                <h6 class="text-center fw-bolder">Deliver To :</h6>
+                                <p class="text-capitalize">
                                     <span class="underline"> Name :</span> ${shippingUser.name}
-                                </h6>
-                                <h6 class="text-capitalize">
+                                </p>
+                                <p class="text-capitalize">
                                     <span class="underline"> Address :</span> ${shippingUser.address.replace('/b', '<br />')}
-                                </h6>
-                                <h6>
+                                </p>
+                                <p>
                                     <span class="underline"> GST No. :</span> ${shippingUser.gst === 'NA' ? 'NA' : shippingUser.gst}
-                                </h6>
-                                <h6 class="text-capitalize">
+                                </p>
+                                <p class="text-capitalize">
                                     <span class="underline"> State :</span> ${shippingUser.state}
-                                </h6>
-                                <h6>
+                                </p>
+                                <p>
                                     <span class="underline"> State Code:</span> ${shippingUser.stateCode}
-                                </h6>
+                                </p>
                             </div>
                         </div>
                         </div>
                         <div class="myRow border border-dark border-top-0">
                             <div class="myCol border border-dark">
                                 <div class="header-width mx-auto text-capitalize">
-                                    <h6>
+                                    <p>
                                         Place of Supply: ${placeOfSupply}
-                                    </h6>
+                                    </p>
                                 </div>
                             </div>
     
                             <div class="myCol border border-dark">
                                 <div class="header-width mx-auto text-capitalize">
-                                    <h6>
+                                    <p>
                                         Transportation: ${transportation}
-                                    </h6>
+                                    </p>
                                 </div>
                             </div>
                             <div class="myCol border border-dark">
                                 <div class="header-width mx-auto text-capitalize">
-                                    <h6>
+                                    <p>
                                         Vehicle No: ${vehicleNumber}
-                                    </h6>
+                                    </p>
                                 </div>
                             </div>
                             <div class="myCol border border-dark">
                                 <div class="header-width mx-auto text-capitalize">
-                                    <h6>
+                                    <p>
                                         Reverse Changes: ${reverseChanges}
-                                    </h6>
+                                    </p>
                                 </div>
                             </div>
     
@@ -297,49 +278,49 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                                     <th class="text-center">
                                         <div>
                                             <div class="">
-                                                <h5 class="fw-bold">S.No</h5>
+                                                <p class="fw-bold">S.No</h>
                                             </div>
                                         </div>
                                     </th>
                                     <th class="text-center">
                                         <div>
                                             <div class="">
-                                                <h5 class="fw-bold">Description Of Goods</h5>
+                                                <p class="fw-bold">Description Of Goods</p>
                                             </div>
                                         </div>
                                     </th>
                                     <th class="text-center">
                                         <div>
                                             <div class="">
-                                                <h5 class="fw-bold">HSN Code</h5>
+                                                <p class="fw-bold">HSN Code</p>
                                             </div>
                                         </div>
                                     </th>
                                     <th class="text-center">
                                         <div>
                                             <div class="">
-                                                <h5 class="fw-bold">Qty.</h5>
+                                                <p class="fw-bold">Qty.</p>
                                             </div>
                                         </div>
                                     </th>
                                     <th class="text-center">
                                         <div>
                                             <div class="">
-                                                <h5 class="fw-bold">Unit</h5>
+                                                <p class="fw-bold">Unit</p>
                                             </div>
                                         </div>
                                     </th>
                                     <th class="text-center">
                                         <div>
                                             <div class="">
-                                                <h5 class="fw-bold">Rate/Item</h5>
+                                                <p class="fw-bold">Rate/Item</p>
                                             </div>
                                         </div>
                                     </th>
                                     <th class="text-center">
                                         <div>
                                             <div class="">
-                                                <h5 class="fw-bold">Total</h5>
+                                                <p class="fw-bold">Total</p>
                                             </div>
                                         </div>
                                     </th>
@@ -347,7 +328,7 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                                         <div>
     
                                             <div class="">
-                                                <h5 class="fw-bold">Dis.</h5>
+                                                <p class="fw-bold">Dis.</p>
                                             </div>
                                         </div>
     
@@ -355,7 +336,7 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                                     <th class="text-center">
                                         <div>
                                             <div class="">
-                                                <h5 class="fw-bold">Taxable Value</h5>
+                                                <p class="fw-bold">Taxable Value</p>
                                             </div>
                                         </div>
     
@@ -363,55 +344,55 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                                     <th class="text-center">
                                         <div>
                                             <div class="">
-                                                <h5 class="fw-bold">CGST</h5>
+                                                <p class="fw-bold">CGST</p>
                                             </div>
                                         </div>
                                         <div class="myRow">
                                             <div class="myCol border border-dark border-bottom-0 border-start-0">
-                                                <h5>Rate</h5>
+                                                <p>Rate</p>
                                             </div>
                                             <div
                                                 class="myCol border border-dark border-bottom-0 border-start-0 border-end-0">
-                                                <h5>Amt</h5>
+                                                <p>Amt</p>
                                             </div>
                                         </div>
                                     </th>
                                     <th class="text-center">
                                         <div>
                                             <div class="">
-                                                <h5 class="fw-bold">SGST</h5>
+                                                <p class="fw-bold">SGST</p>
                                             </div>
                                         </div>
                                         <div class="myRow">
                                             <div class="myCol border border-dark border-bottom-0 border-start-0">
-                                                <h5>Rate</h5>
+                                                <p>Rate</p>
                                             </div>
                                             <div
                                                 class="myCol border border-dark border-bottom-0 border-start-0 border-end-0">
-                                                <h5>Amt</h5>
+                                                <p>Amt</p>
                                             </div>
                                         </div>
                                     </th>
                                     <th class="text-center">
                                         <div>
                                             <div class="">
-                                                <h5 class="fw-bold">IGST</h5>
+                                                <p class="fw-bold">IGST</p>
                                             </div>
                                         </div>
                                         <div class="myRow">
                                             <div class="myCol border border-dark border-bottom-0 border-start-0">
-                                                <h5>Rate</h5>
+                                                <p>Rate</p>
                                             </div>
                                             <div
                                                 class="myCol border border-dark border-bottom-0 border-start-0 border-end-0">
-                                                <h5>Amt</h5>
+                                                <p>Amt</p>
                                             </div>
                                         </div>
                                     </th>
                                     <th class="text-center">
                                         <div>
                                             <div class="">
-                                                <h5 class="fw-bold">Total</h5>
+                                                <p class="fw-bold">Total</p>
                                             </div>
                                         </div>
                                     </th>
@@ -426,47 +407,47 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                 <tr >
                 <td class="text-center">${index + 1}</td>
                 <td class="text-start text-capitalize">
-                    <h6>
+                    <p>
                         ${item.itemName.replace('default', '')}
-                    </h6>
+                    </p>
                 </td>
                 <td class="text-center">
-                    <h6>
+                    <p>
                         ${item.hsn}
-                    </h6>
+                    </p>
                 </td>
                 <td class="text-center">
-                    <h6>
+                    <p>
                        ${item.quantity}
-                    </h6>
+                    </p>
                 </td>
                 <td class="text-center text-uppercase">
-                    <h6>
+                    <p>
                         ${item.unit}
-                    </h6>
+                    </p>
                 </td>
                 <td class="text-center">
-                    <h6>
+                    <p>
                         ${item.rate}
-                    </h6>
+                    </p>
                 </td>
                 <td class="text-center">
-                    <h6>
+                    <p>
                         ${item.total}
-                    </h6>
+                    </p>
                 </td>
                 <td class="text-center">
-                    <h6>
+                    <p>
                         ${discount}
-                    </h6>
+                    </p>
                 </td>
                 <td class="text-center">
-                    <h6>
+                    <p>
                         ${item.taxableValue}
-                    </h6>
+                    </p>
                 </td>
                 <td class="text-start">
-                    <h6>
+                    <p>
                         <div class="myRow">
                             <div
                                 class="myCol border border-dark border-bottom-0 border-start-0 border-top-0 text-center">
@@ -477,10 +458,10 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                                 ${item.cgst}
                             </div>
                         </div>
-                    </h6>
+                    </p>
                 </td>
                 <td class="text-start">
-                    <h6>
+                    <p>
                         <div class="myRow">
                             <div
                                 class="myCol border border-dark border-bottom-0 border-start-0 border-top-0 text-center">
@@ -491,10 +472,10 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                                 ${item.sgst}
                             </div>
                         </div>
-                    </h6>
+                    </p>
                 </td>
                 <td class="text-start">
-                    <h6>
+                    <p>
                         <div class="myRow">
                             <div
                                 class="myCol border border-dark border-bottom-0 border-start-0 border-top-0 text-center">
@@ -505,12 +486,12 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                                 ${item.igst}
                             </div>
                         </div>
-                    </h6>
+                    </p>
                 </td>
                 <td class="text-start text-center">
-                    <h6>
+                    <p>
                         ${item.subtotal}
-                    </h6>
+                    </p>
                 </td>
             </tr >
                 `
@@ -525,34 +506,34 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                         <div class="myRow border border-dark border-top-0">
                             <div class="myCol-7 border border-dark">
                                 <div class="header-width mx-auto">
-                                    <h6 class="fw-bold">
+                                    <p class="fw-bold">
                                         Bank Details: ${bankDetails}
                                         <br />
                                         Account No. ${accountNumber}, IFC Code: ${IFSCCode}
     
-                                    </h6>
+                                    </p>
                                 </div>
                             </div>
     
                             <div class="myCol-3 border border-dark">
                                 <div class="header-width mx-auto">
-                                    <h6 class="fw-bolder">
+                                    <p class="fw-bolder">
                                         TOTAL TAXABLE AMOUNT
-                                    </h6>
+                                    </p>
                                 </div>
                             </div>
                             <div class="myCol-2 border border-dark">
                                 <div class="header-width mx-auto">
-                                    <h5 class="fw-bold text-center">
+                                    <h6 class="fw-bold text-center">
                                         ${items.reduce((previous, current) => previous + current.taxableValue, 0)}
-                                    </h5>
+                                    </h6>
                                 </div>
                             </div>
                         </div>
                         <div class="myRow border border-dark border-top-0">
                             <div class="myCol-7 border border-dark">
                                 <div class="header-width mx-auto">
-                                    <h6 class="fw-bold">
+                                    <p class="fw-bold">
                                         Terms And Conditions:
                                         <br />
                                         1. Payment by A/c Payee or crossed cheque is requested, if cheque is dishonoured
@@ -564,7 +545,7 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                                         demand.
                                         <br />
                                         4. All disputes subject to Gurgaon Jurisdiction.
-                                    </h6>
+                                    </p>
                                 </div>
                             </div>
     
@@ -575,64 +556,64 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                                     <div class="myRow ">
                                         <div class="myCol-60 border border-dark">
                                             <div class="header-width mx-auto">
-                                                <h6 class="fw-bold">
+                                                <p class="fw-bold">
                                                     TOTAL GST
-                                                </h6>
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="myCol-40 border border-dark">
                                             <div class="header-width mx-auto">
-                                                <h5 class="fw-bold text-center">
+                                                <h6 class="fw-bold text-center">
                                                     ${items.reduce((previous, current) => previous + current.cgst + current.sgst + current.igst, 0)}
-                                                </h5>
+                                                </h6>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="myRow ">
                                         <div class="myCol-60 border border-dark">
                                             <div class="header-width mx-auto">
-                                                <h6 class="fw-bold">
+                                                <p class="fw-bold">
                                                     FREIGHT AND INSURANCE
-                                                </h6>
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="myCol-40 border border-dark">
                                             <div class="header-width mx-auto">
-                                                <h5 class="fw-bold text-center">
+                                                <h6 class="fw-bold text-center">
                                                     ${insurance}
-                                                </h5>
+                                                </h6>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="myRow ">
                                         <div class="myCol-60 border border-dark">
                                             <div class="header-width mx-auto">
-                                                <h6 class="fw-bold">
+                                                <p class="fw-bold">
                                                     PACKAGING AND FORWARDING
-                                                </h6>
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="myCol-40 border border-dark">
                                             <div class="header-width mx-auto">
-                                                <h5 class="fw-bold text-center">
+                                                <h6 class="fw-bold text-center">
                                                     ${packaging}
-                                                </h5>
+                                                </h6>h6
                                             </div>
                                         </div>
                                     </div>
                                     <div class="myRow ">
                                         <div class="myCol-60 border border-dark">
                                             <div class="header-width mx-auto">
-                                                <h6 class="fw-bold">
+                                                <p class="fw-bold">
                                                     INVOICE TOTAL
-                                                </h6>
+                                                </p>
                                             </div>
                                         </div>
-                                        <div class="myCol-40 border border-dark  mb-0">
+                                        <div class="myCol-40 border border-dark">
                                             <div class="header-width mx-auto">
-                                                <h5 class="fw-bold text-center class=" mb-0 pb-0"">
+                                                <h6 class="fw-bold text-center ">
                                                 ${items.reduce((previous, current) => previous + current.subtotal, 0) + parseInt(insurance) + parseInt(packaging)}
-                                                </h5>
+                                                </h6>
                                             </div>
                                         </div>
                                     </div>
