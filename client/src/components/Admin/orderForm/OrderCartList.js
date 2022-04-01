@@ -95,8 +95,9 @@ const OrderCartList = ({ values, setFieldValue }) => {
         },
         {
             field: "itemName", headerName: "Item Name",
-            minWidth: 180,
-            flex: 1,
+            minWidth: 250,
+            flex: 2,
+            editable: true,
             renderCell: (params) => {
                 return (
                     <Box>

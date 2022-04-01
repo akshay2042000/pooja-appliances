@@ -42,7 +42,9 @@ router.route('/')
         const appliances = invoiceData.app;
         const appData = applianceData[appliances]
         const data = { ...appData, ...invoiceData };
-        pdf.create(pdfTemplate(data), { orientation: "landscape", format: 'A4', border :{ top: '10mm', bottom : '10mm'} }).toFile('./public/assets/output.pdf', async (err, result) => {
+        pdf.create(pdfTemplate(data), { orientation: "portrait", format: 'A4',  }).toFile('./public/assets/output.pdf', 
+        // border :{ top: '10mm', bottom : '10mm'}
+        async (err, result) => {
             if (err) return console.log(err);
             const [resultDownload, resultView] = await Promise.all([
                 uploadToCloudinary('./public/assets/output.pdf', name),

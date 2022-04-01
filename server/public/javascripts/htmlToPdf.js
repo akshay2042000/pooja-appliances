@@ -10,6 +10,9 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Hind:wght@300;400;500;600&display=swap" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -23,7 +26,7 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
             }
 
             html {
-                zoom: 0.7;
+                zoom: 0.5;
             }
             .invoice {
                 position: relative;
@@ -65,6 +68,11 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                 flex: 1 0 0%;
             }
     
+            .hindi{
+                font-family: 'Hind', sans-serif;
+            }
+    
+
             .header-width {
                 width: 98%;
                 margin: auto;
@@ -83,6 +91,14 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                 flex: 0 0 auto;
                 width: 25%;
             }
+
+            .margin-top-85{
+                margin-top:90px
+            }
+            .margin-bottom-70{
+                margin-bottom:70px
+            }
+
             .myCol-6 {
                 -webkit-box-flex: 0;
                 -ms-flex: 0 0 auto;
@@ -110,7 +126,11 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                 flex: 0 0 auto;
                 width: 60%;
             }
-    
+
+            .height-80 {
+                min-height: 100px;
+            }
+
             .myCol-40 {
                 -webkit-box-flex: 0;
                 -ms-flex: 0 0 auto;
@@ -164,14 +184,18 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                 <div style="min-width: 600px">
                     <header >
                         <div class="myRow">
-                            <div class="myCol-7">
+                            <div class="myCol-4">
                                 <p class="gst">
                                     GST No. : <span class="number ">
                                         ${gstNumber}
                                     </span>
                                 </p>
                             </div>
-                            <div class="myCol-5">
+                            <div class="myCol-4">
+                            <p class="fw-bold text-center d-block mb-0 hindi"> ||जय श्री श्याम|| </p>
+                            <p class="fw-bold text-center"> Tax Invoice </p>                        
+                            </div>
+                            <div class="myCol-4">
                                 <div class="myRow">
                                     <p class="myCol gst border border-dark border-end-0 border-bottom-0">
                                         INVOICE NO. : <span class="number d-block">
@@ -601,7 +625,7 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                                         </div>
                                     </div>
                                     <div class="myRow ">
-                                        <div class="myCol-60 border border-dark border-start-0">
+                                        <div class="myCol-60 border border-dark  border-start-0">
                                             <div class="header-width mx-auto">
                                                 <p class="fw-bold">
                                                     INVOICE TOTAL
@@ -617,9 +641,40 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                                         </div>
                                     </div>
                                 </div>
-    
                             </div>
                         </div >
+                        <div class="myRow">
+                        <div class="myCol-7">
+
+                        </div>
+                        <div class="myCol-5">
+                            <div class="myRow">
+                                <div class="myCol-6 border border-dark border-top-0 border-end-0 height-80">
+                                    <div class="myFlex h-100 ">
+                                        <div class="mx-auto margin-top-85">
+                                            <p class="fw-bold">
+                                                Receiver's Signature
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="myCol-6 border border-dark border-top-0 height-80">
+                                    <div class="myFlex  h-100">
+                                        <div class="mx-auto margin-bottom-70">
+                                            <p class=" text-capitalize fw-bold">For ${name}</p>
+                                        </div>
+                                        <div class="mx-auto">
+                                            <p class="fw-bold">
+                                                Authorized Signatory
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     </header >
                 </div >
             </div >
