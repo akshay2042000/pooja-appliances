@@ -93,10 +93,10 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
             }
 
             .margin-top-85{
-                margin-top:90px
+                margin-top:65px
             }
             .margin-bottom-70{
-                margin-bottom:70px
+                margin-bottom:60px
             }
 
             .myCol-6 {
@@ -128,7 +128,7 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
             }
 
             .height-80 {
-                min-height: 100px;
+                min-height: 70px;
             }
 
             .myCol-40 {
