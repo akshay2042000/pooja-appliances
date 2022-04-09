@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 
 
 const CartItemForm = ({ index }) => {
-    const max = 100;
+    const max = 1000;
     const { app } = useParams()
     const cartState = useSelector(state => state.cartState);
     const cart = cartState[app];
