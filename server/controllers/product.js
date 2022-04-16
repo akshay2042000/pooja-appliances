@@ -127,30 +127,30 @@ const getSearchedProducts = async (req, res, next) => {
 
             // find match as per string similarity
 
-            var matches = stringSimilarity.findBestMatch(search, AllProductNames);
-            const closestMatches = matches.ratings.filter(match => match.rating > 0.2).map(match => match.target);
+            // var matches = stringSimilarity.findBestMatch(search, AllProductNames);
+            // const closestMatches = matches.ratings.filter(match => match.rating > 0.2).map(match => match.target);
 
-            const closestMatchesProducts = await Product.find({
-                $and: [{
-                    company: {
-                        $in: companies
-                    }
-                }, {
-                    name: {
-                        $in: closestMatches
-                    }
-                }]
+            // const closestMatchesProducts = await Product.find({
+            //     $and: [{
+            //         company: {
+            //             $in: companies
+            //         }
+            //     }, {
+            //         name: {
+            //             $in: closestMatches
+            //         }
+            //     }]
 
-            }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' }).populate('hsnCode').catch(err => res.status(500).json(err));;
-            products.push(...closestMatchesProducts);
+            // }).populate({ path: 'company', select: 'name' }).populate({ path: 'categories', select: 'name' }).populate('hsnCode').catch(err => res.status(500).json(err));;
+            // products.push(...closestMatchesProducts);
 
             //  remove duplicates from products
 
-            products = products.filter((product, index, self) =>
-                index === self.findIndex((t) => (
-                    t.name === product.name
-                ))
-            );
+            // products = products.filter((product, index, self) =>
+            //     index === self.findIndex((t) => (
+            //         t.name === product.name
+            //     ))
+            // );
 
             if (products) {
                 res.status(200).json({

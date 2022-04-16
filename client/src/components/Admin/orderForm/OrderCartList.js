@@ -340,7 +340,6 @@ const OrderCartList = ({ values, setFieldValue }) => {
                                         }}
                                         disableSelectionOnClick
                                         columns={columns}
-                                        pageSize={pageSize}
                                         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
                                         rowsPerPageOptions={[5, 10, 20]}
                                         pagination
