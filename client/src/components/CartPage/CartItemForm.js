@@ -36,10 +36,10 @@ const CartItemForm = ({ index }) => {
             if (e.target.value === 0) {
                 dispatch(removeItem({ ...product }))
                 return;
-            } else if (e.target.value > max) {
-                quantity = max;
+            } else if (parseInt(e.target.value) > max) {
+                quantity = parseInt(max);
             } else {
-                quantity = e.target.value;
+                quantity = parseInt(e.target.value);
             }
             dispatch(updateItem({ ...product, targetName: "quantity", targetValue: quantity }));
         } else if (e.target.name === 'size' || e.target.name === 'color' || e.target.name === 'unit') {
