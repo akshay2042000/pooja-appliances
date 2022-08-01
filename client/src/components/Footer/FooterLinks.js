@@ -24,7 +24,7 @@ const FooterLinks = () => {
                     <Typography variant="body1" color='inherit' sx={{ '&:hover': { textDecoration: 'underline' } }}>Pooja Appliances</Typography>
                 </Link>
                 <Link to='/creative'>
-                    <Typography variant="body1" color='inherit' sx={{ '&:hover': { textDecoration: 'underline' } }}>Creative Appliances</Typography>
+                    <Typography variant="body1" color='inherit' sx={{ '&:hover': { textDecoration: 'underline' } }}>Creative Appliance</Typography>
                 </Link>
                 <Link to={`/${appliances}`}>
                     <Typography variant="body1" color='inherit' sx={{ '&:hover': { textDecoration: 'underline' } }}>Home</Typography>
