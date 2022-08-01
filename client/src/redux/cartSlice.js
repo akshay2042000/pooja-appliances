@@ -37,8 +37,10 @@ const cartSlice = createSlice({
 			} else {
 				state[app].items.push(payload);
 			}
-			state[app].count += Number(payload.quantity);
-			state[app].total += Number(payload.quantity * payload.size.price);
+			state[app].count += Number(parseInt(payload.quantity));
+			state[app].total += Number(
+				parseInt(payload.quantity * payload.size.price)
+			);
 		},
 		removeItem: (state, action) => {
 			const payload = action.payload;
@@ -53,8 +55,10 @@ const cartSlice = createSlice({
 			);
 
 			state[app].items.splice(index, 1);
-			state[app].count -= Number(payload.quantity);
-			state[app].total -= Number(payload.quantity * payload.size.price);
+			state[app].count -= Number(parseInt(payload.quantity));
+			state[app].total -= Number(
+				parseInt(payload.quantity * payload.size.price)
+			);
 		},
 		updateItem: (state, action) => {
 			const payload = action.payload;
@@ -69,13 +73,16 @@ const cartSlice = createSlice({
 			);
 
 			if (payload.targetName === "quantity") {
-				state[app].count -= Number(state[app].items[index].quantity);
-				state[app].count += Number(payload.targetValue);
+				state[app].count -= Number(parseInt(state[app].items[index].quantity));
+				state[app].count += Number(parseInt(payload.targetValue));
 				state[app].total -= Number(
-					state[app].items[index].quantity * state[app].items[index].size.price
+					parseInt(
+						state[app].items[index].quantity *
+							state[app].items[index].size.price
+					)
 				);
 				state[app].total += Number(
-					payload.targetValue * state[app].items[index].size.price
+					parseInt(payload.targetValue * state[app].items[index].size.price)
 				);
 			}
 			if (payload.targetName === "size") {

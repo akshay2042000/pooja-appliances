@@ -40,7 +40,7 @@ const SingleProductForm = () => {
             } else if (e.target.value > max) {
                 quantity = max;
             } else {
-                quantity = e.target.value;
+                quantity = Number(e.target.value);
             }
             dispatch(updateSelectedProduct({ ...product, quantity }))
         } else {
