@@ -515,7 +515,7 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                                     </td>
                                     <td class="text-start text-center">
                                         <p>
-                                            ${item.subtotal}
+                                            ${parseFloat(item.subtotal).toFixed(2)}
                                         </p>
                                     </td>
                                 </tr>
@@ -548,7 +548,11 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                             <div class="myCol-2 border border-dark border-bottom-0 border-start-0 border-end-0 border-top-0">
                                 <div class="header-width mx-auto">
                                     <h6 class="fw-bold text-center">
-                                        ${items.reduce((previous, current) => previous + current.taxableValue, 0)}
+                                        ${items.reduce((acc, item) => {
+											return parseFloat(
+												parseFloat(acc) + parseFloat(item.taxableValue)
+											).toFixed(2);
+										}, 0)}
                                     </h6>
                                 </div>
                             </div>
@@ -587,7 +591,14 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                                         <div class="myCol-40 border border-dark border-bottom-0 border-start-0 border-bottom-0 border-end-0">
                                             <div class="header-width mx-auto">
                                                 <h6 class="fw-bold text-center">
-                                                    ${items.reduce((previous, current) => previous + current.cgst + current.sgst + current.igst, 0)}
+                                                    ${items.reduce((acc, item) => {
+                                                        return parseFloat(
+                                                            parseFloat(acc) +
+                                                                parseFloat(item.cgst) +
+                                                                parseFloat(item.sgst) +
+                                                                parseFloat(item.igst)
+                                                        ).toFixed(2);
+                                                    }, 0)}
                                                 </h6>
                                             </div>
                                         </div>
@@ -635,7 +646,11 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                                         <div class="myCol-40 border border-dark  border-start-0 border-end-0">
                                             <div class="header-width mx-auto">
                                                 <h6 class="fw-bold text-center ">
-                                                ${(items.reduce((previous, current) => previous + current.subtotal, 0) + parseInt(insurance) + parseInt(packaging))}
+                                                ${items.reduce((acc, item) => {
+                                                    return parseFloat(
+                                                        parseFloat(acc) + parseFloat(item.subtotal)
+                                                    ).toFixed(2);
+                                                }, 0)}
                                                 </h6>
                                             </div>
                                         </div>
