@@ -1,7 +1,28 @@
-
-
-module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetails, accountNumber, IFSCCode, invoiceNumber, date, discount, billingUser, shippingUser, items, placeOfSupply, transportation, vehicleNumber, reverseChanges, insurance, packaging }) => {
-    return `
+module.exports = ({
+	gstNumber,
+	name,
+	distributor,
+	address,
+	tel,
+	email,
+	bankDetails,
+	accountNumber,
+	IFSCCode,
+	invoiceNumber,
+	date,
+	discount,
+	billingUser,
+	shippingUser,
+	items,
+	placeOfSupply,
+	transportation,
+	vehicleNumber,
+	reverseChanges,
+	insurance,
+	packaging
+}) => {
+	return (
+		`
     <!DOCTYPE html>
     <html lang="en">
     
@@ -205,7 +226,20 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
     
                                     <p class="myCol gst border border-dark border-bottom-0">
                                         DATE : <span class="number d-block">
-                                            ${new Date(Date.parse(date)).getDate() + "/" + (new Date(Date.parse(date)).getMonth() + 1) + "/" + new Date(Date.parse(date)).getUTCFullYear()}
+                                            ${
+																							new Date(
+																								Date.parse(date)
+																							).getDate() +
+																							"/" +
+																							(new Date(
+																								Date.parse(date)
+																							).getMonth() +
+																								1) +
+																							"/" +
+																							new Date(
+																								Date.parse(date)
+																							).getUTCFullYear()
+																						}
                                         </span>
                                     </p>
                                 </div>
@@ -233,19 +267,32 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                                 <div class="header-width mx-auto">
                                     <h6 class="text-center fw-bold">Invoice To :</h6>
                                     <p class="text-capitalize">
-                                        <span class="underline"> Name :</span> ${billingUser.name}
+                                        <span class="underline"> Name :</span> ${
+																					billingUser.name
+																				}
                                     </p>
                                     <p class="text-capitalize">
-                                        <span class="underline"> Address :</span> ${billingUser.address.replace('/b', '<br />')}
+                                        <span class="underline"> Address :</span> ${billingUser.address.replace(
+																					"/b",
+																					"<br />"
+																				)}
                                     </p>
                                     <p>
-                                        <span class="underline"> GST No. :</span> ${billingUser.gst === 'NA' ? 'NA' : billingUser.gst}
+                                        <span class="underline"> GST No. :</span> ${
+																					billingUser.gst === "NA"
+																						? "NA"
+																						: billingUser.gst
+																				}
                                     </p>
                                     <p class="text-capitalize">
-                                        <span class="underline"> State :</span> ${billingUser.state}
+                                        <span class="underline"> State :</span> ${
+																					billingUser.state
+																				}
                                     </p>
                                     <p>
-                                        <span class="underline"> State Code:</span> ${billingUser.stateCode}
+                                        <span class="underline"> State Code:</span> ${
+																					billingUser.stateCode
+																				}
                                     </p>
                                 </div>
                             </div>
@@ -253,19 +300,32 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                             <div class="header-width mx-auto">
                                 <h6 class="text-center fw-bolder">Deliver To :</h6>
                                 <p class="text-capitalize">
-                                    <span class="underline"> Name :</span> ${shippingUser.name}
+                                    <span class="underline"> Name :</span> ${
+																			shippingUser.name
+																		}
                                 </p>
                                 <p class="text-capitalize">
-                                    <span class="underline"> Address :</span> ${shippingUser.address.replace('/b', '<br />')}
+                                    <span class="underline"> Address :</span> ${shippingUser.address.replace(
+																			"/b",
+																			"<br />"
+																		)}
                                 </p>
                                 <p>
-                                    <span class="underline"> GST No. :</span> ${shippingUser.gst === 'NA' ? 'NA' : shippingUser.gst}
+                                    <span class="underline"> GST No. :</span> ${
+																			shippingUser.gst === "NA"
+																				? "NA"
+																				: shippingUser.gst
+																		}
                                 </p>
                                 <p class="text-capitalize">
-                                    <span class="underline"> State :</span> ${shippingUser.state}
+                                    <span class="underline"> State :</span> ${
+																			shippingUser.state
+																		}
                                 </p>
                                 <p>
-                                    <span class="underline"> State Code:</span> ${shippingUser.stateCode}
+                                    <span class="underline"> State Code:</span> ${
+																			shippingUser.stateCode
+																		}
                                 </p>
                             </div>
                         </div>
@@ -430,16 +490,20 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                                 </tr>
                             </thead>
                             <tbody>
-                                `
-
-        +
-        items.map((item, index) => {
-            return `
+                                ` +
+		items
+			.map((item, index) => {
+				return `
                                     <tr>
                                     <td class="text-center">${index + 1}</td>
                                     <td class="text-start text-capitalize">
                                         <p>
-                                            ${item.itemName.replace('default', '').replace(',', '')}
+                                            ${item.itemName
+																							.replace("default", "")
+																							.replace(",", "")
+																							.replace("(NA)", "")
+																							.replace("(Default)", "")
+																							.replace("(default)", "")}
                                         </p>
                                     </td>
                                     <td class="text-center">
@@ -515,15 +579,16 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                                     </td>
                                     <td class="text-start text-center">
                                         <p>
-                                            ${parseFloat(item.subtotal).toFixed(2)}
+                                            ${parseFloat(item.subtotal).toFixed(
+																							2
+																						)}
                                         </p>
                                     </td>
                                 </tr>
-                                    `
-        }).join('')
-        +
-
-        `
+                                    `;
+			})
+			.join("") +
+		`
                             </tbody >
                         </table >
                         <div class="myRow border border-dark border-top-0 border-bottom-0 border-start-0">
@@ -549,10 +614,11 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                                 <div class="header-width mx-auto">
                                     <h6 class="fw-bold text-center">
                                         ${items.reduce((acc, item) => {
-											return parseFloat(
-												parseFloat(acc) + parseFloat(item.taxableValue)
-											).toFixed(2);
-										}, 0)}
+																					return parseFloat(
+																						parseFloat(acc) +
+																							parseFloat(item.taxableValue)
+																					).toFixed(2);
+																				}, 0)}
                                     </h6>
                                 </div>
                             </div>
@@ -591,14 +657,23 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                                         <div class="myCol-40 border border-dark border-bottom-0 border-start-0 border-bottom-0 border-end-0">
                                             <div class="header-width mx-auto">
                                                 <h6 class="fw-bold text-center">
-                                                    ${items.reduce((acc, item) => {
-                                                        return parseFloat(
-                                                            parseFloat(acc) +
-                                                                parseFloat(item.cgst) +
-                                                                parseFloat(item.sgst) +
-                                                                parseFloat(item.igst)
-                                                        ).toFixed(2);
-                                                    }, 0)}
+                                                    ${items.reduce(
+																											(acc, item) => {
+																												return parseFloat(
+																													parseFloat(acc) +
+																														parseFloat(
+																															item.cgst
+																														) +
+																														parseFloat(
+																															item.sgst
+																														) +
+																														parseFloat(
+																															item.igst
+																														)
+																												).toFixed(2);
+																											},
+																											0
+																										)}
                                                 </h6>
                                             </div>
                                         </div>
@@ -647,10 +722,11 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
                                             <div class="header-width mx-auto">
                                                 <h6 class="fw-bold text-center ">
                                                 ${items.reduce((acc, item) => {
-                                                    return parseFloat(
-                                                        parseFloat(acc) + parseFloat(item.subtotal)
-                                                    ).toFixed(2);
-                                                }, 0)}
+																									return parseFloat(
+																										parseFloat(acc) +
+																											parseFloat(item.subtotal)
+																									).toFixed(2);
+																								}, 0)}
                                                 </h6>
                                             </div>
                                         </div>
@@ -698,7 +774,5 @@ module.exports = ({ gstNumber, name, distributor, address, tel, email, bankDetai
     
     </html >
         `
-
-
-
+	);
 };
