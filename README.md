@@ -1,6 +1,6 @@
 Web Application - https://pooja-appliances.web.app/
 
-Image Showcase
+# Image Showcase
 
 ![image](https://user-images.githubusercontent.com/82509612/203414774-a0c2920a-b9d0-4c94-ad3d-95df0e8cb393.png)
 
@@ -19,7 +19,7 @@ Image Showcase
 ![image](https://user-images.githubusercontent.com/82509612/203414896-4e6e3316-27ed-4daa-a51c-1297c4820c92.png)
 
 
-Admin Portal
+### Admin Portal
 
 ![image](https://user-images.githubusercontent.com/82509612/203416013-a2a2cbf3-b670-440d-90a5-7d871275cefb.png)
 
