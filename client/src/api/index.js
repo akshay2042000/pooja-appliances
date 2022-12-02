@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:5000' : 'https://pooja-appliances-server.onrender.com';
+const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:5000' : 'https://pooja-appliances-production.up.railway.app';
 
 
 
