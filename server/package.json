@@ -22,6 +22,7 @@
     "mongoose-sequence": "^5.3.1",
     "morgan": "~1.9.1",
     "npm": "^8.5.1",
+    "phantomjs": "^2.1.7",
     "string-similarity": "^4.0.4"
   },
   "devDependencies": {
